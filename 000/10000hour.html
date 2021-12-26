@@ -11,7 +11,83 @@
 </head>
 <body>
   <div class="wrap">
-    hello world
+    <section class="contents">
+      <div class="title">
+        <img src="img/clock.png" alt="시계모양의 배경입니다." class="img_clock">
+        <div class="title_img">
+          <img src="img/title.png" alt="1만 시간의 법칙 로고" class="logo">
+        </div>
+      </div>
+      <div class="intro">
+        <p class="saying">
+          "연습은 어제의 당신보다 당신을 더 낫게 만든다."
+        </p>
+        <blockquote cite="http://paullab.co.kr/10000hours.html">
+            <img src="quotes.png" alt="쌍따옴표">
+            <p><strong>1만 시간의 법칙</strong>은</p>
+            <p>어떤 분야의 전문가가 되기 위해서는</p>
+            <p>최소한 1만 시간의 훈련이 필요하다는 법칙이다.</p>
+        </blockquote>
+      </div>
+      <div class="input">
+        <form action="#" type="post">
+          <div>
+            <span>나는</span>
+            <input type="text" name="field" placeholder="예)프로그래밍">
+            <span>전문가가 될 것이다.</span>
+          </div>
+          <div>
+            <span>그래서 앞으로 매일 하루에</span>
+            <input type="number" name="hour" placeholder="예)5">
+            <span>전문가가 될 것이다.</span>
+          </div>
+          <div class="btn start">
+            <input type="submit" value="나는 며칠 동안 훈련을 해야 1만 시간이 될까?">
+          </div>
+          <img src="img/click.png" alt="로고를 클릭하고 있는 손가락 모양입니다." class="click_img">
+        </form>
+      </div>
+      <div class="loading_result">
+        <img src="img/loading.png" alt="로딩 중입니다.">
+      </div>
+      <div class="result">
+        <p>
+          당신은 <span class="field_result"></span> 전문가가 되기 위해서
+        </p>
+        <p>
+          대략 <span class="hour_result"></span>일 이상 훈련하셔야 합니다!
+        </p>
+      </div>
+      <div class="btn_box">
+        <button name="btn modal">훈련하러 가기 GO!GO!</button>
+        <button name="btn share">공유하기</button>
+      </div>
+    </section>
+    <section class="modal">
+      <div class="wrap">
+        <div class="cheer">
+          <h1>화이팅!♥♥♥</h1>
+          <h3>당신의 꿈을 응원합니다.</h3>
+        </div>
+        <div class="licat_img">
+          <img src="img/licat.png" alt="라이캣이 응원합니다!">
+        </div>
+        <div class="btn close">
+          <button name="btn close">
+            종료하고 진짜 훈련하러 가기 GO!GO!
+          </button>
+        </div>
+      </div>
+    </section>
+    <footer class="copyright">
+      <div class="logo_img">
+        <img src="img/logo.png" alt="weniv 로고">
+      </div>
+      <div>
+        <p>※ 본 서비스 내 이미지 및 콘텐츠의 저작권은 주식회사 WeNiv에 있으며</p>
+        <p>현재 페이지는 실습 및 예제용으로 제작한 사이트입니다.</p>
+      </div>
+    </footer>
   </div>
 </body>
 </html>
