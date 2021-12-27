@@ -24,9 +24,596 @@
     font-weight: normal;
     font-style: normal;
 }
+:root {
+  --fontSize-main: 17px;
+  --lineHeight-main: 1.7;
+  --fontSize-inputs: 20px;
+  --lineHeight-inputs: 1;
+  --marginBottom-normal: 60px;
+}
+.show_at_sm {
+  display: none;
+}
+body {
+  font-family: 'GmarketSansMedium';
+  word-break: keep-all;
+  background: #5B2386;
+  color: #fff;
+}
+@keyframes rotate360 {
+    0% {transform: rotate(0);}
+    100% {transform: rotate(360deg);}
+}
+@keyframes bounce {
+    0% {transform: translateY(-3px);}
+    100% {transform: translateY(3px);}
+}
+@keyframes blink {
+    0% {opacity: 1;}
+    100% {opacity: 0.3;}
+}
+/* 본문시작 */
 .wrap {
-  font-family: 'Noto Sans KR';
-  /* font-family: 'GmarketSansMedium'; */
-  /* font-family: 'GmarketSansBold'; */
-  /* font-family: 'OTEnjoystoriesBA'; */
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.contents {
+  text-align: center;
+}
+.title {
+  margin-bottom: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.clock_img {
+  height: 100%;
+  max-height: 265px;
+  animation: rotate360 6s infinite linear;
+}
+.title_img {
+  width: 100%;
+  max-width: 564px;
+  position: absolute;
+  transform: translateY(-3px);
+  animation: bounce 2s infinite linear alternate;
+}
+/* 인트로, 연습은 어제의 당신보다... */
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.intro .saying {
+  font-family: 'OTEnjoystoriesBA';
+  font-size: 36px;
+  color: #F5DF4D;
+  margin-bottom: 50px;
+}
+.intro .explain {
+  margin-bottom: 95px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+.intro .explain p {
+  font-size: var(--fontSize-main);
+  line-height: var(--lineHeight-main);
+}
+.intro strong {
+  font-size: 20px;
+  font-family: 'GmarketSansBold';
+}
+.intro .quotes_img {
+    position: absolute;
+    top: 20px;
+}
+/* 사용자 입력, 글자입력 */
+.inputs {
+  margin-bottom: 20px;
+  font-size: var(--fontSize-inputs);
+  line-height: var(--lineHeight-inputs);
+}
+.inputs div {
+  margin-bottom: 20px;
+}
+.inputs .text.last {
+  margin-bottom: 90px;
+}
+.inputs input {
+  width: 100%
+  max-width: 200px;
+
+  padding: 15px 20px;
+  box-sizing: border-box;
+  margin: 0 8px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+
+  font-family: 'GmarketSansMedium';
+  font-size: var(--fontSize-inputs);
+}
+.inputs input:focus {
+  outline: 2px solid #F5DF4D;
+}
+input::placeholder {
+  color: #BABCBE;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+/* 클릭 버튼 */
+.inputs .btn.start {
+  display: inline-block;
+  margin-bottom: 60px;
+
+  position: relative;
+}
+button {
+  width: auto;
+  padding: 10px 40px;
+  border-radius: 30px;
+  color: #5B2386;
+  background-color: #FCEF21;
+  border: none;
+
+  font-family: 'GmarketSansBold';
+  font-size: 20px;
+  cursor: pointer;
+}
+input[type="submit"] {
+  width: 100%;
+  height: 100%;
+  background: none;
+
+  position: absolute;
+  left: -8px;
+  z-index: -9;
+}
+.click_img {
+  position: absolute;
+  right: -67px;
+  top: -1px;
+}
+/* 로딩 */
+.loading_result {
+  display: block;
+  margin-bottom: 60px;
+}
+.loading_img {
+  width: 100px;
+  animation: blink 1s infinite linear alternate, rotate360 1s infinite linear;
+}
+.result {
+  font-size: var(--fontSize-inputs);
+  line-height: var(--lineHeight-main);
+  margin-bottom: 60px;
+}
+.result span {
+  padding: 0 20px;
+  font-size: 70px;
+}
+/* 하단버튼 */
+.btn_box {
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+button.share {
+  background-color: #fff;
+}
+/* 푸터 */
+footer.copyright {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.logo_img {
+  display: inline-block;
+  width: 125px;
+  height: 30px;
+  margin-bottom: 20px;
+}
+.logo_img img {
+  width: 100%;
+}
+.copyright .text {
+  text-align: center;
+}
+.copyright p {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 1.5;
+}
+/* 모달, 레이어팝업 */
+.modal {
+  height: 0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.modal_wrap {
+  width: 600px;
+  height: 600px;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #5B2386;
+  box-shadow: 2px 2px 10px rgba(0,0,0,20%);
+
+  font-family: 'OTEnjoystoriesBA';
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  bottom: 15px;
+}
+.modal h1 {
+  font-size: 80px;
+}
+.modal h3 {
+  font-size: 30px;
+}
+.licat_img {
+  margin-bottom: 20px;
+}
+.licat_img img {
+  height: 100%;
+}
+.modal .btn.close {
+  box-shadow: 0 6px 16px rgb(0 0 0 / 15%), 0 5px 16px rgb(0 0 0 / 15%);
+  margin-bottom: 20px;
+}
+/* 반응형 */
+@media screen and (max-width: 780px) {
+  :root {
+    --fontSize-inputs: 18px;
+    --lineHeight-inputs: 1;
+    --lineHeight-main: 1.5;
+  }
+  .show_at_sm {
+    display: block;
+  }
+  .wrap {
+    padding-top: 40px;
+  }
+  .title {
+    margin-bottom: 40px;
+  }
+  .clock_img {
+    max-height: 180px;
+  }
+  .title_img {
+    max-width: 430px;
+  }
+  /* 인트로 */
+  .intro .saying {
+    font-size: 30px;
+    margin-bottom: 40px;
+  }
+  .intro .quotes_img {
+    width: 100%;
+    max-width: 430px;
+    top: 15px;
+  }
+  .intro strong {
+    font-size: var(--fontSize-main);
+    line-height: var(--lineHeight-main);
+  }
+  .intro .explain {
+    margin-bottom: 60px;
+  }
+  /* 사용자입력 */
+  .inputs input {
+    max-width: 170px;
+  }
+  button {
+    border-radius: 20px;
+  }
+  .inputs .text.last {
+    margin-bottom: 60px;
+  }
+  .inputs .btn.start {
+    width: 100%;
+    max-width: 300px;
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+  .click_img {
+    width: 53px;
+    right: -55px;
+    top: auto;
+    bottom: -13px;
+  }
+  .result span {
+    font-size: 30px;
+  }
+  /* 모달 */
+  .modal_wrap {
+    width: 430px;
+    height: 500px;
+  }
+  .modal h1 {
+    font-size: 60px;
+  }
+  .modal h3 {
+    font-size: 30px;
+  }
+  .licat_img {
+    height: 233px;
+  }
+  .modal .btn.close {
+    max-width: 300px;
+  }
+}
+@media screen and (max-width: 520px) {
+  .btn_box {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 460px) {
+  :root {
+    --fontSize-main: 14px;
+    --fontSize-inputs: 15px;
+  }
+  .wrap {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .title {
+    margin-bottom: 50px;
+  }
+  .clock_img {
+    max-height: 125px;
+  }
+  .title_img {
+    max-width: 267px;
+  }
+  /* 인트로 */
+  .intro .saying {
+    font-size: 25px;
+    margin-bottom: 50px;
+  }
+  .intro .quotes_img {
+    max-width: 330px;
+    top: 10px;
+  }
+  .intro .explain {
+    margin-bottom: 75px;
+  }
+  /* 사용자입력 */
+  .inputs input {
+    padding: 10px 15px;
+    max-width: 100px;
+  }
+  button {
+    border-radius: 15px;
+    font-size: 15px;
+  }
+  .inputs .text.last {
+    margin-bottom: 70px;
+  }
+  .inputs .btn.start {
+    max-width: 241px;
+    padding: 10px 25px;
+    margin-bottom: 40px;
+  }
+  .click_img {
+    width: 43px;
+    right: -50px;
+    top: auto;
+    bottom: -10px;
+  }
+  .loading_img {
+    width: 75px;
+  }
+  .result span {
+    padding: 0 10px;
+    font-size: 25px;
+  }
+  .logo_img {
+    width: 90px;
+  }
+  /* 모달 */
+  .modal_wrap {
+    width: 330px;
+    height: 450px;
+  }
+  .modal h1 {
+    font-size: 60px;
+  }
+  .modal h3 {
+    font-size: 30px;
+  }
+  .licat_img {
+    height: 195px;
+  }
+  .modal .btn.close {
+    max-width: 240px;
+    padding: 10px 40px;
+    border-radius: 15px;
+  }
+}
+@media screen and (max-width: 360px) {
+  :root {
+    --fontSize-main: 13px;
+    --fontSize-inputs: 14px;
+  }
+  .wrap {
+  }
+  .title {
+    margin-bottom: 30px;
+  }
+  /* 인트로 */
+  .intro .saying {
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
+  .intro .quotes_img {
+    max-width: 270px;
+  }
+  .intro .explain {
+    width: 100%;
+    max-width: 260px;
+    margin-bottom: 15px;
+  }
+  /* 사용자입력 */
+  .inputs {
+    font-size: var(--fontSize-main);
+  }
+  .inputs div {
+    margin-bottom: 10px;
+  }
+  .inputs input {
+    padding: 10px 10px;
+    max-width: 90px;
+    margin: 0;
+  }
+  button {
+    border-radius: 15px;
+    font-size: 14px;
+  }
+  .inputs .text.last {
+    margin-bottom: 40px;
+  }
+  .inputs .btn.start {
+    max-width: 200px;
+    padding: 10px 25px;
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+  .click_img {
+    right: -45px;
+  }
+  .loading_img {
+    width: 50px;
+  }
+  .result span {
+    padding: 0 5px;
+    font-size: 20px;
+  }
+  .logo_img {
+    width: 90px;
+  }
+  .copyright p {
+    max-width: 220px;
+  }
+  /* 모달 */
+  .modal_wrap {
+    width: 270px;
+    height: 400px;
+  }
+  .modal h1 {
+    font-size: 40px;
+  }
+  .modal h3 {
+    font-size: 25px;
+  }
+  .licat_img {
+    height: 155px;
+  }
+  .modal .btn.close {
+    margin-bottom: 10px;
+  }
+}
+@media screen and (max-width: 320px) {
+  :root {
+    --fontSize-main: 10px;
+    --fontSize-inputs: 13px;
+  }
+  .intro .quotes_img {
+    max-width: 100%;
+  }
+  .inputs div {
+    margin: 0
+  }
+  .inputs .text {
+    line-height: 2.5;
+    width: 100%;
+    max-width: 180px;
+    margin: 0 auto;
+    font-size: var(--fontSize-inputs);
+  }
+  .inputs input {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 10px;
+    margin: 3px auto;
+    font-size: var(--fontSize-main);
+  }
+  .inputs .text.last {
+    margin-bottom: 20px;
+  }
+  button,
+  .inputs .btn.start {
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 10px;
+  }
+  .click_img {
+    width: 30px;
+    right: -10px;
+    bottom: -30px;
+  }
+  .result span {
+    display: block;
+    font-size: 20px;
+    font-weight: 900;
+  }
+  /* 모달 */
+  .modal_wrap {
+    width: 100%;
+    height: 260px;
+  }
+  .modal h1 {
+    font-size: 30px;
+  }
+  .modal h3 {
+    font-size: 16px;
+  }
+  .licat_img {
+    height: 105px;
+  }
+  .modal .btn.close {
+    max-width: 160px;
+    padding: 7px 15px;
+    margin-bottom: 0px;
+  }
+  .inputs .btn.start,
+  .loading_result,
+  .result,
+  .btn_box {
+    margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: 280px) {
+  button,
+  .inputs .btn.start {
+    width: 100%;
+  }
 }
