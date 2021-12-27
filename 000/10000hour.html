@@ -29,21 +29,21 @@
         </blockquote>
       </div>
       <div class="inputs">
-        <form action="#" type="post">
+        <form action="" type="post">
           <div class="text">
             <span>나는</span>
-            <input type="text" name="field" placeholder="예)프로그래밍">
+            <input type="text" name="field" placeholder="예)프로그래밍" id="field_input">
             <span>전문가가 될 것이다.</span>
           </div>
           <div class="text last">
             <span>그래서 앞으로 매일 하루에</span>
             <div class="show_at_sm">
             </div>
-            <input type="number" name="time" placeholder="예)5">
+            <input type="number" name="time" placeholder="예)5" id="time_input">
             <span>시간씩 훈련할 것이다.</span>
           </div>
-          <button class="btn start">
-            <input type="submit" value="">
+          <button type="button" class="btn start">
+            <!-- <input type="submit" /> -->
             <p>나는 며칠 동안 훈련을 해야 1만 시간이 될까?</p>
             <img src="img/click.png" alt="버튼을 클릭하고 있는 손가락 모양입니다." class="click_img">
           </button>
@@ -54,15 +54,18 @@
       </div>
       <div class="result">
         <p>
-          당신은 <span class="field_result">프로그래밍</span> 전문가가 되기 위해서
+          당신은 <span id="field_result">프로그래밍</span> 전문가가 되기 위해서
         </p>
         <p>
-          대략 <span class="time_result">1000</span>일 이상 훈련하셔야 합니다! :)
+          대략 <span id="time_result">1000</span>일 이상 훈련하셔야 합니다! :)
         </p>
-      </div>
-      <div class="btn_box">
-        <button class="btn modal_open">훈련하러 가기 GO!GO!</button>
-        <button class="btn share">공유하기</button>
+        <p>
+          (약 <span id="year_result">1000</span>년)
+        </p>
+        <div class="btn_box">
+          <button type="button" class="btn modal_open">훈련하러 가기 GO!GO!</button>
+          <button type="button" class="btn share">공유하기</button>
+        </div>
       </div>
     </section>
     <section class="modal">
@@ -75,7 +78,7 @@
           <img src="img/licat.png" alt="라이캣이 응원합니다!">
         </div>
         <div class="modal_btn">
-          <button class="btn close">
+          <button type="button" class="btn close">
             종료하고 진짜 훈련하러 가기 GO!GO!
           </button>
         </div>

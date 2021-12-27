@@ -57,7 +57,7 @@ body {
   width: 100%;
   height: 100%;
   padding-top: 50px;
-  padding-bottom: 10px;
+  padding-bottom: 100px;
   padding-left: 5px;
   padding-right: 5px;
   box-sizing: border-box;
@@ -149,6 +149,7 @@ body {
 
   font-family: 'GmarketSansMedium';
   font-size: var(--fontSize-inputs);
+  transition: max-width 0.1s;
 }
 .inputs input:focus {
   outline: 2px solid #F5DF4D;
@@ -166,7 +167,7 @@ input[type=number] {
 /* 클릭 버튼 */
 .inputs .btn.start {
   display: inline-block;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 
   position: relative;
 }
@@ -182,15 +183,6 @@ button {
   font-size: 20px;
   cursor: pointer;
 }
-input[type="submit"] {
-  width: 100%;
-  height: 100%;
-  background: none;
-
-  position: absolute;
-  left: -8px;
-  z-index: -9;
-}
 .click_img {
   position: absolute;
   right: -67px;
@@ -200,22 +192,35 @@ input[type="submit"] {
 .loading_result {
   display: block;
   margin-bottom: 60px;
+  display: none;
+}
+.loading_result.show {
+  display: block;
+  animation: rotate360 4s infinite linear, blink 1s infinite linear alternate;
 }
 .loading_img {
   width: 100px;
-  animation: blink 1s infinite linear alternate, rotate360 1s infinite linear;
 }
 .result {
   font-size: var(--fontSize-inputs);
   line-height: var(--lineHeight-main);
   margin-bottom: 60px;
+  display: none;
+}
+.result.show {
+  display: block;
 }
 .result span {
   padding: 0 20px;
   font-size: 70px;
+  color: #FCEF21;
+}
+.result #year_result {
+  font-size: 1em;
 }
 /* 하단버튼 */
 .btn_box {
+  margin-top: 40px;
   margin-bottom: 60px;
   display: flex;
   justify-content: center;
@@ -270,6 +275,14 @@ footer.copyright {
   flex-direction: column;
   position: absolute;
   bottom: 15px;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.modal_wrap.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 .modal h1 {
   font-size: 80px;
@@ -329,6 +342,12 @@ footer.copyright {
   /* 사용자입력 */
   .inputs input {
     max-width: 170px;
+  }
+  #field_input:focus {
+    max-width: 230px;
+  }
+  #time_input:focus {
+    max-width: 200px;
   }
   button {
     border-radius: 20px;
@@ -408,6 +427,12 @@ footer.copyright {
   /* 사용자입력 */
   .inputs input {
     padding: 10px 15px;
+    max-width: 100px;
+  }
+  #field_input:focus {
+    max-width: 150px;
+  }
+  #time_input:focus {
     max-width: 100px;
   }
   button {
