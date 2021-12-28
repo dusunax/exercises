@@ -8,6 +8,8 @@
   <link rel="shortcut icon" href="img/favicon.ico">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/10000hours.css">
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" defer></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script> -->
   <script src="js/10000hours.js" defer type="text/javascript"></script>
 </head>
 <body>
@@ -64,7 +66,10 @@
         </p>
         <div class="btn_box">
           <button type="button" class="btn modal_open">훈련하러 가기 GO!GO!</button>
-          <button type="button" class="btn share">공유하기</button>
+          <button type="button" class="btn share" data-clipboard-target=#clip_target>
+            <input type="text" name="for_clipboard" value="hello" class="hidden" id="clip_target">
+            공유하기
+          </button>
         </div>
       </div>
     </section>

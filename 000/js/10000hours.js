@@ -52,26 +52,43 @@ document.addEventListener("DOMContentLoaded", function(){
     let url=location.href;
     url=url.split("?")[0];
     url=url+"?field="+field_result.innerText+"&time="+timeValue_int;
-    let tmp_input=document.createElement('input');
-
-    document.body.appendChild(tmp_input);
+    let tmp_input=document.querySelector("#clip_target");
     tmp_input.value=url;
-    tmp_input.select();
-    document.execCommand("copy");
-    console.log(tmp_input.value);
-    document.body.removeChild(tmp_input);
 
-    alert("URL주소가 복사되었습니다.");
-    window.location.href=url;
-  };
+    let clipboard = new ClipboardJS(".share");
+    clipboard.on( 'success', function() {
+      alert("URL주소가 복사되었습니다.");
+      window.location.href=url;
+    } );
+    clipboard.on( 'error', function() {
+      console.log('URL Copy Fail');
+    } );
+  }
+  // execCommand로 복사
+  // function copy_url(){
+  //   let url=location.href;
+  //   url=url.split("?")[0];
+  //   url=url+"?field="+field_result.innerText+"&time="+timeValue_int;
+  //   let tmp_input=document.createElement('input');
+  //
+  //   document.body.appendChild(tmp_input);
+  //   tmp_input.value=url;
+  //   tmp_input.select();
+  //   document.execCommand("copy");
+  //   console.log(tmp_input.value);
+  //   document.body.removeChild(tmp_input);
+  //
+  //   alert("URL주소가 복사되었습니다.");
+  //   window.location.href=url;
+  // };
   function read_url(){
     if(url=location.href.indexOf("?")>0){
       user_field=get_url_info("field");
       user_time=get_url_info("time");
       send_result(user_field, user_time);
       show_display(document.querySelector(".result"));
+      result_start();
     };
-    result_start();
   };
   function get_url_info(key){
       let url=location.href.split("?");

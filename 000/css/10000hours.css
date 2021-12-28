@@ -31,6 +31,7 @@
   --lineHeight-inputs: 1;
   --marginBottom-normal: 60px;
 }
+body input.hidden,
 .show_at_sm {
   display: none;
 }
