@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List 2022</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js" defer></script>
+</head>
+<body>
+    <div class="wrap">
+        <section class="main">
+            <div class="add_todo content">
+                <h1>To-do List 2022</h1>
+                <form action="#">
+                    <input  id="new_title"
+                            type="text"
+                            name="title"
+                            placeholder="제목을 입력하세요.">
+                    <textarea   id="new_desc"
+                                name=""
+                                cols="30"
+                                rows="2"
+                                placeholder="내용을 입력하세요."></textarea>
+                    <button type="button" id="btn_submit">
+                        리스트 추가하기 <span>&#43;</span>
+                    </button>
+                </form>
+            </div>
+            <!-- <?php
+                $todos = $conn->query("SELECT * FROM to_do_list_2022 order by item_no DESC");
+                echo($todos);
+            ?> -->
+            <div class="show_todo content">
+                <div class="bar">
+                    <div>
+                        <input type="checkbox" id="chk_all">
+                        <label for="chk_all">전부 완료</label>
+                    </div>
+                    <!-- <button id="btn_del">체크 리스트 삭제</button> -->
+                    <button id="btn_del_done">완료 리스트 삭제</button>
+                </div>
+                <div class="item_container">
+                    <div class="item">
+                        <input type="checkbox" class="chk_box">
+                        <h3>This is do do</h3>
+                        <p>do something something</p>
+                        <small class="created_at">created: 01/01/2022</small>
+                        <span>🍋</span>
+                        <small class="completed_at"></small>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" class="chk_box">
+                        <h3>This is do do</h3>
+                        <p>do something something</p>
+                        <small class="created_at">created: 31/12/2021</small>
+                        <span>🍋</span>
+                        <small class="completed_at"></small>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
