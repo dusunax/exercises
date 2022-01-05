@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PaintJS</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -22,10 +26,20 @@
             >
         </div>
         <div class="controls_btn_box">
-            <button id="jsMode">그리기</button>
-            <button id="jsSave">저장</button>
+            <button id="jsMode">
+                <i class="fas fa-paint-brush fa-lg icon_mode icon_brush" style="color: #2c2c2c;"></i>
+                <i class="fas fa-paint-roller fa-lg icon_mode icon_fill" style="color: #2c2c2c;"></i>
+                <span>그리기</span>
+            </button>
+            <button id="jsSave">
+                <i class="fas fa-camera fa-lg"></i> 
+                저장
+            </button>
         </div>
         <div class="controls_color_box" id="jsColors">
+            <span>
+                <i class="fas fa-palette fa-3x"></i>
+            </span>
             <div class="controls_color" style="background-color: #2c2c2c;"></div>
             <div class="controls_color" style="background-color: white;"></div>
             <div class="controls_color" style="background-color: #FF3B30;"></div>

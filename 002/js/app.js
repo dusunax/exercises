@@ -5,6 +5,7 @@ const INITIAL_COLOR="#2c2c2c";
 const CANVAS_SIZE=700;
 const range=document.getElementById('jsRange');
 const mode=document.getElementById('jsMode');
+const mode_icon=document.querySelectorAll('.icon_mode');
 const btnSave=document.getElementById('jsSave');
 
 canvas.width=CANVAS_SIZE;
@@ -41,9 +42,13 @@ function onMouseMove(event){
     }
 }
 function handleColorChange(event){
-    const color=event.target.style.backgroundColor;
+    let color=event.target.style.backgroundColor;
     cContext.strokeStyle=color;
     cContext.fillStyle=cContext.strokeStyle;
+    mode_icon.forEach((icon)=>{
+        color=="white"?color="#ddd":"";
+        icon.style.color=color;
+    })
 }
 function handleRangeChange(event){
     const stroke_size=event.target.value;
@@ -52,11 +57,14 @@ function handleRangeChange(event){
 function handleModeChange(event){
     if(filling){
         filling=false;
-        mode.innerText="그리기";
-        
+        mode.children[2].innerText="그리기";
+        mode_icon[0].style.display="inline-block";
+        mode_icon[1].style.display="none";
     } else {
         filling=true;
-        mode.innerText="채우기";
+        mode.children[2].innerText="채우기";
+        mode_icon[0].style.display="none";
+        mode_icon[1].style.display="inline-block";
     }
 }
 function handleCanvasClick(){

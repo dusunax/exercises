@@ -29,7 +29,7 @@ body {
 }
 .controls button {
     all: unset;
-    width: 100px;
+    width: 120px;
     padding: 8px 0;
     border-radius: 5px;
     border: 1px solid rgba(55, 55, 55, 0.1);
@@ -54,4 +54,17 @@ body {
     border-radius: 50%;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     cursor: pointer;
+}
+/* icon */
+i {
+    margin-right: 2px;
+}
+i.fa-palette {
+    background-image: linear-gradient(to bottom right, #ebc79e, #ecad79c9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.icon_fill {
+    display: none;
 }
