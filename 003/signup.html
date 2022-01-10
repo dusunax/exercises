@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/signup.css">
+    <script src="js/signup.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <aside class="aside">
+            <div class="aside_container">
+                <div class="aside_top">
+                    <div class="paw">
+                        <i class="fas fa-paw fa-lg "></i>
+                    </div>
+                    <h3 class="co_name">PAWTASTIC</h3>
+                </div>
+                <div class="aside_content aside_content_1">
+                    <h3 class="aside-title">파우타스틱이란?</h3>
+                    <ul class="fa-ul aside-ul">
+                        <li>
+                            <span class="fa-li aside-list-icon">
+                                <i class="fas fa-grin-wink"></i>
+                            </span>
+                            <span class="text-small">
+                                사랑하는 반려동물을 위해 엄선된 보험과
+                                공인된 시터가 보살핍니다.
+                                <br>
+                                We're animal lovers backed by insurance and experience.
+                            </span>
+                        </li>
+                        <li>
+                            <span class="fa-li aside-list-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </span>
+                            <span class="text-small">
+                                언제든지 어플에서 간편하게 예약관리 및 결제가 가능합니다.
+                                <br>
+                                Powered by tech, so you can book and pay from our app.
+                            </span>
+                        </li>
+                        <li>
+                            <span class="fa-li aside-list-icon">
+                                <i class="fab fa-bandcamp"></i>
+                            </span>
+                            <span class="text-small">
+                                실시간 GPS로 반려동물과 시터의 위치를 바로 확인할 수 있습니다.
+                                <br>
+                                We use GPS to let you track you sitter's location.
+                            </span>
+                        </li>
+                        <li>
+                            <span class="fa-li aside-list-icon">
+                                <i class="fas fa-address-card"></i>
+                            </span>
+                            <span class="text-small">
+                                방문 시마다 사진과 정보를 업데이트해, 경험을 새롭게 하세요.
+                                <br>
+                                Updates and pics for every visit keep you in the loop.
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="aside_content aside_content_2">
+                    <ul class="fa-ul aside-ul">
+                        <li>
+                            <span class="fa-li aside-list-icon">
+                                <i class="fas fa-comment-dots fa-flip-horizontal"></i>
+                            </span>
+                            <span class="text-small">
+                                주인 프로필
+                            </span>
+                        </li>
+                        <li>
+                            <span class="fa-li aside-list-icon">
+                            </span>
+                            <span class="text-small">
+                                반려동물 기본정보
+                            </span>
+                        </li>
+                        <li>
+                            <span class="fa-li aside-list-icon">
+                            </span>
+                            <span class="text-small">
+                                반려동물 상세정보
+                            </span>
+                        </li>
+                        <li>
+                            <span class="fa-li aside-list-icon">
+                            </span>
+                            <span class="text-small">
+                                확인하기
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="aside_bottom">
+                    <i class="fas fa-bookmark fa-sm"></i>
+                    <a class="text-small text_link">중간 저장하고 나가기
+                    </a>
+                </div>
+            </div>
+        </aside>
+        <main class="main">
+            <div class="main_top_container">
+                <div class="main_content content_1 area_check">
+                    <h1>
+                        첫 번째,<br>
+                        서비스지역을 확인해주세요.
+                    </h1>
+                    <input type="text" class="input_text" name="ZIPcode" placeholder="Zip Code">
+                    <button class="input_btn">
+                        시작하기
+                    </button>
+                </div>
+                <div class="main_content content_2 new_acount">
+                    <h1>
+                        좋아요!<br>
+                        <span class="u_place">장소</span>에서 서비스를 제공해요.<br>
+                        계정을 만듭니다.
+                    </h1>
+                    <div class="input_area">
+                        <div class="w100">
+                            <p class="text-small">
+                                Email address
+                            </p>
+                            <input type="text" class="input_text" name="u_mail" placeholder="이메일을 입력하세요">
+                        </div>
+                        <div class="w50">
+                            <p class="text-small">
+                                Password
+                            </p>
+                            <input type="password" class="input_text" name="pw" placeholder="●●●●●●●●">
+                        </div>
+                        <div class="w50">
+                            <p class="text-small">
+                                Confirm password
+                            </p>
+                            <input type="password" class="input_text" name="pw_again" placeholder="●●●●●●●●">
+                        </div>
+                        <div>
+                            <input type="checkbox" name="chk">
+                            <span class="text-small">
+                                회원가입 유의사항을 읽어보았으며, 서비스 이용약관에 동의합니다.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="main_content content_3 human_profile">
+                    <h1>
+                        안녕하세요!<br>
+                        당신에 대해서 알려주세요.
+                    </h1>
+                    <div class="input_area">
+                        <div class="w50">
+                            <p class="text-small">
+                                이름
+                            </p>
+                            <input type="text" class="input_text" name="u_firstName" placeholder="이름">
+                        </div>
+                        <div class="w50">
+                            <p class="text-small">
+                                성
+                            </p>
+                            <input type="text" class="input_text" name="u_lastName" placeholder="성">
+                        </div>
+                        <div class="w50">
+                            <p class="text-small">
+                                휴대전화
+                            </p>
+                            <input type="text" class="input_text" name="u_phone" placeholder="000-0000-0000">
+                        </div>
+                        <div class="w50">
+                            <p class="text-small">
+                                다른 전화번호
+                            </p>
+                            <input type="text" class="input_text" name="u_phone_alt" placeholder="000-0000-0000">
+                        </div>
+                        <div class="w100">
+                            <p class="text-small">
+                                상세주소
+                            </p>
+                            <input type="text" class="input_text" name="u_address" placeholder="ex)방배동 우성아파트 00호 00동">
+                        </div>
+                        <div class="w50">
+                            <p class="text-small">
+                                지번
+                            </p>
+                            <input type="text" class="input_text" name="u_city" placeholder="ex)역삼동 737">
+                        </div>
+                        <div class="w50 flex_side">
+                            <div class="w50">
+                                <p class="text-small">
+                                    도시
+                                </p>
+                                <select name="u_city" id="" class="input_option">
+                                    <option value="0">
+                                        지역
+                                    </option>
+                                    <option value="1">
+                                        서울
+                                    </option>
+                                    <option value="2">
+                                        수원
+                                    </option>
+                                    <option value="3">
+                                        성남
+                                    </option>
+                                    <option value="4">
+                                        부산
+                                    </option>
+                                    <option value="5">
+                                        인천
+                                    </option>
+                                    <option value="6">
+                                        대구
+                                    </option>
+                                    <option value="7">
+                                        대전
+                                    </option>
+                                    <option value="8">
+                                        광주
+                                    </option>
+                                    <option value="9">
+                                        울산
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="w50">
+                                <p class="text-small">
+                                    지역2
+                                </p>
+                                <input type="text" class="input_text input_w50" name="u_city" placeholder="ex)서울">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main_content content_4 pet_basics">
+                    <h1>
+                        반갑습니다, <span class="u_lastName">성</span><span class="u_firstName">이름</span>님!<br>
+                        이제 동물친구의 종류를 알려주세요.
+                    </h1>
+                    <div class="input_area">
+                        <h4>
+                            <span class="u_place">이름</span>님의 반려동물은 어떤 타입인가요?
+                        </h4>
+                        <div class="w100">
+                            <ul class="animal_type_ul">
+                                <li class="active">
+                                    <img src="img/dog.png" alt="멍멍">
+                                    <span>
+                                        강아지
+                                    </span>
+                                </li>
+                                <li>
+                                    <img src="img/cat.png" alt="야옹">
+                                    <span>
+                                        고양이
+                                    </span>
+                                </li>
+                                <li>
+                                    <img src="img/bird.png" alt="삐약">
+                                    <span>
+                                        새
+                                    </span>
+                                </li>
+                                <li>
+                                    <img src="img/hat.png" alt="어흥">
+                                    <span>
+                                        그 외 
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="text-small">
+                            여러 동물을 등록할까요? 반려동물 프로필은 가입 이후에 언제든지 또 추가할 수 있어요.
+                        </div>
+                    </div>
+                </div>
+                <div class="main_content content_5 pet_details">
+                    <h1>
+                        새로운 <span class="u_petType">강아지</span> 친구에 대해서<br>
+                        더 알려주세요!
+                    </h1>
+                    <div class="input_area">
+                        <div class="w50">
+                            <p class="text-small">
+                                반려동물 이름
+                            </p>
+                            <input type="text" class="input_text" name="u_petName" placeholder="이름">
+                        </div>
+                        <div class="w50 align_vertical">
+                            <input 
+                                type="file" 
+                                name="u_petImg" 
+                                id="u_petImg"
+                                class="input_file"
+                            >
+                            <label for="u_petImg" class="uplode_btn text-small">
+                                <span class="uplode_btn_img">
+                                    <i class="fas fa-camera"></i>
+                                </span>
+                                사진 업로드
+                            </label>
+                        </div>
+                        <div class="w50">
+                            <p class="text-small">
+                                반려동물 종
+                            </p>
+                            <input 
+                                type="text" 
+                                class="input_text" 
+                                name="u_petBreed" 
+                                placeholder="종"
+                            >
+                        </div>
+                        <div class="w50">
+                            <p class="text-small">
+                                반려동물 생일
+                            </p>
+                            <input 
+                                type="text" 
+                                class="input_text" 
+                                name="u_petBirth" 
+                                placeholder="31/01/2021"
+                            >
+                        </div>
+                        <div class="w50">
+                            <p class="text-small">
+                                성별
+                            </p>
+                            <ul class="ul_selectOption">
+                                <li>암컷</li>
+                                <li>수컷</li>
+                            </ul>
+                        </div>
+                        <div class="w50">
+                            <p class="text-small">
+                                반려동물 생일
+                            </p>
+                            <input 
+                                type="text" 
+                                class="input_text" 
+                                name="u_petBirth" 
+                                placeholder="31/01/2021"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main_bot_container">
+                <div class="content_bot content_bot_1 get_start">
+                    <a class="text-small text_link">이미 가입하셨나요?
+                        <strong>로그인하기</strong>
+                    </a>
+                    <button class="input_btn">
+                        시작하기
+                    </button>
+                </div>
+                <div class="content_bot content_bot_2">
+                    <button class="input_btn input_btn_outline">
+                        이전으로
+                    </button>
+                    <button class="input_btn">
+                        다음으로
+                    </button>
+                    <div class="cc w100">
+                        Icons made by 
+                        <a href="https://www.freepik.com" title="Freepik">
+                            Freepik</a> 
+                        from 
+                        <a href="https://www.flaticon.com/" title="Flaticon">
+                            www.flaticon.com</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

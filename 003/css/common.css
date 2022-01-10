@@ -1,0 +1,48 @@
+/* 전체 */
+.wrap {
+    height: 100%;
+    display: flex;
+    word-break: keep-all;
+}
+/* 폰트 */
+h1 {
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+.text-small {
+    font-size: 12px;
+    line-height: 2;
+}
+.text_link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+input::placeholder {
+    color: #aaa;
+    font-size: 13px;
+}
+/* flex */
+.w100 {
+    flex: 1 1 100%;
+}
+.w50 {
+    flex: 1 1 calc(50% - 10px);
+}
+.flex_side {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+.align_vertical {
+    display: flex;
+    align-items: center;
+}
+/* cc, footer */
+.cc,
+.cc a {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 10px;
+    color: #aaa;
+}
