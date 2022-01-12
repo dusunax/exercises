@@ -33,7 +33,8 @@
               <span class="text-small">
                 사랑하는 반려동물을 위해 엄선된 보험과
                 공인된 시터가 보살핍니다.
-                <br>
+              </span>
+              <span class="text-small-grey">
                 We're animal lovers backed by insurance and experience.
               </span>
             </li>
@@ -43,7 +44,8 @@
               </span>
               <span class="text-small">
                 언제든지 어플에서 간편하게 예약관리 및 결제가 가능합니다.
-                <br>
+              </span>
+              <span class="text-small-grey">
                 Powered by tech, so you can book and pay from our app.
               </span>
             </li>
@@ -53,7 +55,8 @@
               </span>
               <span class="text-small">
                 실시간 GPS로 반려동물과 시터의 위치를 바로 확인할 수 있습니다.
-                <br>
+              </span>
+              <span class="text-small-grey">
                 We use GPS to let you track you sitter's location.
               </span>
             </li>
@@ -63,7 +66,8 @@
               </span>
               <span class="text-small">
                 방문 시마다 사진과 정보를 업데이트해, 경험을 새롭게 하세요.
-                <br>
+              </span>
+              <span class="text-small-grey">
                 Updates and pics for every visit keep you in the loop.
               </span>
             </li>
@@ -112,14 +116,16 @@
     <main class="main">
       <div class="main_top_container w100">
         <div class="main_content content_1 area_check">
-          <h1>
+          <h1 class="w100">
             첫 번째,<br>
             서비스지역을 확인해주세요.
           </h1>
-          <input type="text" class="input_text" name="ZIPcode" placeholder="Zip Code">
-          <button class="input_btn">
-            시작하기
-          </button>
+          <div>
+            <input type="text" class="input_text" name="u_area" placeholder="Zip Code">
+            <button class="input_btn" id="btn_start">
+              시작하기
+            </button>
+          </div>
         </div>
         <div class="main_content content_2 new_acount">
           <h1>
@@ -138,16 +144,16 @@
               <p class="text-small">
                 Password
               </p>
-              <input type="password" class="input_text" name="pw" placeholder="●●●●●●●●">
+              <input type="password" class="input_text" name="u_pw1" placeholder="●●●●●●●●">
             </div>
             <div class="w50">
               <p class="text-small">
                 Confirm password
               </p>
-              <input type="password" class="input_text" name="pw_again" placeholder="●●●●●●●●">
+              <input type="password" class="input_text" name="u_pw2" placeholder="●●●●●●●●">
             </div>
             <div>
-              <input type="checkbox" name="chk">
+              <input type="checkbox" name="agree">
               <span class="text-small">
                 회원가입 유의사항을 읽어보았으며, 서비스 이용약관에 동의합니다.
               </span>
@@ -259,24 +265,28 @@
                   <span>
                     강아지
                   </span>
+                  <input type="hidden" name="petType_dog" value="-1">
                 </li>
                 <li>
                   <img src="img/cat.png" alt="야옹">
                   <span>
                     고양이
                   </span>
+                  <input type="hidden" name="petType_cat" value="-1">
                 </li>
                 <li>
                   <img src="img/bird.png" alt="삐약">
                   <span>
                     새
                   </span>
+                  <input type="hidden" name="petType_bird" value="-1">
                 </li>
                 <li>
                   <img src="img/hat.png" alt="어흥">
                   <span>
                     그 외
                   </span>
+                  <input type="hidden" name="petType_etc" value="-1">
                 </li>
               </ul>
             </div>
@@ -595,12 +605,12 @@
         </div>
       </div>
       <!-- 메인 하단 -->
-      <div class="main_bot_container">
+      <div class="main_bot_container d-none">
         <div class="content_bot content_bot_1 get_start">
           <a class="text-small text_link">이미 가입하셨나요?
             <strong>로그인하기</strong>
           </a>
-          <button class="input_btn">
+          <button class="input_btn" id="btn_start_signUp">
             시작하기
           </button>
         </div>
