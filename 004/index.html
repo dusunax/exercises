@@ -5,23 +5,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>FizzBuzzGame</title>
 </head>
 
 <body>
 
 <script>
-    // let u_name = prompt("What's your name?");
-    let count=1;
+    let u_name = caseChar(prompt("What's your name?"));
     let fizzBuzz_array = new Array;
-
-    // let yesNo = prompt("Let's FizzBuzz!\nDo you want to start first?(Y/N)");
-    let yesNo = "y";
+    let count;
+    let start_count=1;
+    let u_input;
+    let arrays_data=fizzBuzz_array[count];
+    let yesNo = prompt("Let's FizzBuzz!\nDo you want to start first?(Y/N)");
     if(yesNo == "y" || yesNo == "Y"){
+        fizzBuzz_array.push(FizzBuzz(count=start_count));
+        count+=1;
         yesNo=true;
-        fizzBuzz_array.push(FizzBuzz(count++));
-    }
-    else {
+    } else if(yesNo == "n" || yesNo == "N") {
+        count=start_count;
+        yesNo=true;
+    } else {
+        alert("please type Y or N, "+u_name);
         yesNo=false;
     }
     set_FizzBuzz_array(count);
@@ -38,33 +43,31 @@
         } else if (num % 5 == 0) {
             return "Buzz"
         };
-        return num;
+        return String(num);
     };
-
-    let u_input = caseChar(prompt(fizzBuzz_array[count-1] + '\n\nYour turn!'));
-    let arrays_data=fizzBuzz_array[count];
     function caseChar(input){
         input = input.substring(0, 1).toUpperCase() + input.substring(1, input.length).toLowerCase();
         return input;
     }
-    if(u_input!==arrays_data){
-        yesNo=false;
-        alert("You fail!\n\nIt was "+arrays_data);
+
+    while(yesNo == true) {
+        u_input = caseChar(prompt(fizzBuzz_array[count-1] + '\n\nYour turn!'));
+        arrays_data=fizzBuzz_array[count];
+        console.log(u_input, arrays_data);
+
+        if(u_input!==arrays_data){
+            yesNo=false;
+            alert("You fail!\n\nIt was "+arrays_data);
+            alert("이름: "+u_name+"\n기록: ("+fizzBuzz_array+")");
+            break;
+        }
+        else {
+            count+=2;
+            set_FizzBuzz_array(count);
+        }
+        // console.log(count, u_input, u_input==arrays_data, fizzBuzz_array, yesNo);
     }
-
-    console.log(count, u_input, u_input==arrays_data, fizzBuzz_array, yesNo);
-
-    count+=2;
-
-    // while (yesNo = true) {
-    //     u_input = prompt(fizzBuzz_array[count] + '\n\nYour turn!');
-    //     caseChar(u_input);
-    //     if (u_input == fizzBuzz_array[count]) {
-    //         set_FizzBuzz_array(count)
-    //     } else {
-    //         yesNo = false;
-    //     }
-    // }
+    
 </script>
 </body>
 </html>
