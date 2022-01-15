@@ -9,7 +9,6 @@
 </head>
 
 <body>
-
 <script>
     let u_name = caseChar(prompt("What's your name?"));
     let fizzBuzz_array = new Array;
@@ -49,7 +48,6 @@
         input = input.substring(0, 1).toUpperCase() + input.substring(1, input.length).toLowerCase();
         return input;
     }
-
     while(yesNo == true) {
         u_input = caseChar(prompt(fizzBuzz_array[count-1] + '\n\nYour turn!'));
         arrays_data=fizzBuzz_array[count];
@@ -67,7 +65,6 @@
         }
         // console.log(count, u_input, u_input==arrays_data, fizzBuzz_array, yesNo);
     }
-    
 </script>
 </body>
 </html>

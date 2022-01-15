@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>369 Game(미완)</title>
+</head>
+
+<body>
+<script>
+    // let u_name = caseChar(prompt("What's your name?"));
+    u_name="user"
+    let game_array = new Array;
+    let count;
+    let start_count=1;
+    let u_input;
+    let arrays_data=game_array[count];
+    let yesNo = prompt("369 게임을 시작합니다!\n먼저 시작하시겠습니까?(네/아니오)");
+    if(yesNo == "네" || yesNo == "예"){
+        game_array.push(calc369(count=start_count));
+        count+=1;
+        yesNo=true;
+    } else if(yesNo == "아니오" || yesNo == "아니요") {
+        count=start_count;
+        yesNo=true;
+    } else {
+        alert("Y 또는 N을 입력해주세요.");
+        yesNo=false;
+    }
+    set_game_array(count);
+
+    function set_game_array(num) {
+        game_array.push(String(calc369(num)));
+        game_array.push(String(calc369(num + 1)));
+    }
+    //테스트
+    // for(let i=10; i<20; i++){
+    //     set_game_array(i*2);
+    //     console.log(game_array);
+    // }
+    function calc369(num) {
+        if (num%3==0 && num<10) {
+            let clap="짝";
+            return clap;
+        }
+        if(num>=10){
+            let num_string=String(num);
+            let num_part=[];
+            let clap="";
+            for(let i=0; i<num_string.length; i++){
+                num_part.push(num_string.substring(i, i+1))
+                num_part.forEach(parts => {
+                    Number(parts)%3==0?clap+="짝":"";
+                });
+            }
+            console.log(num_part, clap, );
+            if(clap.length>0){
+                return clap;
+            }
+            else {
+                return num;
+            }
+        }
+        return num;
+    };
+    function caseChar(input){
+        input = input.substring(0, 1).toUpperCase() + input.substring(1, input.length).toLowerCase();
+        return input;
+    }
+    while(yesNo == true) {
+        u_input = caseChar(prompt(game_array[count-1] + '!\n\n(박수는 횟수에 맞춰 짝을 입력하세요.)'));
+        arrays_data=game_array[count];
+        // console.log(u_input, arrays_data, game_array);
+        if(u_input!==arrays_data){
+            yesNo=false;
+            alert("틀렸습니다!\n\n정답: "+arrays_data);
+            alert("이름: "+u_name+"\n기록: ("+game_array+")");
+            break;
+        }
+        else {
+            count+=2;
+            set_game_array(count);
+        }
+        // console.log(count, u_input, u_input==arrays_data, game_array, yesNo);
+    }
+</script>
+</body>
+</html>
