@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+  // 셀렉트
   const aside_contents = Array.from(document.querySelectorAll(".aside_content"));
   const main_contents = Array.from(document.querySelectorAll(".main_content"));
   const main_contents_bot = Array.from(document.querySelectorAll(".content_bot"));
@@ -7,33 +8,39 @@ document.addEventListener("DOMContentLoaded", function() {
   const btn_prev=document.getElementById("btn_prev");
   const btn_signUp=document.getElementById("btn_start_signUp");
   const btn_skip=document.querySelector(".text_link_skip");
+  // init // .on=d-flex, 짭컴포넌트
+  let page_index=0;
+  let main_bottom_type=0;
+  // 정보
   let u_ID;
   let u_PW;
   let u_data=new Array();
-  // init, on=flex, page index 짭컴포넌트
-  let page_index=0;
-  let main_bottom_type=0;
-  init_allContent_of(main_contents, page_index);
-  function init_allContent_of(contents, index) {
+
+  addClassOn_to_indexContent(main_contents, page_index);
+  // n번째 컨텐츠에 .on달음
+  function addClassOn_to_indexContent(contents, index) {
     contents.forEach((contents) => {
       contents.classList.remove("on");
     })
     contents[index].classList.add('on');
   };
-  function goNextPage(){
-    if(page_index<main_contents.length-1){
-      init_allContent_of(main_contents, ++page_index);
-      showHide_skipBtn();
-      showHide_prevBtn();
-      get_AllInputValue();
-    }
+  // 페이지 넘김(event)
+  function pageEvent(){
+    goPage(this);
+    showHide_skipBtn();
+    showHide_prevBtn();
+    get_AllInputValue();
   }
-  function goPrevPage(){
-    if(page_index>1){
-      init_allContent_of(main_contents, --page_index);
-      showHide_skipBtn();
-      showHide_prevBtn();
-      get_AllInputValue();
+  btn_next.addEventListener('click', pageEvent);
+  btn_prev.addEventListener('click', pageEvent);
+  btn_skip.addEventListener('click', pageEvent);
+
+  function goPage(el){
+    if(el.getAttribute('id')=="btn_prev"){
+      addClassOn_to_indexContent(main_contents, --page_index);
+    }
+    if(el.getAttribute('id')=="btn_next"){
+      addClassOn_to_indexContent(main_contents, ++page_index);
     }
   }
   function showHide_skipBtn(){
@@ -52,10 +59,16 @@ document.addEventListener("DOMContentLoaded", function() {
       btn_prev.classList.contains("able")?btn_prev.classList.remove("able"):"";
     }
   }
+  function get_AllInputValue(){
+    const current_query=`.content_${page_index+1} input`
+    const current_inputs=document.querySelectorAll(current_query)
+    console.log(current_inputs);
+    return current_inputs;
+  }
+
   function setData(name){
     const input=document.getElementsByName(name)[0];
     u_data.push(`${name}:${input.value}`);
-    console.log(u_data);
   }
   function setID(id, pw1, pw2){
     if(pw1==pw2){
@@ -66,17 +79,11 @@ document.addEventListener("DOMContentLoaded", function() {
       alert("확인 비밀번호가 일치하지 않습니다.");
     }
   }
-  function get_AllInputValue(){
-    const current_query=`.content_${page_index+1} input`
-    const current_inputs=document.querySelectorAll(current_query)
-    console.log(current_inputs);
-    return current_inputs;
-  }
   // 이벤트리스너
   btn_start.addEventListener('click', function(){
-    init_allContent_of(main_contents, page_index=1);
+    addClassOn_to_indexContent(main_contents, page_index=1);
     document.querySelector(".main_bot_container").classList.remove("d-none")
-    init_allContent_of(main_contents_bot, main_bottom_type=0);
+    addClassOn_to_indexContent(main_contents_bot, main_bottom_type=0);
     setData("u_area");
     get_AllInputValue();
   });
@@ -86,10 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(inputs[3]);
     setID(inputs[0], inputs[1].value, inputs[2].value);
 
-    init_allContent_of(main_contents, page_index=2);
-    init_allContent_of(main_contents_bot, main_bottom_type=1);
+    addClassOn_to_indexContent(main_contents, page_index=2);
+    addClassOn_to_indexContent(main_contents_bot, main_bottom_type=1);
   })
-  btn_next.addEventListener('click', goNextPage);
-  btn_prev.addEventListener('click', goPrevPage);
-  btn_skip.addEventListener('click', goNextPage);
 });
