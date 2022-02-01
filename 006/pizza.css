@@ -1,0 +1,115 @@
+body {
+    background-color: rgb(227, 226, 231);
+    margin: 0;
+}
+.dough,
+.topping_btn,
+.text_center {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.table {
+    width: 450px;
+    padding: 20px;
+    margin: 0 auto;
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.topping_btns {
+    flex: 1 1 100%;
+    height: 70px;
+    display: flex;
+    gap: 20px;
+}
+.topping_btn {
+    flex: 0 0 70px;
+    border: 5px solid #ddd;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 5px #aaa;
+    border-radius: 10px;
+    cursor: pointer;
+}
+/* btn color */
+/* 스크립트에서 색상 새로 덮어씀(pizza.js) */
+.source {
+    background-color: tomato;
+}
+.cheese {
+    background-color: wheat;
+}
+.pepperoni {
+    background-color: salmon;
+}
+.green {
+    background-color: olivedrab;
+    color: #fff;
+}
+.olive {
+    background-color: #222;
+    color: #fff;
+}
+/* 빵 */
+.doughs {
+    flex: 0 0 120px;
+    padding: 15px 10px;
+    background: burlywood;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.dough {
+    width: 50px;
+    height: 40px;
+    background: wheat;
+    border: 2px solid #f6e8ce;
+    border-radius: 50%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.plate {
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #f0cf93;
+}
+.pizza {
+    width: 100%;
+    height: 100%;
+    background: blanchedalmond;
+    border: 1px solid #f0cf93;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+/* canvas 캔버스 */
+.pizza_drawing {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+.pizza_oven,
+.pizza_table {
+    margin-top: 10px;
+}
+/* 커서 */
+.cursor {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: transparent;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
