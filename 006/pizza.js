@@ -18,6 +18,7 @@ let current_topping=-1;
 const cooking_result=document.querySelectorAll('.cooking_result_text');
 const pizza_type=document.querySelector('.pizza_type');
 const pizza_achive=document.querySelectorAll('.pizza_achive');
+let achive_counter=0;
 const btn_giveup=document.querySelector('.btn_giveup');
 
 // 이벤트 핸들
@@ -49,11 +50,21 @@ function handlePlateClick(){
     result_text();
 };
 function handleCookingBtnClick(){
+    pizza_type.classList.remove('text_active');
     let result=chk_pizzalist();
     for(let i=0; i<pizza_type_arr.length; i++){
         if(result == pizza_type_arr[i]){
-            textStyle_pizzaAchive(i);
+            if(!pizza_achive[i].classList.contains('text_active')){
+                textStyle_pizzaAchive(i);
+                pizza_type.classList.add('text_active');
+            }
         }
+    }
+    if(achive_counter==pizza_type_arr.length){
+        setTimeout(()=>{
+            alert('축하합니다:)');
+        }, 200)
+        pizza_type.innerHTML="게임 클리어!";
     }
 };
 btn_onClick();
@@ -109,6 +120,7 @@ function chk_pizzalist(){
 };
 function textStyle_pizzaAchive(idx){
     pizza_achive[idx].classList.add('text_active');
+    achive_counter+=1;
 }
 // 함수
 function new_topping(calc_x, calc_y){
