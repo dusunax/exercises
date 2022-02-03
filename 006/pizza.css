@@ -2,6 +2,14 @@ body {
     background-color: rgb(227, 226, 231);
     margin: 0;
 }
+.text_sm {
+    font-size: 10px;
+}
+.text_active {
+    color: blue;
+    font-weight: 800;
+    text-decoration: line-through;
+}
 .dough,
 .topping_btn,
 .text_center {
@@ -123,6 +131,7 @@ body {
 }
 .btn_cook {
     cursor: pointer;
+    margin-right: 10px;
 }
 /* 커서 */
 .topping,
