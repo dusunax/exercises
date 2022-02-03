@@ -121,9 +121,10 @@ function new_topping(calc_x, calc_y){
 }
 function gameover(){
     alert("gameover");
-    dough.forEach((el)=>{el.classList.remove('dough_empty');});
-    pizza_achive.forEach((el)=>{el.classList.remove('text_active');});
-    dough_count=dough.length;
+    // dough.forEach((el)=>{el.classList.remove('dough_empty');});
+    // pizza_achive.forEach((el)=>{el.classList.remove('text_active');});
+    // dough_count=dough.length;
+    location.reload();
 }
 // 이벤트 리스너
 tmp_counter=0;
