@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+body {
+  background-color: #F5932A;
+  background-color: #A86F32;
+  background-color: #7AD4F5;
+  background-color: #438DA8;
+  background-color: #99E4FF;
+  background-color: #eee;
+  font-family: 'Do Hyeon', sans-serif;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  margin: auto;
+  margin-top: 5vh;
+}
+.title {
+
+}
+.btns {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.btn {
+  all: unset;
+  height: 200px;
+  border-radius: 20px;
+  color: #fff;
+  box-shadow: 0 0 2px 2px #ddd;
+
+  font-size: 3em;
+  flex: 1 1 calc(50% - 20px);
+  cursor: pointer;
+  pointer-events: auto;
+}
+.btn.unable {
+  pointer-events: none;
+}
+.cyan {
+  background-color: #55FFFF;
+}
+.magenta {
+  background-color: #ff55ff;
+}
+.yellow{
+  background-color: #ffff55;
+}
+.black {
+  background-color: #333;
+}
+.gameover {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+}
+.gameover > .container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.restart {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #000;
+  padding: 5px 10px;
+  margin-top: 5vh;
+  border-radius: 5px;
+  cursor: pointer;
+}
+@keyframes btn_click {
+  50% { opacity: 0.5; transform: scale(0.9); box-shadow: 0 0 2px 2px #fff;}
+  0%, 100% { opacity: 1; transform: scale(1);}
+}
+@keyframes btn_right {
+  100% { background-color: yellowgreen }
+}
+@keyframes btn_wrong {
+  100% { background-color: red }
+}

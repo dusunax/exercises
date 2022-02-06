@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Simon Game</title>
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <div class="wrap">
+    <p class="title_top">시작하려면 enter키를 누르세요. (하드모드: 숫자0)</p>
+    <h1 class="title">사이몬 게임</h1>
+    <div class="btns">
+      <button class="btn cyan">1</button>
+      <button class="btn magenta">2</button>
+      <button class="btn yellow">3</button>
+      <button class="btn black">4</button>
+    </div>
+    <div class="gameover">
+      <div class="container">
+        <h1>게임오버</h1>
+        <p>기록: <span class="record">0</span></p>
+        <div class="restart">
+          다시하기(R)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
