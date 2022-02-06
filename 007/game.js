@@ -47,7 +47,7 @@ function nextSequence() {
   $('.btn').addClass('unable');
   console.log(gamePattern);
 }
-// 버튼 클릭이벤트 핸들
+// 버튼 클릭이벤트 핸들, 키다운이벤트(trigger)
 $('.btn').click(function() {
   if(level==0){
     alert('시작하려면 enter키를 눌러주세요.');
@@ -69,6 +69,23 @@ $('.btn').click(function() {
     chooseWrong(userChosenColor);
   }
 });
+$(document).keydown(function(){
+  switch(event.key){
+    case '1':
+      $('.btn').eq(0).trigger('click');
+      break;
+    case '2':
+      $('.btn').eq(1).trigger('click');
+      break;
+    case '3':
+      $('.btn').eq(2).trigger('click');
+      break;
+    case '4':
+      $('.btn').eq(3).trigger('click');
+      break;
+    default:
+  }
+})
 // 함수들
 function chkAnswer(){
   if(gamePattern[idx_chking] == userChosenPattern[idx_chking]){
