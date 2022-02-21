@@ -1,0 +1,97 @@
+body {
+  background-color: #aac;
+}
+input {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  line-height: 200px;
+  text-align: center;
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+body {
+  text-align: center;
+}
+.title {
+  display: inline-block;
+  font-size: 50px;
+  margin: 20px auto 10px;
+  padding: 10px 60px 16px;
+  border-radius: 50px;
+  background: #225;
+  color: #dde;
+}
+.text {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 10px auto;
+}
+/* keyboard */
+.keyboard {
+  max-width: 1350px;
+  padding: 20px 16px;
+  border-radius: 20px;
+  background-color: #eee;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.key {
+  height: 50px;
+  line-height: 50px;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #222;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-weight: 700;
+  transition: all 0.1s;
+}
+.key.active {
+  background-color: yellow;
+}
+/* 키보드왼쪽, 기본 */
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  margin-bottom: 5px;
+}
+.left .key {
+  padding: 0 20px;
+}
+.SpaceBar {
+  width: 180px;
+}
+/* 키보드오른쪽, 넘버패드 */
+.numberPad {
+  width: 300px;
+  padding-top: 55px;
+  margin-left: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+.numberPad .key {
+  flex: 1 1 20%;
+}
+.numberPad .key.enter {
+  flex: 1 1 50%;
+}
+@media (max-width: 1300px) {
+  .keyboard {
+    flex-wrap: wrap;
+  }
+  .left .key {
+    padding: 0 15px;
+  }
+}
+@media (max-width: 900px) {
+  body {
+    font-size: 0.8em
+  }
+}
