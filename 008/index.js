@@ -3,6 +3,16 @@ const keys = document.querySelectorAll('.key');
 let chk_compelete=false;
 // 이벤트핸들
 function handle_keydown(e) {
+  if(e.getModifierState('CapsLock')){
+    document.querySelector('.CapsLock').classList.add('stateOn');
+  } else {
+    document.querySelector('.CapsLock').classList.remove('stateOn');
+  }
+  if(e.getModifierState('NumLock')){
+    document.querySelector('.NumLock').classList.add('stateOn');
+  } else {
+    document.querySelector('.NumLock').classList.remove('stateOn');
+  }
   // 확인용 console.log(e.keyCode)
   console.log(`key: ${e.key}, keycode: ${e.keyCode}`);
   event.preventDefault;
@@ -54,7 +64,7 @@ function chk_by_switch(code){
       printHere.value = "CMD";
       break;
     case 144:
-      document.querySelector('.NumLk').classList.add('active');
+      document.querySelector('.NumLock').classList.add('active');
       break;
     // 화살표
     case 38:
