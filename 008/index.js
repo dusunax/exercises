@@ -15,11 +15,14 @@ function handle_keydown(e) {
     return;
   }
   if(!chk_compelete){
-    chk_by_forEach(e.key);
+    chk_for_num(e.key, e.keyCode);
   }
   if(!chk_compelete){
-    chk_compelete=chk_by_switch(e.keyCode);
     chk_compelete=true;
+    chk_by_switch(e.keyCode);
+  }
+  if(!chk_compelete){
+    chk_by_forEach(e.key);
   }
   key_Unactive();
 }
@@ -34,6 +37,9 @@ function chk_by_switch(code){
     case 9:
       document.querySelector('.Tab').classList.add('active');
       break;
+    case 21:
+      document.querySelector('.HangulMode').classList.add('active');
+      break;
     case 16:
       document.querySelector('.LeftShift').classList.add('active');
       break;
@@ -43,16 +49,54 @@ function chk_by_switch(code){
     case 17:
       document.querySelector('.LeftControl').classList.add('active');
       break;
-    case 20:
-      document.querySelector('.CapsLock').classList.add('active');
-      break;
     case 91:
       document.querySelector('.cmd').classList.add('active');
       printHere.value = "CMD";
       break;
     case 144:
       document.querySelector('.NumLk').classList.add('active');
+      break;
+    // 화살표
+    case 38:
+      document.querySelector('.ArrowUp').classList.add('active');
+      break;
+    case 40:
+      document.querySelector('.ArrowDown').classList.add('active');
+      break;
+    case 37:
+      document.querySelector('.ArrowLeft').classList.add('active');
+      break;
+    case 39:
+      document.querySelector('.ArrowRight').classList.add('active');
+      break;
+    // 넘버패드 오른쪽
+    case 20:
+      document.querySelector('.CapsLock').classList.add('active');
+      break;
+    case 187:
+      document.querySelector('.left .equl').classList.add('active');
+      break;
+    case 189:
+      document.querySelector('.left .minus').classList.add('active');
+      break;
+    case 109:
+      document.querySelector('.right .minus').classList.add('active');
+      break;
+    case 109:
+      document.querySelector('.right .minus').classList.add('active');
+      break;
     default:
+      chk_compelete=false;
+  };
+}
+function chk_for_num(ekey, code){
+  if(!isNaN(ekey)){
+    if(60>code){
+      document.querySelector('.left .key'+ekey).classList.add('active');
+    } else {
+      document.querySelector('.right .key'+ekey).classList.add('active');
+    }
+    return chk_compelete=true;
   };
 }
 function chk_by_forEach(ekey){

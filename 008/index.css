@@ -73,6 +73,9 @@ body {
 .SpaceBar {
   width: 180px;
 }
+.left .key.Enter {
+  padding: 0 25px;
+}
 /* 키보드오른쪽, 넘버패드 */
 .numberPad {
   width: 300px;
@@ -85,8 +88,26 @@ body {
 .numberPad .key {
   flex: 1 1 20%;
 }
-.numberPad .key.enter {
-  flex: 1 1 50%;
+.numberPad .Enter.long {
+  position: relative;
+  transform: scaleY(2.1);
+  transform-origin: top;
+}
+.numberPad .Enter.long span {
+  display: block;
+  transform: scaleY(0.5);
+}
+.numberPad .key0.long {
+  position: relative;
+  transform: scaleX(2.02);
+  transform-origin: left;
+}
+.numberPad .key0.long span {
+  display: block;
+  transform: scaleX(0.5);
+}
+.numberPad .period {
+  z-index: 9
 }
 @media (max-width: 1300px) {
   .keyboard {
