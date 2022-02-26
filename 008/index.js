@@ -1,140 +1,134 @@
 const printHere = document.querySelector('.input_key');
 const keys = document.querySelectorAll('.key');
-let chk_compelete=false;
+let chk_compelete = false;
 // 이벤트핸들
 function handle_keydown(e) {
-  if(e.getModifierState('CapsLock')){
-    document.querySelector('.CapsLock').classList.add('stateOn');
-  } else {
-    document.querySelector('.CapsLock').classList.remove('stateOn');
-  }
-  if(e.getModifierState('NumLock')){
-    document.querySelector('.NumLock').classList.add('stateOn');
-  } else {
-    document.querySelector('.NumLock').classList.remove('stateOn');
-  }
-  // 확인용 console.log(e.keyCode)
-  console.log(`key: ${e.key}, keycode: ${e.keyCode}`);
   event.preventDefault;
-  key_pressAnimation();
+  chk_compelete = false;
   printHere.value = e.key;
-  chk_compelete=false;
-  if(e.keyCode == 67){
-    document.querySelector('.c').classList.add('active');
-    printHere.value = "c";
-    return;
-  }
-  if(!chk_compelete){
-    chk_for_num(e.key, e.keyCode);
-  }
-  if(!chk_compelete){
-    chk_compelete=true;
-    chk_by_switch(e.keyCode);
-  }
-  if(!chk_compelete){
-    chk_by_forEach(e.key);
-  }
+  console.log(`key: ${e.key}, keycode: ${e.keyCode}`);
+  key_pressAnimation();
   key_Unactive();
-}
+  chk_locks(e.getModifierState('CapsLock'), 'CapsLock');
+  chk_locks(e.getModifierState('NumLock'), 'NumLock');
+  !chk_compelete ? chk_by_switch(e.keyCode) : "";
+  !chk_compelete ? chk_for_num(e.key, e.keyCode) : "";
+  !chk_compelete ? chk_commandKey_forEach(e.key) : "";
+  !chk_compelete ? chk_alphabetKey_forEach(e.key) : "";
+};
 // 함수시작
-function chk_by_switch(code){
-  // 확인용 console.log('switch', code);
+function chk_locks(isOn, key) {
+  if (isOn) {
+    document.querySelector('.' + key).classList.add('stateOn');
+  } else {
+    document.querySelector('.' + key).classList.remove('stateOn');
+  };
+};
+function chk_by_switch(code) {
+  // command 오른쪽왼쪽 구분용
+  chk_compelete = true;
   switch (code) {
-    case 32:
-      document.querySelector('.SpaceBar').classList.add('active');
-      printHere.value = "SpaceBar";
-      break;
-    case 9:
-      document.querySelector('.Tab').classList.add('active');
-      break;
-    case 21:
-      document.querySelector('.HangulMode').classList.add('active');
-      break;
     case 16:
-      document.querySelector('.LeftShift').classList.add('active');
-      break;
-    case 18:
-      document.querySelector('.LeftAlt').classList.add('active');
+      key_active('.LeftShift');
       break;
     case 17:
-      document.querySelector('.LeftControl').classList.add('active');
+      key_active('.LeftControl');
+      break;
+    case 18:
+      key_active('.LeftAlt');
+      break;
+    case 32:
+      key_active('.SpaceBar');
+      printHere.value = "SpaceBar";
       break;
     case 91:
-      document.querySelector('.cmd').classList.add('active');
+      key_active('.cmd');
       printHere.value = "CMD";
       break;
     case 144:
-      document.querySelector('.NumLock').classList.add('active');
-      break;
-    // 화살표
-    case 38:
-      document.querySelector('.ArrowUp').classList.add('active');
-      break;
-    case 40:
-      document.querySelector('.ArrowDown').classList.add('active');
-      break;
-    case 37:
-      document.querySelector('.ArrowLeft').classList.add('active');
-      break;
-    case 39:
-      document.querySelector('.ArrowRight').classList.add('active');
-      break;
-    // 넘버패드 오른쪽
-    case 20:
-      document.querySelector('.CapsLock').classList.add('active');
+      key_active('.NumLock');
       break;
     case 187:
-      document.querySelector('.left .equl').classList.add('active');
+      key_active('.left .equl');
       break;
     case 189:
-      document.querySelector('.left .minus').classList.add('active');
+      key_active('.left .minus');
       break;
     case 109:
-      document.querySelector('.right .minus').classList.add('active');
+      key_active('.right .minus');
       break;
-    case 109:
-      document.querySelector('.right .minus').classList.add('active');
+    case 110:
+      key_active('.right .period');
       break;
     default:
-      chk_compelete=false;
+      chk_compelete = false;
   };
-}
-function chk_for_num(ekey, code){
-  if(!isNaN(ekey)){
-    if(60>code){
-      document.querySelector('.left .key'+ekey).classList.add('active');
+};
+function chk_for_num(ekey, code) {
+  // number 오른쪽왼쪽 구분용
+  if (!isNaN(ekey)) {
+    if (60 > code) {
+      key_active('.left .key' + ekey);
     } else {
-      document.querySelector('.right .key'+ekey).classList.add('active');
+      key_active('.right .key' + ekey);
     }
-    return chk_compelete=true;
+    return chk_compelete = true;
   };
-}
-function chk_by_forEach(ekey){
+};
+function chk_alphabetKey_forEach(ekey) {
+  // lowerCase, innerText
+  const lower_eKey = ekey.toLowerCase();
+  let lower_keyText;
+  keys.forEach((key) => {
+    lower_keyText = key.innerText.toLowerCase();
+    if (lower_eKey == lower_keyText) {
+      key.classList.add('active');
+      return chk_compelete = true;
+    }
+  });
+};
+function chk_commandKey_forEach(ekey) {
+  // normal, classList
+  keys.forEach((key) => {
+    if (key.classList.contains(ekey)) {
+      key.classList.add('active');
+      return chk_compelete = true;
+    }
+  });
+};
+function chk_by_forEach(ekey) {
   // console.log('forEach', ekey);
   keys.forEach((key) => {
+    if (key.classList.contains(ekey)) {
+      key.classList.add('active');
+      return chk_compelete = true;
+    }
     const lower_eKey = ekey.toLowerCase();
     const lower_keyText = key.innerText.toLowerCase();
     if (lower_eKey == lower_keyText) {
       key.classList.add('active');
-      return chk_compelete=true;
-    } else if (key.classList.contains(lower_eKey)) {
-      key.classList.add('active');
-      return chk_compelete=true;
+      return chk_compelete = true;
     }
   });
 }
 function key_pressAnimation() {
-    printHere.classList.add('active');
-    setTimeout(() => {
-      printHere.classList.remove('active');
-    }, 150)
-}
+  printHere.classList.add('active');
+  setTimeout(() => {
+    printHere.classList.remove('active');
+  }, 150);
+};
 function key_Unactive() {
   keys.forEach((key) => {
     setTimeout(() => {
       key.classList.remove('active');
     }, 500);
   });
-}
+};
+function key_active(selector) {
+  document.querySelector(selector).classList.add("active");
+};
+function key_unactive(selector) {
+  document.querySelector(selector).classList.remove("active");
+};
 // 리스너
 window.addEventListener('keydown', handle_keydown);
