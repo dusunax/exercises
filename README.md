@@ -9,7 +9,7 @@
 002: 그림판, Painting Board
      https://nomadcoders.co/javascript-for-beginners-2/lobby
     
-003: sign-up 페이지
+003: sign-up 페이지 HTML
 
 004: 369(고쳐야됨)
 
@@ -17,6 +17,8 @@
 
 006: 피자만들기
 
-007: 현재 날씨
+007: 현재 날씨, openweathermap
 
-009: 키보드 불량 테스트
+008: 키보드 불량 테스트
+
+009: 뉴스레터 구독, mailchimp
