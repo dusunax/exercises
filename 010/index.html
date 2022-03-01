@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공부</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/data.js" defer></script>
+</head>
+<body>
+    <div class="app">
+        <nav class="nav">
+            <ul>
+                <li>
+                    자격증시험 모의고사 점수정리
+                </li>
+            </ul>
+        </nav>
+        <div class="contents">
+            <div class="select_box">
+                <select name="test_select" id="test_select">
+                    <option value="d">정보처리기사 필기</option>
+                    <option value="d">정보처리기사 실기</option>
+                    <option value="d">정보처리기능사 실기</option>
+                    <option value="d">컬러리스트기사 실기</option>
+                </select>
+                
+            </div>
+            <div class="title">
+                <h1 class="test_name">정보처리기사 <span class="test_type">필기</span></h1>
+                <p>시험일자: <span class="test_date">3월 5일</span></p>
+                <p>시험장: <span class="test_place">서울국가자격시험장(휘경동)</span></p>
+                <h3 class="test_dDay_box">D-<span class="test_dDay">4</span></h3>
+            </div>
+            <div class="score">
+                <table>
+                    <thead>
+                        <tr class="attr">
+                            <td>날짜</td>
+                            <td>구분</td>
+                            <td>내용</td>
+                            <td>점수</td>
+                            <td>P/F</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2022/03/01</td>
+                            <td>필기</td>
+                            <td>2021년 1회</td>
+                            <td>70점</td>
+                            <td><span class="pass">통과</span></td>
+                        </tr>
+                        <tr>
+                            <td>2022/03/01</td>
+                            <td>필기</td>
+                            <td>2021년 2회</td>
+                            <td>50점</td>
+                            <td><span class="fail">탈락</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form action="/" method="post">
+                    <div class="input_container">
+                        <input type="text" placeholder="2022/00/00" name="input_date" id="input_date">
+                        <input type="text" value="필기" name="input_type" id="input_type" readonly>
+                        <input type="text" placeholder="2021년 0회" name="input_desc" id="input_desc">
+                        <input type="text" name="input_score" placeholder="00점" id="input_score">
+                        <button type="submit">추가</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="btn_prevNext_container">
+            <button>◀</button>
+            <button>▶</button>
+        </div>
+    </div>
+</body>
+</html>

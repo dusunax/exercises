@@ -1,0 +1,156 @@
+* {
+    line-height: 1.5;
+    border-radius: 16px;
+}
+.app {
+    height: calc(100vh - 10vh);
+    max-width: 600px;
+    background-color: #ccc;
+    margin: 4vh auto 6vh;
+    padding: 50px 2% 90px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.app .contents {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+/* 상단바 */
+.nav {
+    width: 100%;
+    border-radius: 0;
+    background-color: #222;
+    color: #fff;
+    text-align: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.nav ul {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.nav li {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 50px;
+    font-size: 12px;
+    border-radius: 0 16px 0 0;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+/* 옵션 */
+.select_box {
+    text-align: right;
+    margin-bottom: 10px;
+}
+#test_select {
+    padding: 5px;
+}
+/* 타이틀 */
+.title p {
+    font-size: 12px;
+}
+.title p span {
+    font-size: 14px;
+    font-weight: 800;
+}
+.test_dDay_box {
+    display: inline-block;
+    padding: 5px 16px;
+    margin: 0;
+    margin-bottom: 2em;
+    border-radius: 20px;
+    background-color: #fff;
+}
+/* 점수판 */
+.score {
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+table {
+    background: #fff;
+    border-radius: 16px 16px 0 0;
+}
+tr {
+    height: 30px;
+}
+table,
+tbody {
+    width: 100%;
+    font-size: 14px;
+}
+thead {
+    background-color: #eee;
+    border-radius: 20px;
+}
+.attr {
+    font-weight: 900;
+}
+.pass {
+    color: blue;
+}
+.fail {
+    color: red;
+}
+.input_container {
+    background-color: #222;
+    display: flex;
+    justify-content: center;
+    padding: 2px 0;
+    border-radius: 0 0 16px 16px;
+}
+input {
+    width: 1px;
+    height: 30px;
+    outline: none;
+    border-radius: 8px;
+    text-align: center;
+}
+#input_date {
+    flex: 0 0 28%;
+}
+#input_type {
+    flex: 0 0 10%;
+}
+input:read-only {
+    opacity: 0.7;
+    cursor: default;
+
+}
+#input_desc {
+    flex: 0 0 30%;
+}
+#input_score {
+    flex: 0 0 10%;
+}
+button {
+    margin-left: 8px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+/* 하단버튼 */
+.btn_prevNext_container {
+    width: 100%;
+    padding: 0 4%;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+}
+.btn_prevNext_container button {
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+}
