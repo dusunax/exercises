@@ -42,3 +42,15 @@ let data=[
         },
     ]
 ]
+
+/*
+new test
+{
+    test_name is not null,
+    test_type is not null,
+    test_date is not null,
+    test_place is not null,
+    score=[],
+    show_first=false
+}
+*/
