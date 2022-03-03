@@ -3,7 +3,7 @@ let data=[
         test_name: '정보처리기사',
         test_type: '필기',
         test_date: '3월 5일',
-        test_place: '서울국가자격시험장(휘경동)',
+        test_place: '중화고등학교',
         score: [
             {
                 score_date: '2022/03/03',

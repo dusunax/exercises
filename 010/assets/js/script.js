@@ -15,7 +15,15 @@ score_table.innerHTML=""
 read_table();
 function read_table(){
     const target=data[index].score;
+    const name=data[index].test_name;
     const type=data[index].test_type;
+    const date=data[index].test_date;
+    const place=data[index].test_place;
+    document.querySelector('.test_name').innerText=name;
+    document.querySelector('.test_type').innerText=type;
+    document.querySelector('.test_date').innerText=date;
+    document.querySelector('.test_place').innerText=place;
+
     for(let i=0; i<target.length; i++){
         const date=target[i].score_date;
         const desc=target[i].score_desc;
