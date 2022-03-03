@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공부</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/script.js" defer></script>
     <script src="assets/js/data.js" defer></script>
+    <script src="assets/js/script.js" defer></script>
 </head>
 <body>
     <div class="app">
@@ -21,7 +21,7 @@
         <div class="contents">
             <div class="select_box">
                 <button>
-                    추가/삭제
+                    추가/수정
                 </button>
                 <select name="test_select" id="test_select">
                     <option value="d">정보처리기사 필기</option>
@@ -35,7 +35,7 @@
                 <h1 class="test_name">정보처리기사 <span class="test_type">필기</span></h1>
                 <p>시험일자: <span class="test_date">3월 5일</span></p>
                 <p>시험장: <span class="test_place">서울국가자격시험장(휘경동)</span></p>
-                <h3 class="test_dDay_box">D-<span class="test_dDay">4</span></h3>
+                <h3 class="test_dDay_box">D-<span class="test_dDay">1</span></h3>
             </div>
             <div class="tableControl">
                 <button name="edit" class="btn_edit show">편집</button>
@@ -52,7 +52,7 @@
                             <td>P/F</td>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="score_table">
                         <tr class="row">
                             <td>
                                 <input type="text"  value="2022/03/01" name="input_type" readonly>
@@ -122,6 +122,31 @@
             <button>◀</button>
             <button>▶</button>
         </div>
+    </div>
+    <div class="modal">
+        <form action="/" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <td>시험명</td>
+                        <td>필기/실기</td>
+                        <td>시험일자</td>
+                        <td>선택</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <input type="checkbox" name="first">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit">추가</button>
+        </form>
     </div>
 </body>
 </html>
