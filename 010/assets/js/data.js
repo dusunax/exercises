@@ -2,9 +2,14 @@ let data=[
     {
         test_name: '정보처리기사',
         test_type: '필기',
-        test_date: '3월 5일',
+        test_date: '2022/03/05',
         test_place: '중화고등학교',
         score: [
+            {
+                score_date: '2022/03/05',
+                score_desc: '2022년 정기 1회',
+                score_score: 68
+            },
             {
                 score_date: '2022/03/03',
                 score_desc: '2020년 1-2회',
@@ -41,12 +46,13 @@ let data=[
                 score_score: 39
             }
         ],
-        show_first: true
+        show_first: true,
+        pass: true
     },
     {
         test_name: '정보처리기능사',
         test_type: '실기',
-        test_date: '3월 20일',
+        test_date: '2022/03/05',
         test_place: '서울국가자격시험장(휘경동)',
         score: [
             {
@@ -60,7 +66,8 @@ let data=[
                 score_score: '50'
             }
         ],
-        show_first: false
+        show_first: false,
+        pass: false
     }
 ]
 
