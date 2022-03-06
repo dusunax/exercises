@@ -1,72 +1,69 @@
 let data=[
     {
-        test_name: '정보처리기사',
-        test_type: '필기',
-        test_date: '2022/03/05',
-        test_place: '중화고등학교',
+        exam_no: 1,
+        exam_name: '정보처리기사',
+        exam_type: '필기',
+        exam_date: '2022/03/05',
+        exam_place: '중화고등학교',
         score: [
             {
                 score_date: '2022/03/05',
                 score_desc: '2022년 정기 1회',
-                score_score: 68
+                test_score: 68
             },
             {
-                score_date: '2022/03/03',
+                score_date: '2k022/03/03',
                 score_desc: '2020년 1-2회',
-                score_score: 70
+                test_score: 70
             },
             {
                 score_date: '2022/03/02',
                 score_desc: '2020년 랜덤1',
-                score_score: 75
+                test_score: 75
             },
             {
                 score_date: '2022/03/01',
                 score_desc: '2021년 3회',
-                score_score: 55
+                test_score: 55
             },
             {
                 score_date: '2022/02/28',
                 score_desc: '2021년 1회',
-                score_score: 61
+                test_score: 61
             },
             {
                 score_date: '2022/02/28',
                 score_desc: '2021년 2회',
-                score_score: 56
+                test_score: 56
             },
             {
                 score_date: '2022/02/27',
                 score_desc: '2019년 1회',
-                score_score: 50
+                test_score: 50
             },
             {
                 score_date: '2022/02/27',
                 score_desc: '2021년 3회',
-                score_score: 39
+                test_score: 39
             }
         ],
-        show_first: true,
+        show_first: false,
         pass: true
     },
     {
-        test_name: '정보처리기능사',
-        test_type: '실기',
-        test_date: '2022/03/05',
-        test_place: '서울국가자격시험장(휘경동)',
+        exam_no: 2,
+        exam_name: '정보처리기능사',
+        exam_type: '실기',
+        exam_date: '2022/03/20',
+        exam_place: '휘경공업고등학교',
         score: [
             {
                 score_date: '2022/03/02',
                 score_desc: '2021년 1회',
-                score_score: '70'
-            },
-            {
-                score_date: '2022/03/02',
-                score_desc: '2021년 2회',
-                score_score: '50'
+                test_score: '70'
             }
         ],
-        show_first: false,
+        show_first: true,
         pass: false
     }
 ]
@@ -74,12 +71,14 @@ let data=[
 /*
 new test
 {
-    test_name is not null,
-    test_type is not null,
-    test_date is not null,
-    test_place is not null,
+    exam_no int(3) auto_Increment primary key,
+    exam_name varchar(10) is not null,
+    exam_type varchar(3) is not null,
+    exam_date date,
+    exam_place varchar(10),
     score=[],
-    show_first=false
+    show_first=false,
+    pass=false
 }
 */
 
