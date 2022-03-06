@@ -23,11 +23,7 @@
                 <button>
                     추가/수정
                 </button>
-                <select name="test_select" id="test_select">
-                    <option value="d">정보처리기사 필기</option>
-                    <option value="d">정보처리기사 실기</option>
-                    <option value="d">정보처리기능사 실기</option>
-                    <option value="d">컬러리스트기사 실기</option>
+                <select name="test_select" id="test_select" onchange="">
                 </select>
 
             </div>
@@ -119,20 +115,22 @@
                         </tr>
                     </tbody>
                 </table>
-                <form action="/" method="post">
+                <form>
+                <!-- <form action="/" method="post"> -->
                     <div class="input_container">
                         <input type="text" placeholder="2022/00/00" name="input_date" id="input_date">
                         <input type="text" value="필기" name="input_type" id="input_type" readonly>
                         <input type="text" placeholder="2021년 0회" name="input_desc" id="input_desc">
                         <input type="text" name="input_score" placeholder="00점" id="input_score">
-                        <button type="submit">추가</button>
+                        <button class="btn_submit" type="submit">추가</button>
+                        <!-- <button class="btn_submit" type="submit">추가</button> -->
                     </div>
                 </form>
             </div>
         </div>
         <div class="btn_prevNext_container">
-            <button>◀</button>
-            <button>▶</button>
+            <button class="btn_prev">◀</button>
+            <button class="btn_next">▶</button>
         </div>
     </div>
     <div class="modal">

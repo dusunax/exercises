@@ -1,6 +1,6 @@
 let data=[
     {
-        exam_no: 1,
+        exam_no: 0,
         exam_name: '정보처리기사',
         exam_type: '필기',
         exam_date: '2022/03/05',
@@ -51,7 +51,7 @@ let data=[
         pass: true
     },
     {
-        exam_no: 2,
+        exam_no: 1,
         exam_name: '정보처리기능사',
         exam_type: '실기',
         exam_date: '2022/03/20',
@@ -64,6 +64,38 @@ let data=[
             }
         ],
         show_first: true,
+        pass: false
+    },
+    {
+        exam_no: 2,
+        exam_name: '정보처리기사',
+        exam_type: '실기',
+        exam_date: null,
+        exam_place: null,
+        score: [
+            {
+                score_date: '2022/03/10',
+                score_desc: '2021년 1회',
+                test_score: '100'
+            }
+        ],
+        show_first: false,
+        pass: false
+    },
+    {
+        exam_no: 3,
+        exam_name: '컬러리스트기사',
+        exam_type: '실기',
+        exam_date: '',
+        exam_place: '',
+        score: [
+            {
+                score_date: '2022/03/10',
+                score_desc: '2021년 1회',
+                test_score: '100'
+            }
+        ],
+        show_first: false,
         pass: false
     }
 ]

@@ -63,6 +63,10 @@
 #test_select {
     padding: 5px;
 }
+option.over {
+  background-color: #eee;
+  color: skyblue;
+}
 /* 타이틀 */
 .title p {
     font-size: 12px;
@@ -72,8 +76,8 @@
     font-weight: 800;
 }
 /* Dday CSS */
-.test_dDay_box {
-
+.test_dDay_box .over {
+  color: red;
 }
 .dDay {
   display: none;
@@ -104,6 +108,7 @@
     background-color: #fff;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
     font-size: 40px;
+    margin-bottom: 100px;
     transform: translateX(-10px) rotate(-20deg);
 }
 /* 점수판 */
