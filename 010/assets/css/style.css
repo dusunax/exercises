@@ -1,3 +1,10 @@
+body {
+    background-color: #2C3333;
+    background-color: #395B64;
+    background-color: #2666CF;
+    background-color: #F5F2E7;
+    background-color: #ced0d7;
+}
 * {
     line-height: 1.5;
     border-radius: 16px;
@@ -6,7 +13,8 @@
 .app {
     height: calc(100vh - 10vh);
     max-width: 600px;
-    background-color: #ccc;
+    background-color: #fff9f5;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     margin: 4vh auto 6vh;
     padding: 50px 2% 90px;
     box-sizing: border-box;
@@ -33,8 +41,8 @@
 .nav {
     width: 100%;
     border-radius: 0;
-    background-color: #222;
-    color: #fff;
+    background-color: #2C3333;
+    color: #eee;
     text-align: left;
     position: absolute;
     top: 0;
@@ -53,7 +61,7 @@
     font-size: 12px;
     border-radius: 0 16px 0 0;
     display: inline-block;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(80, 130, 199, 0.7);
 }
 /* 옵션 */
 .select_box {
@@ -62,6 +70,7 @@
 }
 #test_select {
     padding: 5px;
+    font-size: 12px;
 }
 option.over {
   background-color: #eee;
@@ -88,13 +97,14 @@ option.over {
   margin: 0;
   margin-bottom: 0.5em;
   border-radius: 20px;
-  background-color: #fff;
+  background-color: #2666CF;
+  color: #fff;
 }
 .dDay.end.on {
     width: 100%;
     height: calc(100% - 100px);
     border-radius: 0;
-    background: linear-gradient(transparent 20%, rgba(0, 0, 0, 0.3));
+    background: linear-gradient(transparent 20%, rgba(80, 130, 199, 0.5));
     position: absolute;
     left: 0;
     top: 100px;
@@ -113,9 +123,9 @@ option.over {
 }
 /* 점수판 */
 .score {
-    flex: 1 1 auto;
     overflow-y: auto;
     position: relative;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 table {
     width: 100%;
@@ -130,7 +140,9 @@ tbody {
     font-size: 14px;
 }
 thead {
-    background-color: #eee;
+    background-color: #f4f4f4;
+    color: #555;
+    font-size: 14px;
     border-radius: 20px;
 }
 .attr {
@@ -142,8 +154,11 @@ thead {
 .fail {
     color: red;
 }
+.btn_submit {
+    background: #f76b6b;
+}
 .input_container {
-    background-color: #222;
+    background-color: #2C3333;
     display: flex;
     justify-content: center;
     padding: 2px 0;
@@ -177,10 +192,21 @@ table input:read-only {
     flex: 0 0 10%;
 }
 button {
+    background-color: #c6ced1;
+    color: #fff;
+    box-shadow: 0px 0px 2px rgba(55, 55, 55, 0.5);
+    border: none;
+    padding: 3px 10px;
+    margin: 3px;
     margin-left: 8px;
-    padding: 0 10px;
     font-size: 12px;
     cursor: pointer;
+    transition: all 0.2s;
+}
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 4px rgba(55, 55, 55, 0.5);
+    background-color: #f9d86d;
 }
 tr td:last-child {
     padding-right: 10px;
@@ -213,7 +239,7 @@ input:focus {
     height: 16px;
     border-radius: 50%;
     margin-left: 5px;
-    background: #aaa;
+    background: #f76b6b;
     color: #fff;
     text-align: center;
     font-size: 10px;
@@ -229,7 +255,6 @@ input:focus {
 .tableControl button {
     padding: 2px 10px;
     font-size: 12px;
-    background: #aaa;
     color: #fff;
     border: none;
     display: none;
