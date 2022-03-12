@@ -1,9 +1,18 @@
+@font-face {
+    font-family: 'GimpoGothicBold00';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/GimpoGothicBold00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     background-color: #2C3333;
     background-color: #395B64;
     background-color: #2666CF;
     background-color: #F5F2E7;
     background-color: #ced0d7;
+    background-color: #eee;
+    font-family: 'GimpoGothicBold00';
 }
 * {
     line-height: 1.5;
@@ -13,20 +22,40 @@ body {
 .app {
     height: calc(100vh - 10vh);
     max-width: 600px;
-    background-color: #fff9f5;
+    background-color: #fff894;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     margin: 4vh auto 6vh;
     padding: 50px 2% 90px;
     box-sizing: border-box;
     text-align: center;
     position: relative;
-    overflow: hidden;
 
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none
-
+}
+.app::before,
+.app::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: #eee783;
+    background-image: linear-gradient(to bottom left, #2C3333 20px, #eee783 21px);
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    transform: translateX(-50%);
+}
+.app::before {
+    top: 5px;
+    left: calc(50% + 5px);
+    z-index: -1;
+}
+.app::after {
+    top: 10px;
+    left: calc(50% + 10px);
+    z-index: -2;
 }
 .app .contents {
     width: 100%;
@@ -40,7 +69,7 @@ body {
 /* 상단바 */
 .nav {
     width: 100%;
-    border-radius: 0;
+    border-radius: 15px 15px 0 0;
     background-color: #2C3333;
     color: #eee;
     text-align: left;
@@ -48,6 +77,7 @@ body {
     top: 0;
     left: 0;
     z-index: 99;
+    overflow: hidden;
 }
 .nav ul {
     width: 100%;
@@ -57,7 +87,7 @@ body {
 .nav li {
     height: 30px;
     line-height: 30px;
-    padding: 0 50px;
+    padding: 4px 50px 0;
     font-size: 12px;
     border-radius: 0 16px 0 0;
     display: inline-block;
@@ -93,9 +123,9 @@ option.over {
 }
 .dDay.going.on {
   display: inline-block;
-  padding: 5px 16px;
+  padding: 6px 16px 0px;
   margin: 0;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   border-radius: 20px;
   background-color: #2666CF;
   color: #fff;
@@ -103,20 +133,22 @@ option.over {
 .dDay.end.on {
     width: 100%;
     height: calc(100% - 100px);
-    border-radius: 0;
-    background: linear-gradient(transparent 20%, rgba(80, 130, 199, 0.5));
+    border-radius: 0 0 16px 16px;
+    background: linear-gradient(transparent 0%, rgba(239, 255, 242, 0.76));
     position: absolute;
     left: 0;
-    top: 100px;
+    top: 81px;
     z-index: 9;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .dDay.end span {
-    padding: 5px 16px;
-    background-color: #fff;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    padding: 16px 24px 0 80px;
+    border-radius: 4px;
+    background-color: #fff88f;
+    background: linear-gradient(to right, rgba(255, 87, 87, 0.89) 60px, #f1f1e9 61px);
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.4);
     font-size: 40px;
     margin-bottom: 100px;
     transform: translateX(-10px) rotate(-20deg);
@@ -192,9 +224,9 @@ table input:read-only {
     flex: 0 0 10%;
 }
 button {
-    background-color: #c6ced1;
+    background-color: #f9d86d;
     color: #fff;
-    box-shadow: 0px 0px 2px rgba(55, 55, 55, 0.5);
+    box-shadow: 0px 0px 2px rgba(255, 255, 55, 0.5);
     border: none;
     padding: 3px 10px;
     margin: 3px;
@@ -205,8 +237,8 @@ button {
 }
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 2px 2px 4px rgba(55, 55, 55, 0.5);
-    background-color: #f9d86d;
+    box-shadow: 2px 2px 4px rgba(255, 255, 55, 0.5);
+    background-color: #b5f37b;
 }
 tr td:last-child {
     padding-right: 10px;
