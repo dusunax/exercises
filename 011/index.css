@@ -47,6 +47,11 @@ body {
     flex-direction: column;
     justify-content: center;
 }
+.content strong {
+    display: inline-block;
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
 .qna_box {
     padding: 0;
     /* display: flex; */
@@ -66,11 +71,6 @@ body {
     padding: 1em 2em;
     background: #ddd;
     transition: all 0.4s;
-}
-.qna_box li strong {
-    display: inline-block;
-    font-size: 1.2em;
-    margin-bottom: 5px;
 }
 .qna_box li:hover {
     background-color: pink;
@@ -103,6 +103,9 @@ h1 {
     height: 120px;
     margin: 1em;
     background: blueviolet;
+
+    font-size: 30px;
+    line-height: 60px;
 }
 table {
     width: 90%;
