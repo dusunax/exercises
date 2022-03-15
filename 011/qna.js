@@ -78,7 +78,7 @@ function qna_nextLevel(){
 };
 // 결과
 function qna_ended(){
-    stage_title.innerHTML=`내가 좋아하는 캡슐커피 스타일은?!`
+    stage_title.innerHTML=`제가 추천하는 커피는?!`
     qna_box.classList.remove('on');
     result.classList.add('on');
     console.log(answers+"\n결과: "+(answers+1)+'/8');
