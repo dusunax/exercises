@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초보자마을 헬스도감</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <h4 class="appTitle">초보자마을 헬스도감</h4>
+        </header>
+        <section class="itemContainer">
+            <div class="item">
+                <div class="itemTitle">
+                    <div class="itemNameLeft">
+                        <span class="workoutName">
+                            기구이름
+                        </span>
+                        /
+                        <span class="workoutPart">
+                            운동부위
+                        </span>
+                    </div>
+                    <div class="itemNameRight">
+                        <span class="workoutDate">
+                            날짜
+                        </span>
+                    </div>
+                </div>
+                <div class="itemBody">
+                    <div class="itemText">
+                        <div class="row">
+                            <span class="workoutNote">
+                                주의할 점
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="workoutWeight">
+                                무게
+                            </span>
+                            /
+                            <span class="workoutCount">
+                                횟수
+                            </span>
+                        </div>
+                    </div>
+                    <div class="itemImg">
+                        <img src="img/testImg.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="itemTitle">
+                    <div class="itemNameLeft">
+                        <span class="workoutName">
+                            기구이름
+                        </span>
+                        /
+                        <span class="workoutPart">
+                            운동부위
+                        </span>
+                    </div>
+                    <div class="itemNameRight">
+                        <span class="workoutDate">
+                            날짜
+                        </span>
+                    </div>
+                </div>
+                <div class="itemBody">
+                    <div class="itemText">
+                        <div class="row">
+                            <span class="workoutNote">
+                                주의할 점
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="workoutWeight">
+                                무게
+                            </span>
+                            /
+                            <span class="workoutCount">
+                                횟수
+                            </span>
+                        </div>
+                    </div>
+                    <div class="itemImg">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="submitBtn">
+            <strong>
+                추가하기
+            </strong>
+            <hr style="width: 50%">
+            <button>
+                새로운 운동
+            </button>
+            <button>
+                스트레칭
+            </button>
+        </section>
+        <footer>
+            <span style="margin-bottom: 3px">
+                ⓒ2022 all rights reserved by dusunax
+            </span>     
+        </footer>
+    </div>
+    <div class="modal">
+        <div class="forms">
+            <h4>운동 잘 했나요~?🦾🙂</h4>
+            <form action="/" method="post">
+                <hr style="border-width: 1px; border-style: dashed; color: #ccc; width: 100%">
+                <div class="input_row">
+                    <label>기구이름</label>
+                    <input 
+                        type="text" 
+                        name="workoutName"
+                    >
+                </div>
+                <div class="input_row">
+                    <label>사진</label>
+                    <input 
+                        type="file" 
+                        name=""
+                    >
+                </div>
+                <div class="input_row">
+                    <label>운동부위</label>
+                    <input 
+                        type="text"  
+                        name=""
+                    >
+                </div>
+                <div class="input_row">
+                    <label>날짜</label>
+                    <input 
+                        type="text" 
+                        name="" 
+                        placeholder="년/월/일"
+                    >
+                </div>
+                <div class="input_row">
+                    <label>무게</label>
+                    <input class="input_short" type="text" name=""> kg
+                    <label>횟수</label>
+                    <input
+                        class="input_short" type="text" 
+                        name=""
+                        > 세트
+                </div>
+                <div class="input_row">
+                    <label>주의사항</label>
+                    <textarea 
+                        name="workoutNote" 
+                        cols="30" 
+                        rows="5" 
+                        style="resize: none;"
+                    ></textarea>
+                </div>
+                <div class="button_row">
+                    <button name="save">
+                        저장하기
+                    </button>
+                    <button name="close">
+                        닫기
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
