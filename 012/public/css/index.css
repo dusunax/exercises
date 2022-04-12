@@ -2,6 +2,7 @@ body {
     background: #ddd;
     text-align: center;
     font-size: 0.9em;
+    word-break: keep-all;
 }
 h1, h2, h3, h4, h5 {
     margin: 0;
@@ -27,8 +28,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    border: 1px solid skyblue;
+    position: relative;
 }
 .appTitle {
     display: inline-block;
@@ -36,6 +36,19 @@ header {
     border-radius: 16px;
     background: #000;
     color: #fff;
+}
+header::after {
+    content: '';
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+
+    background: #aaa;
+    box-shadow: 1.5em 0px 0 #aaa, 3em 0px 0 #aaa;
 }
 /* 메인 */
 section.itemContainer {
@@ -47,6 +60,7 @@ section.itemContainer {
 section.submitBtn {
     flex: 0 0 auto;
     padding: 20px 0 30px;
+    background: linear-gradient(#eee, #fff 30%);
 }
 /* 아이템컨테이너 */
 .item {
@@ -63,19 +77,19 @@ section.submitBtn {
 }
 .itemText {
     padding: 0.5em 1em 0.8em;
-    display: flex;
-    justify-content: space-between;
+    word-break: keep-all;
 }
 .itemImg {
-    background: #555;
+    background: #fff;
     max-height: 300px;
+    margin-bottom: 10px;
     font-size: 0;
+    overflow: hidden;
 }
 .itemImg img {
-    max-height: 300px;
+    max-width: 80%;
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    transform: translateY(-20%);
 }
 /* 푸터 */
 footer {
@@ -86,8 +100,6 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    border: 1px solid skyblue;
 }
 /* 모달 */
 .modal {
@@ -98,12 +110,18 @@ footer {
     left: 0;
     background: rgba(0, 0, 0, 50%);
     z-index: 99;
-    transition: opacity 0.5s;
-    /* opacity: 0; */
-    /* pointer-events: none; */
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 99;
+    
+    opacity: 0;
+    pointer-events: none;
+}
+.modal.active {
+    opacity: 1;
+    transition: opacity 0.2s;
+    pointer-events: auto;
 }
 .modal .forms {
     width: 360px;
@@ -149,4 +167,40 @@ footer {
 .forms textarea {
     width: 95%;
     min-width: 140px;
+}
+/* 인풋, 버튼 CSS */
+button {
+    all: unset;
+}
+.btn {
+    min-width: 50px;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 0 3px;
+    font-size: 12px;
+    background: #ddd;
+    box-shadow: 1px 1px 4px #aaa;
+    cursor: pointer;
+}
+.labelFile .btn {
+    min-width: 0;
+    font-weight: 900;
+    margin-top: 12px;
+}
+.labelFile .btn:hover {
+    background: #aaa;
+}
+.workoutNote {
+    width: 100%;
+}
+.workoutName {
+    background: rgb(79, 132, 255);
+    color: #fff;
+    padding: 0 10px 1px;
+    margin-right: 3px;
+    border-radius: 3px;
+}
+.row {
+    text-align: left !important;
 }
