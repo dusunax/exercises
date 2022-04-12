@@ -11,11 +11,11 @@ h1, h2, h3, h4, h5 {
 .wrap {
     width: 100%;
     max-width: 550px;
-    height: calc(100vh - 40px);
-    border-radius: 26px;
+    height: calc(100vh - 110px);
+    border-radius: 1em;
     background: #fff;
     box-shadow: 2px 2px 4px #ccc, -2px -2px 4px #eee;
-    margin: 1em auto;
+    margin: 0.5em auto;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5 {
 }
 /* 헤더 */
 header {
-    height: 40px;
+    flex: 0 0 36px;
     background: #555;
     display: flex;
     justify-content: center;
@@ -53,13 +53,13 @@ header::after {
 /* 메인 */
 section.itemContainer {
     flex: 1 1 auto;
-    padding: 20px 30px;
+    padding: 16px 20px;
     box-sizing: border-box;
     overflow-y: auto;
 }
 section.submitBtn {
     flex: 0 0 auto;
-    padding: 20px 0 30px;
+    padding: 12px 0 24px;
     background: linear-gradient(#eee, #fff 30%);
 }
 /* 아이템컨테이너 */
