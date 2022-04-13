@@ -1,0 +1,253 @@
+body {
+    background: #ddd;
+    text-align: center;
+    font-size: 0.9em;
+    word-break: keep-all;
+}
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+/* 시작 */
+.wrap {
+    width: 100%;
+    max-width: 550px;
+    height: calc(100vh - 110px);
+    border-radius: 1em;
+    background: #fff;
+    box-shadow: 2px 2px 4px #ccc, -2px -2px 4px #eee;
+    margin: 0.5em auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* 헤더 */
+header {
+    flex: 0 0 36px;
+    background: #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.appTitle {
+    display: inline-block;
+    padding: 3px 24px;
+    border-radius: 16px;
+    background: #000;
+    color: #fff;
+}
+header::after {
+    content: '';
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+
+    background: #aaa;
+    box-shadow: 1.5em 0px 0 #aaa, 3em 0px 0 #aaa;
+}
+/* 메인 */
+section.itemContainer {
+    flex: 1 1 auto;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+section.submitBtn {
+    flex: 0 0 auto;
+    padding: 12px 0 24px;
+    background: linear-gradient(#eee, #fff 30%);
+}
+/* 아이템컨테이너 */
+.item {
+    width: calc(50% - 10px);
+    border-radius: 1em;
+    margin: 3px;
+
+    box-shadow: 2px 2px 4px #ccc, -2px -2px 4px #eee;
+    /* margin-bottom: 20px; */
+    overflow: hidden;
+    display: inline-block;
+}
+.itemTitle {
+    padding: 0.5em 1em;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    font-size: 10px;
+}
+.itemBody {
+    width: 100%;
+    height: 240px;
+    padding-bottom: 0vw;
+    position: relative;
+}
+@media (max-width: 500px) {
+    .itemBody {
+        width: 100%;
+        height: 0;
+        padding-bottom: 44vw;
+        position: relative;
+        background: blue;
+    }
+}
+.itemText {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 9;
+    padding: 1em;
+    box-sizing: border-box;
+    text-align: left;
+}
+.itemText * {
+    color: #fff;
+    background: rgba(0, 0, 0, 50%);
+    display: inline-block;
+    padding: 0 8px;
+}
+.mealName {
+    font-size: 2.5em;
+}
+.itemText .mealDesc {
+    width: calc(100% - 3em);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.itemImg {
+    height: 100%;
+    
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+    font-size: 0;
+    overflow: hidden;
+}
+/* 푸터 */
+footer {
+    height: 40px;
+    background: #aaa;
+    color: #fff;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* 모달 */
+.modal {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 50%);
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+    
+    opacity: 0;
+    pointer-events: none;
+}
+.modal.active {
+    opacity: 1;
+    transition: opacity 0.2s;
+    pointer-events: auto;
+}
+.modal .forms {
+    width: 360px;
+    padding: 30px 30px;
+    background: #fff;
+    box-shadow: 2px 2px 4px #222;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% -50%);
+    border-radius: 1em;
+}
+.modal form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 5px
+}
+.modal .input_row {
+    flex: 0 1 48%;
+    text-align: left;
+    margin-bottom: 10px;
+}
+.button_row {
+    flex: 1 1 100%;
+    margin-top: 25px;
+}
+.modal label {
+    display: inline-block;
+    width: 100%;
+    font-size: 10px;
+    max-width: 70px;
+    margin: 10px 0 5px;
+}
+.forms input {
+    width: 110px;
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 2px 10px;
+}
+.forms .input_short {
+    width: 40px;
+}
+.forms textarea {
+    width: 95%;
+    min-width: 140px;
+}
+select {
+    padding: 2px 3px;
+    border-radius: 10px;
+    font-size: 12px;
+    transform: translateY(-1px);
+}
+/* 인풋, 버튼 CSS */
+button {
+    all: unset;
+}
+.btn {
+    min-width: 50px;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 0 3px;
+    font-size: 12px;
+    background: #ddd;
+    box-shadow: 1px 1px 4px #aaa;
+    cursor: pointer;
+}
+.labelFile .btn {
+    min-width: 0;
+    font-weight: 900;
+    margin-top: 12px;
+}
+.labelFile .btn:hover {
+    background: #aaa;
+}
+.workoutNote {
+    width: 100%;
+}
+.workoutName {
+    background: rgb(79, 132, 255);
+    color: #fff;
+    padding: 0 10px 1px;
+    margin-right: 3px;
+    border-radius: 3px;
+}
+.row {
+    text-align: left !important;
+}

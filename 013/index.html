@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밥</title>
+    <link rel="stylesheet" href="public/css/index.css">
+    <script src="public/js/BackUpDB.js" defer></script>
+    <script src="public/js/itemList.js" defer></script>
+    <script src="public/js/index.js" defer></script>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <h4 class="appTitle">🥦 GOOD KKINI</h4>
+        </header>
+        <section class="itemContainer">
+
+            <!-- 아이템 -->
+            <!-- <div class="item">
+                <div class="itemTitle">
+                    <div class="itemNameLeft">
+                        <strong class="mealType">
+                            1st
+                        </strong>
+                        |
+                        <span class="mealTime">
+                            3
+                        </span>시
+                    </div>
+                    <div class="itemNameRight">
+                        <span class="mealDate">
+                            2022/22/22
+                        </span>
+                    </div>
+                </div>
+                <div class="itemBody">
+                    <div class="itemText">
+                        <h1 class="mealName">
+                            샐러드
+                        </h1>
+                        <p class="mealDesc">
+                            야채, 밥, 닭가슴살 1, 계란 1, 오리엔탈 소스
+                        </p>
+                    </div>
+                    <div class="itemImg">
+                    </div>
+                </div>
+            </div> -->
+        </section>
+        <section class="submitBtn">
+            <strong>
+                추가하기
+            </strong>
+            <hr style="width: 50%">
+            <button class="btn
+            btn btnAddNew">
+                밥 🍚
+            </button>
+            <button class="btn  btnAddDiff">
+                간식 🐣
+            </button>
+        </section>
+        <footer>
+            <span style="margin-bottom: 3px">
+                ⓒ2022 all rights reserved by dusunax
+            </span>     
+        </footer>
+    </div>
+    <div class="modal">
+        <div class="forms">
+            <h4>
+                밥 뭇나? -
+                <span class="modal_mealDate"></span>
+            </h4>
+            
+            <form>
+                <hr style="border-width: 1px; border-style: dashed; color: #ccc; width: 100%">
+                <div class="input_row">
+                    <label>밥 먹은 거</label>
+                    <input 
+                        type="text" 
+                        name="mealName"
+                    >
+                </div>
+                <div class="input_row">
+                    <label class="labelFile" for="inputFile">사진
+                        <span class="btn">
+                            +
+                        </span>
+                    </label>
+                    <input 
+                        id="inputFile"
+                        type="file" 
+                        name="inputFile"
+                        style="display: none;"
+                    >
+                </div>
+                <div class="input_row">
+                    <label>끼니 종류</label>
+                    <select name="selectMealOption" id="selectMealOption">
+                        <option value="mealFirst">첫 끼</option>
+                        <option value="mealSecond">둘째 끼</option>
+                        <option value="mealThird">셋째 끼</option>
+                    </select>
+                    <br>
+                    <label>밥 먹은 시간</label>
+                    <br>
+                    <select name="selectTimeOption" id="selectTimeOption">
+                        <option value="timeDay">오전</option>
+                        <option value="timeNight">오후</option>
+                    </select>
+                    <input class="input_short" type="text" name="mealTime"> 시
+                </div>
+                <div class="input_row">
+                    <label>설명</label>
+                    <textarea 
+                        name="mealDesc" 
+                        cols="30" 
+                        rows="5" 
+                        style="resize: none;"
+                        placeholder=""
+                    ></textarea>
+                </div>
+                <div class="button_row">
+                    <button class="btn btnSave" name="save">
+                        저장하기
+                    </button>
+                    <div class="btn btnClose" name="close">
+                        닫기
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
