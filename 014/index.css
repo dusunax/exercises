@@ -1,0 +1,136 @@
+body {
+    background: url(img/bg.webp);
+    font-size: 1.2rem;
+}
+h1, h2, h3, h4, h5 {
+    padding: 0;
+    margin: 0;
+}
+
+.app {
+    max-width: 300px;
+    height: calc(100vh - 100px);
+    margin: 40px auto;
+    padding: 0 10%;
+    background: #fff;
+    border: 7px double black;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 20%);
+    text-align: center;
+    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 9;
+}
+
+.title {
+    color: #a71723;
+    background: #f7d56f;
+    border-radius: 1em;
+    box-shadow: 0 0 0 3px black, 2px 2px 0px 4px #bd1724;
+    margin-bottom: 50px;
+}
+
+#inputYear {
+    width: 50px;
+    height: 30px;
+    padding: 0;
+    text-align: center;
+    border-radius: 0.6em;
+    border-style: dotted;
+    transition: all 0.2s;
+}
+#inputYear:focus {
+    border-color: #a71723;
+    background: #f7d56f;
+}
+#btnInput {
+    font-weight: 700;
+    padding: 0.5rem 2rem 0.6rem;
+    margin-top: 10px;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 0;
+    box-shadow: 0 0 0 3px black, 2px 2px 0px 4px #bd1724;
+    transition: all 0.2s;
+}
+#btnInput:hover {
+    background: #e7a9ae;
+}
+
+.result {
+    margin-top: 50px;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.result span.output {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.result strong {
+    font-weight: 900;
+    color: #2600ff;
+}
+
+.result {
+    color: white;
+    transition: all 0.4s;
+}
+
+.result.show {
+    color: black;
+}
+
+.stem_box,
+.branch_box {
+    height: 100vh;
+    position: absolute;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 0;
+}
+.stem_box {
+    left: 0%;
+    transform: translateY(-50%) translateX(calc(-100% - 30px));
+}
+.branch_box {
+    right: 0;
+    transform: translateY(-50%) translateX(calc(100% + 30px));
+}
+
+.stem_box *,
+.branch_box * {
+    font-size: 1.2em;
+    font-weight: 900;
+    color: #bd1724;
+    background: #f7d778;
+    padding: 10px 20px;
+    
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px black, 2px 2px 0px 4px #bd1724;
+    transition: all 0.2s;
+}
+
+.stem_box *:hover,
+.branch_box *:hover {
+    background: #222;
+    color: #f7d778;
+}
+
+.form {
+    position: relative;
+}
+span.info {
+    font-size: 11px;
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+}
