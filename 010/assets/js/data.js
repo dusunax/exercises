@@ -58,10 +58,10 @@ let data=[
         exam_place: '휘경공업고등학교',
         score: [
             {
-                score_date: '2022/03/02',
-                score_desc: '2021년 1회',
+                score_date: '2022/03/16',
+                score_desc: '기출변형문제 01',
                 test_score: '70'
-            }
+            },
         ],
         show_first: true,
         pass: false
