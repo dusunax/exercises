@@ -1,0 +1,40 @@
+body {
+  background-color: #ddd;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.app {
+  background-color: #eee;
+  padding: 10%;
+}
+h5 {
+  margin: 12px 2px 4px;
+  text-align: left;
+}
+button {
+  margin-top: 48px;
+  background-color: #222;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px 10px;
+}
+.btnWeight {
+  font-size: 12px;
+  width: 40px;
+  background-color: #555;
+  color: #fff;
+  margin: 0
+}
+ul {
+  padding: 0
+}
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+li > div {
+  margin-left: 10px;
+}

@@ -1,0 +1,15 @@
+<form action="/update" method="post">
+  <ul>
+    <% data.forEach((workout)=>{ %>
+      <li>
+        <%= workout.work_name %>
+        <%= workout.work_weight %>kg
+        <div>
+          <button type="POST" class="btnWeight" name="btn" value="+5">+5</button>
+          <button type="POST" class="btnWeight" name="btn" value="-5">-5</button>
+          <input type="hidden" name="wID" value="<%= workout._id %>">
+        </div>
+      </li>
+      <% }); %>
+    </ul>
+</form>
