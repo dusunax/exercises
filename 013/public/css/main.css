@@ -10,11 +10,20 @@ body {
   padding: 10%;
 }
 h5 {
-  margin: 12px 2px 4px;
+  margin: 3px 1px;
   text-align: left;
 }
+.input_area {
+  max-width: 200px;
+  margin: auto;
+}
+.input_area input {
+  margin-bottom: 16px;
+}
 button {
-  margin-top: 48px;
+  width: 80px;
+  margin-top: 10px;
+  border: 0;
   background-color: #222;
   color: #fff;
   cursor: pointer;

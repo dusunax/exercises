@@ -1,0 +1,20 @@
+<%- include('header_footer/header.ejs') %>
+
+<div class="app">
+    <section class="workout">
+        <h2>item page</h2>
+        <p>user logged in😃</p>
+        <%- include('list.ejs') %>
+    </section>
+
+    <%- include('update.ejs') %>
+    <%- include('create.ejs') %>
+    <%- include('delete.ejs') %>
+
+    <form action="/">
+        <button name="">로그아웃</button>
+    </form>
+</div>
+<!-- <img src="/img/test.png" alt=""> -->
+
+<%- include('header_footer/footer.ejs') %>

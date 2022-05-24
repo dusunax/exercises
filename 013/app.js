@@ -2,7 +2,9 @@
 const express=require("express");
 const mongoose=require("mongoose");
 const bodyParser=require("body-parser");
+const md5=require('md5');
 const ejs=require("ejs");
+const { stringify } = require("querystring");
 const app=express();
 
 //설정
@@ -20,17 +22,86 @@ const workoutSchema = new mongoose.Schema({
     required: true,
     min: 0
   },
-  work_desc: String
+  work_desc: String,
+  userID: String
 })
 const Workout = new mongoose.model("Workout", workoutSchema);
+const userSchema = {
+  userID: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  userPW: String
+};
+const WorkUser = new mongoose.model("WorkUser", userSchema);
 let data=[];
 
 //메인
 app.route("/")
 .get((req, res)=>{
+  res.render('main', {stage: "login"});
+  // WorkUser.deleteMany({}, (err, result)=>{
+  //   !err?console.log(result.deletedCount+"개 삭제완료"):"";
+  // })
+});
+
+// 멤버
+app.route("/login")
+.get((req, res)=>{
+  res.render('main', {stage: "login"});
+})
+.post((req, res)=>{
+  const postID=req.body.userID;
+  const postPW=md5(req.body.userPW);
+  WorkUser.findOne({userID: postID}, (err, found)=>{
+    if(found){
+      console.log(postPW, found.userPW);
+      if(found.userPW == postPW){
+        Workout.find((err, founds)=>{
+          data=founds;
+          res.render("workout", {data: data});
+        })
+      } else {
+        console.log("비밀번호 틀림");
+        res.render('main', {stage: "login"});
+      }
+    } else {
+      res.send("<h4 style='text-align: center; margin: 20% auto'>잘못된 로그인 요청입니다.<br>(아이디를 확인해주세요.)</h4>");
+      res.render('main', {stage: "login"});
+    }
+  })
+});
+
+app.route("/user")
+.get((req, res)=>{
+  res.render('main', {stage: "register"});
+})
+.post((req, res)=>{
+  const newUser=new WorkUser({
+    userID: req.body.userID,
+    userPW: md5(req.body.userPW)
+  })
+  console.log(newUser);
+  newUser.save((err)=>{
+    if(err){
+      res.send("<h4 style='text-align: center; margin: 20% auto'>잘못된 회원가입 요청입니다.<br>(아이디를 확인해주세요.)</h4>");
+    } else {
+      console.log("new user created.");
+      Workout.find((err, founds)=>{
+        data=founds;
+        res.render("workout", {data: data});
+      })
+    }
+  });
+});
+
+// 아이템
+app.route("/add")
+.get((req, res)=>{
   Workout.find((err, founds)=>{
     data=founds;
-    res.render("main", {data: data});
+    res.render("workout", {data: data});
   })
 })
 .post((req, res)=>{
@@ -43,7 +114,7 @@ app.route("/")
   newWorkout.save(()=>{
     Workout.find((err, founds)=>{
       data=founds;
-      res.render("main", {data: data});
+      res.render("workout", {data: data});
     })
   });
 });
@@ -52,7 +123,7 @@ app.route("/update")
 .get((req, res)=>{
   Workout.find((err, founds)=>{
     data=founds;
-    res.render("main", {data: data});
+    res.render("workout", {data: data});
   })
 })
 .post((req, res)=>{
@@ -67,7 +138,7 @@ app.route("/update")
       (err, result)=>{
         Workout.find((err, founds)=>{
           data=founds;
-          res.render("main", {data: data});
+          res.render("workout", {data: data});
         })
       }
     )
@@ -78,7 +149,7 @@ app.route("/delete")
 .get((req, res)=>{
   Workout.find((err, founds)=>{
     data=founds;
-    res.render("main", {data: data});
+    res.render("workout", {data: data});
   })
 })
 .post((req, res)=>{
@@ -91,13 +162,12 @@ app.route("/delete")
         console.log(deletedCount+"개 삭제");
         Workout.find((err, founds)=>{
           data=founds;
-          res.render("main", {data: data});
+          res.render("workout", {data: data});
         });
       }
     )
   })
 });
-
 
 app.listen(3000, (err)=>{
     !err?console.log("Server started on port 3000."):console.log(err);
