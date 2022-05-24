@@ -1,0 +1,13 @@
+<h2>list</h2>
+<ul class="workList">
+    <% data.forEach((workout)=>{ %>
+    <li>
+        <span>
+            <%= workout.work_name %>
+        </span>
+        <strong>
+            <%= workout.work_weight %>kg
+        </strong>
+    </li>
+    <% }); %>
+</ul>

@@ -28,9 +28,6 @@ let data=[];
 //메인
 app.route("/")
 .get((req, res)=>{
-  // Workout.deleteMany((err)=>{
-  //   console.log(err);
-  // });
   Workout.find((err, founds)=>{
     data=founds;
     res.render("main", {data: data});
@@ -61,7 +58,7 @@ app.route("/update")
 .post((req, res)=>{
   const postID=req.body.wID;
   const postBtn=Number(req.body.btn);
-  // console.log(postID, 5+postBtn);
+  console.log(postID);
   Workout.findById(postID, (err, found)=>{
     const changes=found.work_weight + postBtn;
     Workout.updateOne(
@@ -77,7 +74,29 @@ app.route("/update")
   })
 });
 
-
+app.route("/delete")
+.get((req, res)=>{
+  Workout.find((err, founds)=>{
+    data=founds;
+    res.render("main", {data: data});
+  })
+})
+.post((req, res)=>{
+  const postID=req.body.wID;
+  console.log(postID);
+  Workout.findById(postID, (err, found)=>{
+    Workout.deleteOne(
+      {_id: postID},
+      (err, result)=>{
+        console.log(deletedCount+"개 삭제");
+        Workout.find((err, founds)=>{
+          data=founds;
+          res.render("main", {data: data});
+        });
+      }
+    )
+  })
+});
 
 
 app.listen(3000, (err)=>{

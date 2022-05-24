@@ -1,0 +1,13 @@
+<ul>
+    <h2>delete page</h2>
+    <% data.forEach((workout)=>{ %>
+    <li>
+        <%= workout.work_name %>
+        <%= workout.work_weight %>kg
+        <form action="/delete" method="post">
+            <button type="POST" class="btnWeight" name="delete" value="delete">X</button>
+            <input type="hidden" name="wID" value="<%= workout._id %>">
+        </form>
+    </li>
+    <% }); %>
+</ul>
