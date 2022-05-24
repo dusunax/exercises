@@ -12,6 +12,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 mongoose.connect("mongodb+srv://user1:pass1@cluster0.cw4wk.mongodb.net/workoutDB");
+//구조 바꾸기---------------------------------------------
 const workoutSchema = new mongoose.Schema({
   work_name: {
     type: String,
@@ -143,6 +144,9 @@ app.route("/update")
       }
     )
   })
+})
+.patch((req, res)=>{
+  // 운동 이름바꾸기---------------------------------------------
 });
 
 app.route("/delete")
