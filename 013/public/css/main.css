@@ -5,7 +5,7 @@ body {
   justify-content: center;
 }
 .app {
-  max-width: 600px;
+  max-width: 750px;
   background-color: #eee;
   padding: 5% 10%;
   box-sizing: border-box;

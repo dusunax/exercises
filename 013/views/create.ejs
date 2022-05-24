@@ -1,6 +1,6 @@
 <section class="create">
   <h2>create page</h2>
-  <form action="/" method="post">
+  <form action="/add" method="post">
     <div class="input_area">
       <h5>운동:</h5>
       <input type="text" name="wName" autocomplete="off">
@@ -15,5 +15,6 @@
       >
     </div>
     <button type="POST" name="button">추가하기</button>
+    <input type="hidden" name="userID" value="<%= userID %>">
   </form>
 </section>

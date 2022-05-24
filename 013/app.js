@@ -101,7 +101,7 @@ app.route("/add")
 .get((req, res)=>{
   Workout.find((err, founds)=>{
     data=founds;
-    res.render("workout", {data: data});
+    res.render("workout", {data: data, userID: req.body.userID});
   })
 })
 .post((req, res)=>{
@@ -114,7 +114,7 @@ app.route("/add")
   newWorkout.save(()=>{
     Workout.find((err, founds)=>{
       data=founds;
-      res.render("workout", {data: data});
+      res.render("workout", {data: data, userID: req.body.userID});
     })
   });
 });
@@ -123,7 +123,7 @@ app.route("/update")
 .get((req, res)=>{
   Workout.find((err, founds)=>{
     data=founds;
-    res.render("workout", {data: data});
+    res.render("workout", {data: data, userID: req.body.userID});
   })
 })
 .post((req, res)=>{
@@ -138,7 +138,7 @@ app.route("/update")
       (err, result)=>{
         Workout.find((err, founds)=>{
           data=founds;
-          res.render("workout", {data: data});
+          res.render("workout", {data: data, userID: req.body.userID});
         })
       }
     )
@@ -149,7 +149,7 @@ app.route("/delete")
 .get((req, res)=>{
   Workout.find((err, founds)=>{
     data=founds;
-    res.render("workout", {data: data});
+    res.render("workout", {data: data, userID: req.body.userID});
   })
 })
 .post((req, res)=>{
@@ -159,10 +159,9 @@ app.route("/delete")
     Workout.deleteOne(
       {_id: postID},
       (err, result)=>{
-        console.log(deletedCount+"개 삭제");
         Workout.find((err, founds)=>{
           data=founds;
-          res.render("workout", {data: data});
+          res.render("workout", {data: data, userID: req.body.userID});
         });
       }
     )

@@ -8,6 +8,7 @@
             <form action="/delete" method="post">
                 <button type="POST" class="btnWeight" name="delete" value="delete">X</button>
                 <input type="hidden" name="wID" value="<%= workout._id %>">
+                <input type="hidden" name="userID" value="<%= userID %>">
             </form>
         </li>
         <% }); %>
