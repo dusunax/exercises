@@ -1,16 +1,18 @@
-<h2>list</h2>
-<ul class="workList">
-    <% data.forEach((workout)=>{ %>
-    <li>
-        <span>
-            <%= workout.work_name %>
-        </span>
-        <strong class="weightText">
-            <%= workout.work_weight %>kg
-        </strong>
-    </li>
-    <% }); %>
-</ul>
-<button name="add">추가</button>
-<button name="edit">수정</button>
-<button name="del">삭제</button>
+<section class="list">
+    <h2>list</h2>
+    <ul class="workList">
+        <% data.forEach((workout)=>{ %>
+        <li>
+            <span>
+                <%= workout.work_name %>
+            </span>
+            <strong class="weightText">
+                <%= workout.work_weight %>kg
+            </strong>
+        </li>
+        <% }); %>
+    </ul>
+    <button name="add">추가</button>
+    <button name="edit">수정</button>
+    <button name="del">삭제</button>
+</section>

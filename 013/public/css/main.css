@@ -8,6 +8,10 @@ body {
   max-width: 600px;
   background-color: #eee;
   padding: 5% 10%;
+  box-sizing: border-box;
+}
+h1 {
+  font-size: 30px;
 }
 h5 {
   margin: 3px 1px;
