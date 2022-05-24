@@ -7,7 +7,7 @@ body {
 .app {
   max-width: 600px;
   background-color: #eee;
-  padding: 10%;
+  padding: 5% 10%;
 }
 h5 {
   margin: 3px 1px;
@@ -36,8 +36,12 @@ button {
   color: #fff;
   margin: 0
 }
+.weightText {
+  font-size: 2em;
+}
 ul {
-  padding: 0
+  padding: 0;
+  margin: 20px 0;
 }
 li {
   display: flex;

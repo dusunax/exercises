@@ -60,7 +60,7 @@ app.route("/login")
       if(found.userPW == postPW){
         Workout.find((err, founds)=>{
           data=founds;
-          res.render("workout", {data: data});
+          res.render("workout", {data: data, userID: postID});
         })
       } else {
         console.log("비밀번호 틀림");
@@ -90,7 +90,7 @@ app.route("/user")
       console.log("new user created.");
       Workout.find((err, founds)=>{
         data=founds;
-        res.render("workout", {data: data});
+        res.render("workout", {data: data, userID: req.body.userID});
       })
     }
   });
