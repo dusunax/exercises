@@ -7,7 +7,7 @@ body {
 .app {
   max-width: 750px;
   background-color: #eee;
-  padding: 5% 10%;
+  padding: 3% 5%;
   box-sizing: border-box;
 }
 h1 {
@@ -33,13 +33,6 @@ button {
   cursor: pointer;
   padding: 8px 10px;
 }
-.btnWeight {
-  font-size: 12px;
-  width: 40px;
-  background-color: #555;
-  color: #fff;
-  margin: 0
-}
 .weightText {
   font-size: 2em;
 }
@@ -51,27 +44,113 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
+  position: relative;
 }
-li form {
-  margin-left: 10px;
-  text-align: right;
+.btn_box {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+}
+.btnWeight {
+  width: 60px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #777;
+  color: #fff;
+  font-weight: 900;
+  font-size: 20px;
+}
+.btnWeight:nth-child(even) {
+  background-color: skyblue;
 }
 /* list-page */
 .workList {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 10px
 }
 .workList li {
-  flex: 0 1 48%;
+  flex: 1 1 48%;
   text-align: center;
   border: 1px solid #222;
   background-color: #f5f5f5;
   padding: 15px 0;
+  box-sizing: border-box;
   justify-content: center;
   flex-wrap: wrap;
 }
 .workList li > * {
   width: 100%;
+}
+@media (max-width: 500px) {
+  .btn_box {
+    position: relative;
+    height: auto;
+    margin-top: 10px;
+    padding: 5px 0;
+  }
+  .workList li {
+    padding: 15px 0 0;
+  }
+  .btnWeight {
+    flex: 1 1 auto;
+  }
+}
+@media (max-width: 400px) {
+  .btn_crud {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .btn_crud button {
+    flex: 1 1 auto
+  }
+  .workList li {
+    flex: 1 1 100%;
+    padding: 15px 0;
+  }
+  .btn_box {
+    display: flex;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    margin: 0;
+    padding: 0;
+  }
+  .btnWeight {
+    flex: 0 0 40px;
+    height: 100%;
+  }
+}
+
+/* 섹션 */
+.modal {
+  display: none;
+}
+.modal.on {
+  display: block;
+  opacity: 0;
+  width: 100%;
+  max-width: 500px;
+  height: 100vh;
+  max-height: 600px;
+  padding: 10%;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 90%);
+  border: solid 1px #222;
+  box-shadow: 10px 10px 5px rgba(55, 55, 55, 50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s;
+}
+.modal.show {
+  opacity: 1;
 }

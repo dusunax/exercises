@@ -9,12 +9,21 @@
             <strong class="weightText">
                 <%= workout.work_weight %>kg
             </strong>
+            <form class="btn_box" action="/update" method="post">
+                <button type="POST" class="btnWeight" name="btn" value="+5">+</button>
+                <button type="POST" class="btnWeight" name="btn" value="-5">-</button>
+                <input type="hidden" name="wID" value="<%= workout._id %>">
+                <input type="hidden" name="userID" value="<%= userID %>">
+            </form>
         </li>
         <% }); %>
     </ul>
-    <button name="add">추가</button>
-    <button name="edit">수정</button>
-    <button name="del">삭제</button>
+    <div class="btn_crud">
+        <button name="add" onclick="btnClick(name)">추가</button>
+        <!-- <button name="edit" onclick="btnClick(name)">수정</button> -->
+        <button name="del" onclick="btnClick(name)">삭제</button>
+    </div>
 </section>
 
-<!-- list랑 add 합치기 ---------------------------------------------->
+<!-- edit: 기능(이름 수정) 추가
+---------------------------------------------->

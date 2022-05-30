@@ -1,4 +1,4 @@
-<section class="create">
+<section class="add modal">
   <h2>create page</h2>
   <form action="/add" method="post">
     <div class="input_area">
@@ -15,6 +15,9 @@
       >
     </div>
     <button type="POST" name="button">추가하기</button>
+    <button name="del" onclick="btnClose(name)">
+        닫기
+    </button>
     <input type="hidden" name="userID" value="<%= userID %>">
   </form>
 </section>

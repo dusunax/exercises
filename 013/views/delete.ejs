@@ -1,4 +1,4 @@
-<section class="delete">
+<section class="del modal">
     <ul>
         <h2>delete page</h2>
         <% data.forEach((workout)=>{ %>
@@ -12,5 +12,10 @@
             </form>
         </li>
         <% }); %>
+        <li>
+            <button name="del" onclick="btnClose(name)">
+                닫기
+            </button>
+        </li>
     </ul>
 </section>
