@@ -6,6 +6,7 @@ const md5=require('md5');
 const ejs=require("ejs");
 const { stringify } = require("querystring");
 const app=express();
+let idx=0;
 
 //설정
 app.set('view engine', 'ejs');
@@ -14,6 +15,8 @@ app.use(express.static('public'));
 mongoose.connect("mongodb+srv://user1:pass1@cluster0.cw4wk.mongodb.net/workoutDB");
 //구조 바꾸기---------------------------------------------
 const workoutSchema = new mongoose.Schema({
+  idx: Number,
+  userID: String,
   work_name: {
     type: String,
     required: true
@@ -23,8 +26,7 @@ const workoutSchema = new mongoose.Schema({
     required: true,
     min: 0
   },
-  work_desc: String,
-  userID: String
+  work_desc: String
 })
 const Workout = new mongoose.model("Workout", workoutSchema);
 const userSchema = {
@@ -33,7 +35,9 @@ const userSchema = {
     unique: true,
     required: true
   },
-  userPW: String
+  userPW: String,
+  googleId: String,
+  kakaoId: String
 };
 const WorkUser = new mongoose.model("WorkUser", userSchema);
 let data=[];
@@ -57,7 +61,7 @@ app.route("/login")
   const postPW=md5(req.body.userPW);
   WorkUser.findOne({userID: postID}, (err, found)=>{
     if(found){
-      console.log(postPW, found.userPW);
+      // console.log(postPW, found.userPW);
       if(found.userPW == postPW){
         Workout.find((err, founds)=>{
           data=founds;
@@ -92,6 +96,7 @@ app.route("/user")
       Workout.find((err, founds)=>{
         data=founds;
         res.render("workout", {data: data, userID: req.body.userID});
+        //
       })
     }
   });
@@ -133,16 +138,28 @@ app.route("/update")
   console.log(postID);
   Workout.findById(postID, (err, found)=>{
     const changes=found.work_weight + postBtn;
-    Workout.updateOne(
-      {_id: postID},
-      {work_weight: changes},
-      (err, result)=>{
-        Workout.find((err, founds)=>{
-          data=founds;
-          res.render("workout", {data: data, userID: req.body.userID});
-        })
-      }
-    )
+    if(changes > 0){
+      Workout.updateOne(
+        {_id: postID},
+        {work_weight: changes},
+        (err, result)=>{
+          Workout.find((err, founds)=>{
+            data=founds;
+            res.render("workout", {data: data, userID: req.body.userID});
+          })
+        }
+      )
+    } else {
+      Workout.deleteOne(
+        {_id: postID},
+        (err)=>{
+          Workout.find((err, founds)=>{
+            data=founds;
+            res.render("workout", {data: data, userID: req.body.userID});
+          })
+        }
+      )
+    }
   })
 })
 .patch((req, res)=>{

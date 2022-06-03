@@ -10,8 +10,8 @@
                 <%= workout.work_weight %>kg
             </strong>
             <form class="btn_box" action="/update" method="post">
-                <button type="POST" class="btnWeight" name="btn" value="+5">+</button>
-                <button type="POST" class="btnWeight" name="btn" value="-5">-</button>
+                <button class="btnWeight" name="btn" value="-5">-</button>
+                <button class="btnWeight" name="btn" value="+5">+</button>
                 <input type="hidden" name="wID" value="<%= workout._id %>">
                 <input type="hidden" name="userID" value="<%= userID %>">
             </form>
@@ -24,6 +24,3 @@
         <button name="del" onclick="btnClick(name)">삭제</button>
     </div>
 </section>
-
-<!-- edit: 기능(이름 수정) 추가
----------------------------------------------->
