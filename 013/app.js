@@ -14,26 +14,37 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 mongoose.connect("mongodb+srv://user1:pass1@cluster0.cw4wk.mongodb.net/workoutDB");
 //구조 바꾸기---------------------------------------------
-const workoutSchema = new mongoose.Schema({
-  idx: Number,
+// const workoutSchema = new mongoose.Schema({
+//   idx: Number,
+//   userID: String,
+//   work_name: {
+//     type: String,
+//     required: true
+//   },
+//   work_weight: {
+//     type: Number,
+//     required: true,
+//     min: 0
+//   },
+//   work_desc: String
+// })
+const newWorkoutSchema = new mongoose.Schema({
   userID: String,
-  work_name: {
-    type: String,
-    required: true
-  },
-  work_weight: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  work_desc: String
+  items: [{
+    item_idx: Number,
+    work_name: String,
+    work_weight: {
+      type: Number,
+      min: 0
+    },
+    work_desc: String
+  }]
 })
-const Workout = new mongoose.model("Workout", workoutSchema);
+const Workout = new mongoose.model("Workout", newWorkoutSchema);
 const userSchema = {
   userID: {
     type: String,
-    unique: true,
-    required: true
+    unique: true
   },
   userPW: String,
   googleId: String,
@@ -46,7 +57,7 @@ let data=[];
 app.route("/")
 .get((req, res)=>{
   res.render('main', {stage: "login"});
-  // WorkUser.deleteMany({}, (err, result)=>{
+  // Workout.deleteMany({}, (err, result)=>{
   //   !err?console.log(result.deletedCount+"개 삭제완료"):"";
   // })
 });
