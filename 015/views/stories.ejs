@@ -1,3 +1,6 @@
+<%- include('partial/header') %>
+<%- include('partial/title') %>
+
 <section class="section stories">
     <aside class="map" id="map"></aside>
     <article class="story">
@@ -10,8 +13,11 @@
         <p>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem deleniti dolor blanditiis in, est incidunt? Explicabo exercitationem voluptatum excepturi corporis.
         </p>
+        <a href="/stories" class="btn" role="button" style="display: block;">모든 사람의 추억 보러가기 ⇀ </a>
     </article>
 </section>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=80e20adfe45a9e891ea8ada6df004d20&libraries=services"></script>
 <script src="/js/kakao-map.js" defer></script>
+
+<%- include('partial/footer') %>

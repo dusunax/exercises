@@ -1,15 +1,17 @@
-<%- include('partial/header.ejs') %>
+<%- include('partial/header') %>
+<%- include('partial/title') %>
 
-<div id="app">
-    <section class="title flex-col">
-        <h1>나의 <strong>추억</strong>을 공유합니다.</h1>
-        <p>일상 속의 지표를 남기고 공유할 수 있습니다.</p>
-    </section>
-    <%- include('start.ejs') %>
-    <%- include('stories.ejs') %>
-    <%- include('upload.ejs') %>
+<section class="section main">
+    <% for(let i=0; i<5; i++){ %>
+        <a  class="item" 
+            href="/stories/<%= i %>">
+            
+            <h4><strong>이름</strong>님의 추억</h4>
+            <h3>타이틀</h3>
+            <h5>위치</h5>
+            <div class="story-img"></div>
+        </a>
+    <% } %>
+</section>
 
-</div>
-<div class="rand-img"></div>
-
-<%- include('partial/footer.ejs') %>
+<%- include('partial/footer') %>

@@ -13,14 +13,19 @@ body {
     bottom: 0;
     left: 0; 
     z-index: -9;
-    opacity: 0.8;
+    opacity: 0;
+    animation: showing 2s 0.5s forwards;
+}
+@keyframes showing {
+    0% {opacity: 0;}
+    100% {opacity: 0.7;}
 }
 #app {
     width: 80vw;
     max-width: 1240px;
     background-color: #fff;
     border-radius: 20px;
-    padding: 80px 20px 100px;
+    padding: 80px 8% 100px;
     box-sizing: border-box;
     margin: 50px auto;
 }
@@ -108,6 +113,10 @@ p {
 strong {
     color: var(--theme-color);
 }
+.story > .btn {
+    margin-top: 3em;
+    margin-right: 0;
+}
 /* 업로드 */
 .input_container {
     line-height: 30px;
@@ -150,8 +159,41 @@ label[for=picture] {
 .btn-container {
     margin-top: 20px;
 }
+/* 스토리 */
+section.main {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1em;
+}
+.item {
+    border-radius: 0 16px 0 16px;
+    border: 1px dotted #aaa;
+    color: #aaa;
+    box-shadow: 1px 1px 3px rgba(53, 21, 110, 0.15);
+    box-sizing: border-box;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: none;
 
-@media (max-width: 900px) {
+    flex: 0 0 calc((100% - (1em*3))/4);
+    transition: color 0.2s;
+    cursor: pointer;
+}
+.item:hover {
+    color: #333;
+}
+.item * {
+    margin: 0;
+}
+.item .story-img {
+    margin: 5px;
+    margin-top: 10px;
+    height: 100px;
+    border-radius: 0 16px 0 16px;
+}
+
+@media (max-width: 960px) {
     .map {
         flex: 0 0 50%;
         height: 25vh;
@@ -163,8 +205,15 @@ label[for=picture] {
     #app {
         padding: 40px 20px 70px;
     }
+    .btn {
+        width: auto;
+    }
+    .item {
+        flex: 0 0 calc((100% - (1em*1))/2);
+        margin-bottom: 5px;
+    }
 }
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     body {
         font-size: small;
     }
@@ -175,7 +224,10 @@ label[for=picture] {
         flex: 0 0 100%;
         height: 260px;
     }
-
+    .item {
+        flex: 0 0 100%;
+        margin-bottom: 0;
+    }
 }
 @media (max-width: 360px) {
     body {

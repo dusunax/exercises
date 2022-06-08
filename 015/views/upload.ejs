@@ -1,35 +1,38 @@
+<%- include('partial/header') %>
+<%- include('partial/title') %>
+    
 <section class="section upload flex-col">
     <h3>작품 내용</h3>
-    <form action="/upload" type="post">
+    <form action="/upload" method="POST">
         <div class="input_container">
-            <label for="name">
+            <label for="author">
                 이름<strong>*</strong> : 
             </label>
-            <input type="text" name="name" id="name" placeholder="당신의 이름을 입력하세요." autocomplete="off">
+            <input type="text" name="author" id="author" placeholder="당신의 이름을 입력하세요." autocomplete="off" required>
         </div>
         <div class="input_container">
             <label for="title">
                 제목<strong>*</strong> : 
             </label>
-            <input type="text" name="title" id="title" placeholder="추억을 한마디로 말해주세요." autocomplete="off">
+            <input type="text" name="title" id="title" placeholder="추억을 한마디로 말해주세요." autocomplete="off" required>
         </div>
         <div class="input_container">
-            <label for="place">
+            <label for="placeName">
                 장소<strong>*</strong> : 
             </label>
-            <input type="text" name="place" id="place" placeholder="장소의 이름을 입력하세요." autocomplete="off">
+            <input type="text" name="placeName" id="placeName" placeholder="장소의 이름을 입력하세요." autocomplete="off" required>
         </div>
         <div class="input_container">
-            <label for="place">
+            <label for="address">
                 도로명주소<strong>*</strong> : 
             </label>
-            <input type="text" name="place" id="place" placeholder="도로명 주소를 붙여넣기 해주세요." autocomplete="off">
+            <input type="text" name="address" id="address" placeholder="도로명 주소를 붙여넣기 해주세요." autocomplete="off" required>
         </div>
         <div class="input_container">
-            <label for="story">
+            <label for="descript">
                 글/이야기 : 
             </label>
-            <textarea name="story" id="story" cols="30" rows="10" placeholder="사진을 찍었던 그 때, &#13;&#10;이야기하고 싶은 추억을 &#13;&#10;작성 해주세요."></textarea>
+            <textarea name="descript" id="descript" cols="30" rows="10" placeholder="사진을 찍었던 그 때, &#13;&#10;이야기하고 싶은 추억을 &#13;&#10;작성 해주세요." required></textarea>
         </div>
         <div class="btn-container">
             <label for="picture" class="btn" role="button" style="display: block;">
@@ -42,3 +45,5 @@
         </div>
     </form>
 </section>
+
+<%- include('partial/footer') %>
