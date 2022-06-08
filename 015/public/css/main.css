@@ -1,5 +1,6 @@
 :root {
     --theme-color: rgb(79, 79, 255); 
+    --theme-color-highlight: rgb(255, 71, 246); 
 }
 body {
     background-color: #eee;
@@ -36,6 +37,7 @@ section {
     margin-bottom: 1.5em;
 }
 .btn {
+    all: unset;
     width: 300px;
     height: 40px;
     border-radius: 30px;
@@ -48,7 +50,10 @@ section {
     font-weight: 900;
     
     transition: all 0.5s;
-    margin-top: 30px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
 }
 .btn:hover {
     background-color: var(--theme-color);
@@ -99,6 +104,51 @@ section {
 }
 p {
     line-height: 1.6;
+}
+strong {
+    color: var(--theme-color);
+}
+/* 업로드 */
+.input_container {
+    line-height: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.input_container label{
+    flex: 0 1 100px;
+    margin-right: 10px;
+}
+input, textarea {
+    /* all: unset; */
+    border: 1px dotted #aaa;
+    flex: 1 1 50%;
+    padding-left: 16px;
+    border-radius: 16px;
+}
+textarea {
+    resize: none;
+    padding-top: 10px;
+}
+label[for=picture] {
+    cursor: pointer;
+}
+#picture {
+    display: none;
+}
+.btn-upload {
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #333;
+}
+.btn-upload:hover {
+    background-color: var(--theme-color-highlight);
+    color: #fff;
+    border: 2px solid var(--theme-color-highlight);
+}
+.btn-container {
+    margin-top: 20px;
 }
 
 @media (max-width: 900px) {
