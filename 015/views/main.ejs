@@ -2,16 +2,19 @@
 <%- include('partial/title') %>
 
 <section class="section main">
-    <% for(let i=0; i<5; i++){ %>
+    <% for(let i=0; i<items.length; i++){ %>
         <a  class="item" 
-            href="/stories/<%= i %>">
+            href="/stories/<%= items[i]._id %>">
             
-            <h4><strong>이름</strong>님의 추억</h4>
-            <h3>타이틀</h3>
-            <h5>위치</h5>
+            <h4><strong><%= items[i].author %></strong>님의 추억</h4>
+            <h3><%= items[i].placeName %></h3>
+            <h5><%= items[i].address %></h5>
             <div class="story-img"></div>
         </a>
     <% } %>
+    <div class="btn-container" style="flex: 0 0 100%; text-align: center;">
+        <a href="/upload" class="btn" role="button">추억 더하기</a>
+    </div>
 </section>
 
 <%- include('partial/footer') %>

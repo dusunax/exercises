@@ -5,13 +5,13 @@
     <aside class="map" id="map"></aside>
     <article class="story">
         <div class="story-img" role="img"></div>
-        <h2>장소 이름</h2>
-        <h3>장소의 주소</h3>
+        <h2><%= foundItem.placeName %></h2>
+        <h3><%= foundItem.address %></h3>
         <p>
-            설명입니다.
+            <%= foundItem.author %>님의 추억입니다.
         </p>
         <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem deleniti dolor blanditiis in, est incidunt? Explicabo exercitationem voluptatum excepturi corporis.
+            <%= foundItem.descript %>
         </p>
         <a href="/stories" class="btn" role="button" style="display: block;">모든 사람의 추억 보러가기 ⇀ </a>
     </article>

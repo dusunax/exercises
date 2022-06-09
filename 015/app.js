@@ -28,14 +28,20 @@ app.get("/", (req, res) => {
 
 app.route("/stories")
 .get((req, res) => {
-    res.render("main");
+    Story.find({}, (err, found)=>{
+        res.render("main", {items: found});
+    })
 });
 
 app.route("/stories/:id")
 .get((req, res) => {
     console.log(req.params);
     // 게시물 특정해서 render
-    res.render("stories");
+    Story.findById(req.params.id, (err, found)=>{
+        if(err){ console.log(err) } else {
+            res.render("stories", {foundItem: found});
+        }
+    })
 });
 
 app.route("/upload")
@@ -52,12 +58,12 @@ app.route("/upload")
         imgUrl: req.body.picture
     });
     console.log(newStory);
-    newStory.save((err)=>{
+    newStory.save((err, result)=>{
         if(err){
             console.log(err);
         } else {
             console.log("New story saved!");
-            res.render("stories");
+            res.render("stories", {foundItem: result});
         }
     });
 });
