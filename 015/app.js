@@ -1,4 +1,5 @@
 //jshint esversion:6
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -8,16 +9,13 @@ const mongoose = require("mongoose");
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-mongoose.connect("mongodb://localhost:27017");
+mongoose.connect(`mongodb+srv://${process.env.ID}:${process.env.PW}@cluster0.cw4wk.mongodb.net/StoryDB`);
 
 const storySchema = new mongoose.Schema ({
     author: String,
     title: String,
-    place: [{
-        placeName: String,
-        address: String,
-        coordinate: String,
-    }],
+    placeName: String,
+    address: String,
     descript: String,
     imgUrl: String
 });
@@ -25,6 +23,7 @@ const Story = new mongoose.model("Story", storySchema);
 
 app.get("/", (req, res) => {
     res.render("start");
+    // Story.deleteMany((err)=>{console.log("all del");})
 });
 
 app.route("/stories")
@@ -44,23 +43,28 @@ app.route("/upload")
     res.render("upload");
 })
 .post((req, res) => {
-    console.log("new post")
-    const newStory = ({
+    const newStory = new Story({
         author: req.body.author,
         title: req.body.title,
-        place: [{
-            placeName: req.body.placeName,
-            address: req.body.address
-        }],
+        placeName: req.body.placeName,
+        address: req.body.address,
         descript: req.body.descript,
         imgUrl: req.body.picture
     });
     console.log(newStory);
-    res.render("stories");
+    newStory.save((err)=>{
+        if(err){
+            console.log(err);
+        } else {
+            console.log("New story saved!");
+            res.render("stories");
+        }
+    });
 });
 
-
 //
-app.listen(3000, (req, res) => {
-    console.log("Server started on port 3000.");
+let port=process.env.PORT;
+(port == "" || port == null)?port=3000:"";
+app.listen(port, (req, res) => {
+    console.log("Server started on port "+port);
 });
