@@ -7,8 +7,8 @@
             href="/stories/<%= items[i]._id %>">
             
             <h4><strong><%= items[i].author %></strong>님의 추억</h4>
-            <h3><%= items[i].placeName %></h3>
-            <h5><%= items[i].address %></h5>
+            <h3><%= items[i].title %></h3>
+            <h5><%= items[i].placeName %> | <%= items[i].address %></h5>
             <div class="story-img"></div>
         </a>
     <% } %>

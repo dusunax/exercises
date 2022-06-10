@@ -10,9 +10,12 @@
     <link rel="stylesheet" href="/css/font.css">
     <link rel="stylesheet" href="/css/main.css">
 
-    <meta property="og:title" content="이름님의 추억사진"/>
-    <meta property="og:description" content="내가 만든 첫번째 웹페이지!"/>
-    <meta property="og:image" content="image.jpg"/>
+    <% if(typeof foundItem !== 'undefined'){ %>
+        <meta property="og:title" content="<%= foundItem.author %>님의 추억사진 보러가기"/>
+        <meta property="og:description" content="<%= foundItem.placeName %>"/>
+
+        <meta property="og:image" content="<%= foundItem.imgUrl %>"/>
+    <% } %>
 </head>
 <body>
     <div id="app">

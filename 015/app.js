@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const { render } = require("express/lib/response");
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
@@ -35,18 +36,18 @@ app.route("/stories")
 
 app.route("/stories/:id")
 .get((req, res) => {
-    console.log(req.params);
     // 게시물 특정해서 render
     Story.findById(req.params.id, (err, found)=>{
         if(err){ console.log(err) } else {
-            res.render("stories", {foundItem: found});
+            res.render("stories", {foundItem: found, mapKey: process.env.MAP_KEY});
         }
     })
 });
 
 app.route("/upload")
 .get((req, res) => {
-    res.render("upload");
+    // res.render("upload");
+    res.render("upload", {mapKey: process.env.MAP_KEY});
 })
 .post((req, res) => {
     const newStory = new Story({
@@ -57,13 +58,12 @@ app.route("/upload")
         descript: req.body.descript,
         imgUrl: req.body.picture
     });
-    console.log(newStory);
     newStory.save((err, result)=>{
         if(err){
             console.log(err);
         } else {
             console.log("New story saved!");
-            res.render("stories", {foundItem: result});
+            res.render("stories", {foundItem: result, mapKey: process.env.MAP_KEY});
         }
     });
 });

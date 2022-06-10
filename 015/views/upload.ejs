@@ -26,7 +26,8 @@
             <label for="address">
                 도로명주소<strong>*</strong> : 
             </label>
-            <input type="text" name="address" id="address" placeholder="도로명 주소를 붙여넣기 해주세요." autocomplete="off" required>
+            <input type="text" name="address" id="address" placeholder="도로명 주소를 붙여넣기 해주세요." autocomplete="off" required
+            onchange="check(this)">
         </div>
         <div class="input_container">
             <label for="descript">
@@ -45,5 +46,8 @@
         </div>
     </form>
 </section>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%= mapKey %>&libraries=services"></script>
+<script src="/js/kakao-map-searching.js" defer></script>
 
 <%- include('partial/footer') %>
