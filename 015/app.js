@@ -1,5 +1,6 @@
 //jshint esversion:6
 require("dotenv").config();
+const fs = require("fs");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -73,4 +74,29 @@ let port=process.env.PORT;
 (port == "" || port == null)?port=3000:"";
 app.listen(port, (req, res) => {
     console.log("Server started on port "+port);
+
+    const dir = './uploads';
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+});
+
+// file업로드: multer
+const multer = require("multer");
+var storage = multer.diskStorage({
+    destination: (req, file, cb)=> {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb)=> {
+        cb(null, file.originalname);
+    }
+})
+var upload = multer({ storage: storage })
+
+app.get('/uploading', (req, res)=>{
+    res.render('start');
+});
+app.post('/uploading', upload.single('userfile'), (req, res)=> {
+    console.log(req.file);
+    res.render('confirmation', {
+        file: req.body.file
+    });
 });

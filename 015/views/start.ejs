@@ -4,6 +4,13 @@
 <section class="section start flex-col">
     <a href="/stories" class="btn" role="button">모든 사람의 추억 보러가기 ⇀ </a>
     <a href="/upload" class="btn" role="button">추억 더하기</a>
+    
+    <form action="/uploading" method="post" enctype="multipart/form-data">
+        <input type="file" name="userfile">
+        <input type="submit" id="submit" hidden>
+        <label for="submit" class="btn" role="button">파일 추가</label>
+    </form>
+    <a href="/uploadFileWithOriginalFilename" class="btn" role="button">원래이름 파일추가</a>
 </section>
 
 <%- include('partial/footer') %>
