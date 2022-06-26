@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>틱택토🚩</h1>
+        <p class="tip">
+            나란히 3줄을 놓으면 승리합니다.<br>
+            블록을 눌러서 <strong>시작</strong>하세요!😀
+        </p>
+    </header>
+    <div class="wrap">
+        <div id="game">
+            <div class="block" onclick="blockClick(0)"></div>
+            <div class="block" onclick="blockClick(1)"></div>
+            <div class="block" onclick="blockClick(2)"></div>
+            <div class="block" onclick="blockClick(3)"></div>
+            <div class="block" onclick="blockClick(4)"></div>
+            <div class="block" onclick="blockClick(5)"></div>
+            <div class="block" onclick="blockClick(6)"></div>
+            <div class="block" onclick="blockClick(7)"></div>
+            <div class="block" onclick="blockClick(8)"></div>
+        </div>
+    </div>
+    <div class="tip">
+        <p class="modeGuide">
+            OX 토글모드 시작? : <strong>Enter</strong>
+        </p>
+        <p>
+            블록을 뒤집을 수 있습니다.<br>
+            컴퓨터가 한 턴을 진행합니다.<br>
+        </p>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
