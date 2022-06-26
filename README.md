@@ -2,12 +2,12 @@
 예제 실습 모음
 
 000: 1만시간의 법칙
-     https://www.figma.com/file/YIoHn24LhFrCBEedo96rx6/1%EB%A7%8C-%EC%8B%9C%EA%B0%84%EC%9D%98-%EB%B2%95%EC%B9%99?node-id=0%3A1
+https://www.figma.com/file/YIoHn24LhFrCBEedo96rx6/1%EB%A7%8C-%EC%8B%9C%EA%B0%84%EC%9D%98-%EB%B2%95%EC%B9%99?node-id=0%3A1
 
 001: 투두리스트 to-do list
 
 002: 그림판, Painting Board
-     https://nomadcoders.co/javascript-for-beginners-2/lobby
+https://nomadcoders.co/javascript-for-beginners-2/lobby
     
 003: sign-up 페이지 HTML
 
@@ -25,6 +25,14 @@
 
 010: 모의고사 시험점수 CRUD
 
-011: 커피 질문 / 심리테스트(경로)
+011: 커피 취향 테스트
 
 012: 초보자 헬스도감
+
+013: https://mighty-savannah-97814.herokuapp.com/
+
+014: 육십갑자 구하기
+
+015: 추억의 장소 공유하기(지도 api)
+
+016: 틱택토
