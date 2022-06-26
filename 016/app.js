@@ -31,7 +31,9 @@ function blockClick(idx) {
     } else if(gamemode){
         blockToggle([idx, 'o']);
     }
-    computerClick();
+    if(!gameEnd){
+        computerClick();
+    }
 }
 
 function blockChange(props = [idx, content]) {
