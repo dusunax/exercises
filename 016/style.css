@@ -8,7 +8,7 @@ body {
     text-align: center;
 }
 header {
-    padding-top: 30px;
+    padding-top: 20px;
 }
 h1 {
     padding: 0.4em 2em;
@@ -82,6 +82,17 @@ h1 {
 }
 .block.loose {
     background-color: #6e8687;
+}
+.restart {
+    display: inline-block;
+    padding: 0.4em 2em;
+    margin: 10px 0;
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: 900;
+    border-radius: 50px;
+    color: #222;
+    background-color: var(--second-color);
 }
 @keyframes delay {
     0% {opacity: 0}

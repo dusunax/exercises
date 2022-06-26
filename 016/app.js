@@ -1,4 +1,5 @@
 const game = document.getElementById('game');
+const modeGuide = document.querySelector('.modeGuide')
 const block = Array.from(document.querySelectorAll('.block'));
 const wins = [
     [0, 1, 2],
@@ -11,15 +12,16 @@ const wins = [
     [6, 7, 8]
 ];
 let gamemode=0; // 바꾸기 모드 Toggle
+let gameEnd=0;
 
 document.addEventListener('keydown', (e)=>{
     if(e.key === "Enter" && gamemode == 0){
-        let modeGuide = document.querySelector('.modeGuide')
-        computerClick();
-        gamemode = 1;
-        gameOn = 1;
-        modeGuide.classList.add('on');
-        modeGuide.innerHTML="토글모드입니다."
+        if(!gameEnd){
+            computerClick();
+            gamemode = 1;
+            modeGuide.classList.add('on');
+            modeGuide.innerHTML="토글모드입니다."
+        }
     }
 })
 
@@ -69,14 +71,20 @@ function chkWinCase(player) {
         if (users.filter(x => win.includes(x)).length >= 3) {
             if (player === 'o') {
                 setTimeout(() => {
-                    userWin();
-                    game.classList.add('end');
+                    if(!gameEnd){
+                        gameEnd=1;
+                        userWin();
+                        game.classList.add('end');
+                    }
                     return;
                 }, 100);
             } else {
                 setTimeout(() => {
-                    comWin();
-                    game.classList.add('end');
+                    if(!gameEnd){
+                        gameEnd=1;
+                        comWin();
+                        game.classList.add('end');
+                    }
                     return;
                 }, 100);
             }
@@ -84,8 +92,11 @@ function chkWinCase(player) {
     });
     let blockLeft = block.filter(e => (!e.classList.contains('x') && !e.classList.contains('o'))).length;
     if (!blockLeft) {
-        gamedraw();
-        game.classList.add('end');
+        if(!gameEnd){
+            gameEnd=1;
+            gamedraw();
+            game.classList.add('end');
+        }
         return;
     }
 }
@@ -93,15 +104,21 @@ function chkWinCase(player) {
 function userWin() {
     alert("이겼습니다!");
     block.forEach( e => !e.classList.contains('o')?e.classList.add('loose'):"")
+    modeGuide.classList.add('on');
+    modeGuide.innerHTML="이겼어요🎉"
     // 클리어 +1
 }
 
 function gamedraw() {
     alert("비겼습니다!");
+    modeGuide.classList.add('on');
+    modeGuide.innerHTML="Draw!🥺"
 }
 
 function comWin() {
     alert("졌습니다!");
+    modeGuide.classList.add('on');
+    modeGuide.innerHTML="You Loose😜"
     block.forEach( e => !e.classList.contains('x')?e.classList.add('loose'):"")
 }
 
