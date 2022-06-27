@@ -1,0 +1,19 @@
+<%- include ('partial/header') %>
+
+<div class="wrap">
+    <h1>영화순위: CGV</h1>
+    <ul class="movies list">
+        <% lists.forEach(list=>{ %>
+            <li>
+                <img class="img" src=<%= list.img %> alt="" />
+                <h3 class="title"><%= list.title %></h3>
+                <h4 class="score">예매율 <%= list.score %></h4>
+                <p class="egg"><%= list.egg %></p>
+                <!-- ⭐ -->
+                <p class="opening">개봉일 <%= list.opening %></p>
+            </li>
+        <% }) %>
+    </ul>
+</div>
+
+<%- include ('partial/footer') %>

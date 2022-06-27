@@ -1,3 +1,6 @@
 문서/*.hwp
 /node_modules
 *.env
+/uploads
+npm-debug.log
+.DS_Store

@@ -1,0 +1,32 @@
+body {
+    text-align: center;
+}
+ul, li {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+h1 {
+    background-color: #222;
+    color: #fff;
+}
+.list {
+    width: 90%;
+    margin: 0 auto;
+}
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px
+}
+li {
+    flex: 0 0 calc(((100% - 20px) / 3));
+    box-shadow: 0 0 0 2px #ddd;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #fff;
+}
+li img {
+    width: 100%;
+}

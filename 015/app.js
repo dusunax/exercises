@@ -11,7 +11,7 @@ const { render } = require("express/lib/response");
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-mongoose.connect(`mongodb+srv://${process.env.ID}:${process.env.PW}@cluster0.cw4wk.mongodb.net/StoryDB`);
+mongoose.connect(`mongodb+srv://user1:pass1@cluster0.cw4wk.mongodb.net/StoryDB`);
 
 const storySchema = new mongoose.Schema ({
     author: String,
@@ -69,14 +69,11 @@ app.route("/upload")
     });
 });
 
-//
-let port=process.env.PORT;
-(port == "" || port == null)?port=3000:"";
-app.listen(port, (req, res) => {
-    console.log("Server started on port "+port);
-
-    const dir = './uploads';
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+// app.listen(process.env.PORT || 3000, ()=>{
+//     console.log("server started.", this.address().port, app.settings.env);
+// });
+app.listen(3000, ()=>{
+    console.log("server started.");
 });
 
 // file업로드: multer
