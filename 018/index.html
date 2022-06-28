@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>투두리스트</title>
+
+    <!-- Bootstrap: CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+    <!-- Bootstrap: JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+    <!-- flatpickr CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script> 
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/weather.css" />
+    <link rel="stylesheet" href="assets/css/calender.css" />
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="contents-area">
+                <a href="/" class="logo">
+                    로고
+                </a>
+                <div>
+                    <a href="/logout">
+                        로그아웃
+                    </a>
+                    <a href="/profile">
+                        <span>이름</span>님의 프로필
+                    </a>
+                </div>
+            </div>
+        </header>
+        <div class="btn-box">
+            <div class="btn-left"></div>
+            <div class="btn-right"></div>
+        </div>
+        <section class="main-page contents-area">
+            <div id="weather"></div>
+            <div class="real-time" id="time">
+                0000.00.00 pm 00:00
+            </div>
+            <form class="list-form">
+                <div class="list-row">
+                    <h1 class="main-title">To Do List</h1>
+                </div>
+                <div class="list-row">
+                    <a class="role-btn" href="/all">
+                        전체보기
+                    </a>
+                    <a class="role-btn" href="/">
+                        날짜로 보기
+                    </a>
+                </div>
+            </form>
+            <form class="list-form">
+                <div class="list-row">
+                    <input id="date" type="text" name="date" placeholder="날짜 입력">
+                    <input type="text" name="text" placeholder="새로운 리스트를 입력하세요." class="input_text" autocomplete="off">
+                    <input type="file" name="img" id="file" class="hidden">
+                    <label for="file">이미지 업로드</label>
+                </div>
+                <div class="list-row">
+                    <button class="role-btn">
+                        입력하기
+                    </button>
+                </div>
+            </form>
+            <!-- <form action="/search" method="post" class="list-form"> -->
+            <form class="list-form">
+                <div class="list-row search-box">
+                    <input type="text" class="search" name="search" placeholder="검색하기" autocomplete="off">
+                    <button class="search-btn role-btn">🔍</button>
+                </div>
+            </form>
+            <div class="list-container">
+                <ul>
+                    <!-- 리스트에 이미지가 있으면 li에 .pic -->
+                    <li class="pic">
+                        <span class="text">
+                            텍스트
+                        </span>
+                        <div class="right">
+                            <span class="time">00-00-00</span>
+                            <a href="/delete" class="delete role-btn">X</a>
+                        </div>
+                    </li>
+                    <!-- 이미지 있으면 li.pic 다음으로 .li-image-box 생성-->
+                    <li class="li-image-box">
+                        <!-- 이미지 개수만큼 img -->
+                        <img src="" alt="'리스트' 이미지">
+                        <img src="" alt="'리스트' 이미지">
+                        <img src="" alt="'리스트' 이미지">
+                    </li>
+                    
+                    <li>
+                        <span class="text">
+                            텍스트
+                        </span>
+                        <div class="right">
+                            <span class="time">00-00-00</span>
+                            <a href="/delete" class="delete role-btn">X</a>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="text">
+                            텍스트
+                        </span>
+                        <div class="right">
+                            <span class="time">00-00-00</span>
+                            <a href="/delete" class="delete role-btn">X</a>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="text">
+                            텍스트
+                        </span>
+                        <div class="right">
+                            <span class="time">00-00-00</span>
+                            <a href="/delete" class="delete role-btn">X</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script src="assets/js/time.js"></script>
+    <script src="assets/js/animate.js"></script>
+    <script src="assets/js/calender.js"></script>
+    <script src="assets/js/weather.js"></script>
+
+</body>
+
+</html>

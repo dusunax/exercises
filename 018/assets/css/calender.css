@@ -1,0 +1,37 @@
+.calender {
+    position: relative;
+}
+.calender * {
+    width: 100%;
+    text-align: center;
+}
+.calender input {
+    padding: 0;
+    outline: none;
+}
+#date {
+    text-align: center;
+    width: 60px;
+}
+.flatpickr-calendar.animate {
+    position: absolute;
+    left: calc(50% - 154px) !important;
+    top: calc(50% - 150px) !important;
+    box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    /* transform: translate(-50%, -50%); */
+}
+.flatpickr-months {
+    padding-bottom: 5px;
+}
+.flatpickr-months,
+.flatpickr-weekdays {
+    background-color: #ddd;
+}
+.flatpickr-months .flatpickr-prev-month, 
+.flatpickr-months .flatpickr-next-month,
+span.flatpickr-weekday,
+.flatpickr-months .flatpickr-month {
+    color: #222 !important;
+    fill: #222 !important;
+}

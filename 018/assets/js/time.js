@@ -6,14 +6,16 @@ function getTime(){
     const day = date.getDate();
     const hour = date.getHours();
     const min = date.getMinutes();
-    const isday = (hour>=12)?'am':'pm';
-    const time = `${year}.${zero(month)}.${zero(day)}. ${isday} ${zero(hour)}:${zero(min)}`;
-    time_el.textContent=time;
+    const isday = (hour>=12)?'pm':'am';
+    const time = `
+        ${year}.${zero(month)}.${zero(day)}. ${isday} ${zero(hour)}:${zero(min)}
+    `;
+    time_el.textContent = time;
 }
 getTime();
 setInterval(()=>{
     getTime();
 }, 1000)
 function zero(num){
-    return (num < 10) ? num = "0"+num:num;
+    return (num < 10) ? num="0"+num : num;
 }
