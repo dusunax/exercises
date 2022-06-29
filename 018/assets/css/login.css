@@ -1,0 +1,20 @@
+.login {
+    text-align: center;
+}
+.login .role-btn {
+    min-height: 30px;
+    padding: 0 15px;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+}
+.list-row {
+    justify-content: center;
+}
+.find-password {
+    font-size: 10px;
+    text-decoration: underline;
+    color: var(--accent-color);
+}
+.login .btn-submit {
+    margin: 30px 10px;
+}

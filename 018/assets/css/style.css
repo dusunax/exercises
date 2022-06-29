@@ -1,15 +1,29 @@
-/* reset */
+/* common */
+:root {
+    --main-bgColor: #fffefe;
+    --main-color: #f9ecc9;
+    --second-color: #80abf6;
+    --accent-color: #5274c4;
+    --box-shadow: 2px 2px 5px rgba(33, 41, 79, 0.245), -2px -2px 5px rgba(135, 111, 111, 0.124);
+    --border-bottomDotted: 1px dotted #aaa;
+}
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
+}
 body {
+    color: #333;
     margin: 0;
+    background-color: var(--main-bgColor);
 }
 a {
     color: inherit;
     text-decoration: none;
 }
-a:hover,
-.wrap label:hover,
-.role-btn:hover {
-    color: rgb(82, 116, 196);
+a:hover {
+    color: var(--accent-color);
+    box-sizing: border-box;
+    position: relative;
 }
 li, ul {
     text-decoration: none;
@@ -19,58 +33,39 @@ li, ul {
 }
 .contents-area {
     width: 100%;
-    max-width: 1000px;
+    max-width: 600px;
     position: relative;
     margin: 0 auto;
 }
 *::placeholder {
     text-align: center;
 }
-/*  */
-header {
-    height: 80px;
-    padding: 0 2em;
-    background-color: #ddd;
+.show-at-sm {
+    display: none;
 }
-header .contents-area {
-    display: flex;
-    justify-content: space-between;
+.hidden {
+    display: none;
 }
-header a {
-    display: inline-block;
-    height: 100%;
-    line-height: 80px;
-    padding: 0 8px;
+.material-icons {
+    padding: 0 3px;
 }
-.logo {
-    font-weight: 900;
-    font-size: 1.5em;
+.border-bottom {
+    border-bottom: var(--border-bottomDotted);
 }
-/* 메인페이지 */
-.main-page {
-    width: 100%;
-    max-width: 500px;
-    padding: 0 10px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-}
-.real-time {
-    padding: 20px 0;
-    background: #222;
-    color: #fff;
-    margin-top: 20px;
+.title {
     margin-bottom: 30px;
-    font-size: 30px;
-    font-weight: 800;
-    box-shadow: 2px 2px 3px #aaa;
 }
-.main-title {
-    font-size: 1.6em;
-    padding: 8px 0;
+section {
+    padding-top: 8%;
+    padding-left: 1em;
+    padding-right: 1em;
 }
+/* 리스트 스타일 */
 .list-form {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 .list-form:last-of-type {
     margin-bottom: 40px;
@@ -79,112 +74,61 @@ header a {
     width: 100%;
     line-height: 2;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .list-row > * {
-    flex: 1 1 auto;
-    border: 1px solid #aaa;
     background-color: #fff;
-    box-shadow: 2px 2px 3px #aaa;
     box-sizing: border-box;
 }
+.list-row input {
+    outline: none;
+    border: 2px solid #aaa;
+}
 .list-row h1 {
-    margin: 0;
+    font-size: 2em;
+    padding: 20px 0 25px 0;
+    margin: 0 0 5px 0;
 }
-.wrap label,
-.role-btn {
-    min-height: 34px;
-    display: block;
-    cursor: pointer;
-    background-color: rgb(208, 238, 255);
-}
-.hidden {
-    display: none;
-}
-.search {
-    height: 34px;
-}
-.search-box {
-    position: relative;
-}
-.search-box .search-btn {
-    background: none;
-    border: none;
-
-    height: 34px;
-    padding: 0 10px;
-    position: absolute;
-    right: 0px;
-    top: 0;
-    z-index: 9;
-}
-.list-container li:first-child {
-    border-top: 1px dotted #aaa;
-}
-.list-container li {
-    padding: 8px 10px;
-    line-height: 2;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    border-bottom: 1px dotted #aaa;
-}
-.list-container li > div:last-child {
+.list-row .left {
     flex: 0 0 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
 }
-.list-container .role-btn {
-    padding: 0 5px;
-    margin-left: 5px;
-    background: #000;
-    color: #fff;
-}
-li.pic {
-    background-color: rgb(208, 238, 255);
+/* clickable, input */
+.wrap label,
+.role-btn,
+input {
+    display: block;
+    margin: 5px;
+    padding: 5px 0;
+    border-radius: 16px;
+
+    font-size: 0.8em;
+    font-weight: 600;
+    line-height: 1.6;
+    transition: all 0.2s;
     cursor: pointer;
 }
-li.pic > div:last-child::after {
-    content: '📎';
-    padding: 0 5px;
-    background: pink;
-    color: #fff;
-    display: block;
-    position: absolute;
-    right: -30px;
+.role-btn:hover {
+    box-shadow: var(--box-shadow);
 }
-.list-container .li-image-box.off {
-    height: 0px;
-    padding: 0;
+.btn-submit,
+.wrap form input[type=submit]{
+    background: var(--accent-color);
+    color: #fff !important;
 }
-.list-container .li-image-box {
-    justify-content: flex-start;
-    height: auto;
-    overflow: hidden;
+/* 부트스트랩 수정 */
+.form-control {
+    width: auto;
+    font-size: 0.8em;
+    margin: 5px;
+    border-radius: 20px;
+    background: #eee !important;
+    border: none !important;
 }
-.list-container .li-image-box {
-    display: none;
-}
-.list-container .li-image-box.active {
-    display: flex;
-}
-.li-image-box * {
-    display: block;
-    flex: 1 1 auto;
-    height: 120px;
-    border-radius: 10px;
-    background-color: #ddd;
-}
+/* 반응형 */
 @media (max-width: 500px) {
-    header,
-    header a {
-        height: 45px;
-        line-height: 45px;
-    }
-    header {
-        padding: 0 10px;
+    .show-at-sm {
+        display: block;
     }
     li,
     .list-row {
@@ -196,4 +140,13 @@ li.pic > div:last-child::after {
     .input_text {
         width: 100%;
     }
+    .show-at-lg {
+        display: none;
+    }
+}
+/* 애니메이션 */
+@keyframes blink {
+    0% {opacity: 1;}
+    20% {opacity: 0.4;}
+    40% {opacity: 1;}
 }

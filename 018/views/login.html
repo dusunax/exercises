@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>투두리스트</title>
+
+  <!-- Bootstrap: CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+  <!-- Bootstrap: JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+  </script>
+  <!-- google Icon -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- google Font-->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/header.css" />
+
+  <link rel="stylesheet" href="../assets/css/login.css" />
+
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="contents-area">
+        <a href="/" class="logo">
+          <span class="material-icons">
+            home
+          </span>
+          <span class="show-at-lg">
+            로고
+          </span>
+        </a>
+        <div class="right">
+          <a href="/logout">
+            <span class="material-icons">
+              logout
+            </span>
+            <span class="show-at-lg">
+              로그아웃
+            </span>
+          </a>
+          <a href="/profile">
+            <span class="material-icons">
+              account_circle
+            </span>
+            <span>이름</span>님의 프로필
+          </a>
+        </div>
+      </div>
+    </header>
+    <section class="login contents-area">
+      <form class="list-form" action="/join" method="post">
+        <h1 class="title">Login</h1>
+        <div class="list-row">
+          <label for="email" class="left">이메일 : </label>
+          <input type="text" id="email" name="email" class="form-control" autocomplete="off" />
+        </div>
+        <div class="list-row">
+          <label for="password" class="left">비밀번호 : </label>
+          <input type="text" id="password" name="password" class="form-control" autocomplete="off" />
+        </div>
+        <!-- <div class="list-row">
+          <input id="remember" type="checkbox" name="remember"/>
+          <label for="remember">비밀번호를 기억합니다.</label>
+        </div> -->
+        <div class="list-row">
+          <a href="/find" class="find-password">비밀번호 찾기</a>
+          <input type="submit" value="로그인" class="role-btn btn-submit">
+        </div>
+      </form>
+    </section>
+
+  </div>
+</body>
+
+</html>

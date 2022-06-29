@@ -1,0 +1,129 @@
+/* 메인페이지 */
+.main-page {
+    width: 100%;
+    padding: 0 1em;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+.real-time {
+    padding: 5px 0;
+    background: #2d2828;
+    color: var(--accent-color);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    font-weight: 600;
+    border-radius: 20px;
+}
+.blink {
+    animation: blink 3s infinite;
+}
+.main-title {
+    font-size: 1.6em;
+    padding: 8px 0;
+}
+.search {
+    height: 34px;
+}
+.search-box {
+    position: relative;
+}
+.search-box .search-btn {
+    background: none;
+    border: none;
+
+    height: 34px;
+    padding: 0 10px;
+    position: absolute;
+    right: 0px;
+    top: 0;
+    z-index: 9;
+}
+.list-row > * {
+    flex: 1 1 auto;
+}
+.list-container li:first-child {
+    border-top: var(--border-bottomDotted);
+}
+.list-container li {
+    padding: 8px 10px;
+    line-height: 2;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    border-bottom: var(--border-bottomDotted);
+}
+.list-container li > *:first-child {
+    flex: 1 1 auto;
+}
+.list-container li > div:last-child {
+    flex: 0 0 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+/* 버튼 */
+.wrap label,
+.role-btn {
+    display: block;
+    margin: 5px;
+    padding: 5px 0;
+    border-radius: 16px;
+
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+
+    font-size: 0.8em;
+    font-weight: 600;
+    line-height: 1.6;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.wrap label:hover,
+.role-btn:hover {
+    box-shadow: var(--box-shadow);
+}
+.list-container .role-btn {
+    padding: 0 5px;
+    margin-left: 5px;
+    background: var(--accent-color);
+    color: #fff;
+}
+li.pic {
+    background-color: #fffcf4;
+    cursor: pointer;
+}
+.list-container .li-image-box.off {
+    height: 0px;
+    padding: 0;
+}
+.list-container .li-image-box {
+    justify-content: flex-start;
+    height: auto;
+    overflow: hidden;
+}
+.list-container .li-image-box {
+    display: none;
+}
+.list-container .li-image-box.active {
+    display: flex;
+}
+.li-image-box * {
+    display: block;
+    flex: 1 1 auto;
+    height: 120px;
+    border-radius: 10px;
+    background-color: #ddd;
+}
+@media (max-width: 380px) {
+    .list-container li > div:last-child {
+        flex: 1 1 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: relative;
+    }
+}

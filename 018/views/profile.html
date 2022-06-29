@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>투두리스트</title>
+
+  <!-- Bootstrap: CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+  <!-- Bootstrap: JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+  </script>
+  <!-- flatpickr CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+  <!-- google Icon -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- google Font-->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/header.css" />
+
+  <link rel="stylesheet" href="../assets/css/profile.css" />
+  <link rel="stylesheet" href="../assets/css/calender.css" />
+
+</head>
+
+  <body>
+    <header>
+      <div class="contents-area">
+        <a href="/" class="logo">
+          <span class="material-icons">
+            home
+          </span>
+          <span class="show-at-lg">
+            로고
+          </span>
+        </a>
+        <div class="right">
+          <a href="/logout">
+            <span class="material-icons">
+              logout
+            </span>
+            <span class="show-at-lg">
+              로그아웃
+            </span>
+          </a>
+          <a href="/profile">
+            <span class="material-icons">
+              account_circle
+            </span>
+            <span>이름</span>님의 프로필
+          </a>
+        </div>
+      </div>
+    </header>
+    <section class="profile">
+      <form action="/profile" method="post" class="list-form">
+        <h1 class="title">
+          profile
+        </h1>
+        <div class="list-row">
+          <label for="formFile" class="left">프로필 이미지: 
+            <img src="http://via.placeholder.com/100" alt="이미지">
+          </label>
+          <span>수정하려면 클릭하세요.</span>
+          <input class="form-control hidden" type="file" id="formFile" />
+        </div>
+        <div class="list-row">
+          <label for="name" class="left">이름 : </label>
+          <input type="text" id="name" name="name" class="form-control"
+          autocomplete="off" />
+        </div>
+      </form>
+    </section>
+
+
+
+
+
+
+    <form action="#" method="post">
+        <div>
+            <button>수정</button>
+            <input type="submit" value="저장" />
+        </div></p>
+      <p><label for="name">이름 : </label><input type="text" id="name" /></p>
+      <p>
+        <label for="email">이메일 : </label><input type="email" id="email" />
+      </p>
+      <p>
+        <label for="pw">비밀번호 : </label><input type="password" id="pw" />
+      </p>
+      <p>
+        <label for="pw">비밀번호 확인 : </label
+        ><input type="password" id="pw" />
+      </p>
+      <p>
+        <label for="datepicker">생년월일 : </label
+        ><input type="text" id="datepicker" />
+      </p>
+      <p>
+        <span>성별 : </span> <span>남자</span>
+      </p>
+      <p>
+        <input type="submit" value="수정완료" />
+      </p>
+    </form>
+
+    <script src="../assets/js/calender.js"></script>
+    <script src="../assets/js/formCheck.js"></script>
+  </body>
+</html>
