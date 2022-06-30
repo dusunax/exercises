@@ -20,7 +20,7 @@
     width: 80px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 960px) {
     #weather {
         position: relative;
         width: 100vw;

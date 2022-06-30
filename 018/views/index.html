@@ -21,7 +21,8 @@
     <!-- google Icon -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- google Font-->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../assets/css/style.css" />
@@ -58,7 +59,9 @@
                         <span class="material-icons">
                             account_circle
                         </span>
-                        <span>이름</span>님의 프로필
+                        <div class="show-xs">
+                            <span>이름</span>님의 프로필
+                        </div>
                     </a>
                 </div>
             </div>
@@ -74,62 +77,78 @@
                     pm 00:00
                 </div>
             </div>
-            <div class="list-form border-bottom">
-                <div class="list-row">
-                    <h1 class="main-title">To Do List</h1>
+            <div class="form-box">
+                <div class="list-form border-bottom">
+                    <div class="list-row">
+                        <h1 class="main-title">To Do List</h1>
+                    </div>
+                    <div class="list-row contents-area">
+                        <a class="role-btn" href="/all">
+                            전체보기
+                        </a>
+                        <a class="role-btn" href="/">
+                            날짜로 보기
+                        </a>
+                    </div>
                 </div>
-                <div class="list-row contents-area">
-                    <a class="role-btn" href="/all">
-                        전체보기
-                    </a>
-                    <a class="role-btn" href="/">
-                        날짜로 보기
-                    </a>
-                </div>
+                <!-- method="post" -->
+                <form class="list-form contents-area">
+                    <div class="list-row">
+                        <input id="date" type="text" name="date" placeholder="날짜 입력" class="form-control">
+                        <input type="text" name="text" placeholder="새로운 리스트를 입력하세요." class="input_text form-control"
+                            autocomplete="off">
+                        <input type="file" name="img" id="file" class="hidden">
+                        <label for="file">이미지 업로드</label>
+                    </div>
+                    <div class="list-row">
+                        <button type="submit" class="role-btn btn-submit">
+                            입력하기
+                        </button>
+                    </div>
+                </form>
+                <!-- method="post" -->
+                <form class="list-form contents-area">
+                    <div class="list-row search-box">
+                        <input type="text" class="search form-control" name="search" placeholder="검색하기"
+                            autocomplete="off">
+                        <button type="submit" class="search-btn role-btn">
+                            <span class="material-icons">
+                                search
+                            </span>
+                        </button>
+                    </div>
+                </form>
             </div>
-            <form class="list-form contents-area">
-                <div class="list-row">
-                    <input id="date" type="text" name="date" placeholder="날짜 입력" class="form-control">
-                    <input type="text" name="text" placeholder="새로운 리스트를 입력하세요." class="input_text form-control" autocomplete="off">
-                    <input type="file" name="img" id="file" class="hidden">
-                    <label for="file">이미지 업로드</label>
-                </div>
-                <div class="list-row">
-                    <button class="btn-submit role-btn">
-                        입력하기
-                    </button>
-                </div>
-            </form>
-            <form class="list-form contents-area">
-                <div class="list-row search-box">
-                    <input type="text" class="search form-control" name="search" placeholder="검색하기" autocomplete="off">
-                    <button class="search-btn role-btn">🔍</button>
-                </div>
-            </form>
             <div class="list-container contents-area">
                 <ul>
-                    <!-- 리스트에 이미지가 있으면 li에 .pic -->
+                    <!-- 이미지가 있으면 .pic내부에 드롭다운 -->
                     <li class="pic">
-                        <span class="text">
-                            텍스트
-                        </span>
-                        <div class="right">
-                            <span class="time">00-00-00</span>
-                            <span class="material-icons">
-                                perm_media
+                        <div 
+                            role="button"
+                            class="dropdown-toggle list-style" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false"
+                        >
+                            <span class="text">
+                                텍스트
                             </span>
-                            <a href="/delete" class="delete role-btn">X</a>
-                            
+                            <div class="right">
+                                <span class="time">00-00-00</span>
+                                <span class="material-icons">
+                                    perm_media
+                                </span>
+                            </div>
                         </div>
+                        <a href="/delete" class="delete role-btn">X</a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <img src="temp.png" alt="리스트 이미지">
+                                <img src="temp.png" alt="리스트 이미지">
+                                <img src="temp.png" alt="리스트 이미지">
+                            </li>
+                        </ul>
                     </li>
-                    <!-- 이미지 있으면 li.pic 다음으로 .li-image-box 생성-->
-                    <li class="li-image-box">
-                        <!-- 이미지 개수만큼 img -->
-                        <img src="" alt="'리스트' 이미지">
-                        <img src="" alt="'리스트' 이미지">
-                        <img src="" alt="'리스트' 이미지">
-                    </li>
-
+                    <!--  -->
                     <li>
                         <span class="text">
                             텍스트
@@ -151,6 +170,15 @@
                     <li>
                         <span class="text">
                             텍스트
+                        </span>
+                        <div class="right">
+                            <span class="time">00-00-00</span>
+                            <a href="/delete" class="delete role-btn">X</a>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="text">
+                            텍스트, 할 일
                         </span>
                         <div class="right">
                             <span class="time">00-00-00</span>

@@ -65,10 +65,11 @@ section {
     margin-bottom: 10px;
     padding-bottom: 10px;
     border-radius: 8px;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 .list-form:last-of-type {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 .list-row {
     width: 100%;
@@ -76,6 +77,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .list-row > * {
     background-color: #fff;
@@ -116,6 +118,11 @@ input {
     background: var(--accent-color);
     color: #fff !important;
 }
+.btn-right {
+    position: absolute;
+    right: 0;
+    transform: translateX(110%);
+}
 /* 부트스트랩 수정 */
 .form-control {
     width: auto;
@@ -125,14 +132,82 @@ input {
     background: #eee !important;
     border: none !important;
 }
+.dropdown-menu.show {
+    width: 100%;
+    min-height: 120px;
+    padding: 8px 10px;
+    left: -10px !important;
+
+    line-height: 2;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 10px;
+
+    border-bottom: var(--border-bottomDotted);
+}
+.dropdown-menu.show img {
+    display: block;
+    flex: 1 1 auto;
+    border-radius: 10px;
+    background-color: #ddd;
+}
+.dropdown-toggle::after {
+    width: 0;
+    position: absolute;
+    right: 0px;
+}
 /* 반응형 */
 @media (max-width: 500px) {
     .show-at-sm {
         display: block;
     }
     li,
-    .list-row {
+    .list-row,
+    .list-style {
         flex-wrap: wrap;
+        justify-content: flex-end !important;
+    }
+    li .text,
+    .list-row .text,
+    .list-style .text {
+        width: 100%;
+    }
+    input {
+        min-height: 34px;
+    }
+    .input_text {
+        width: 100%;
+    }
+    .show-at-lg {
+        display: none;
+    }
+    li.pic {
+        align-items: flex-end;
+    }
+}
+@media (max-width: 360px) {
+    .show-xs {
+        display: none;
+    }
+    li,
+    .list-row,
+    li .text,
+    li .right,
+    li .right *:not(a) {
+        flex: 1 1 100% !important;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .right {
+        gap: 4px;
+        justify-content: flex-end !important;
+    }
+    .delete {
+        position: absolute;
     }
     input {
         min-height: 34px;

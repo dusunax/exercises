@@ -36,35 +36,38 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="contents-area">
-        <a href="/" class="logo">
-          <span class="material-icons">
-            home
-          </span>
-          <span class="show-at-lg">
-            로고
-          </span>
-        </a>
-        <div class="right">
-          <a href="/logout">
-            <span class="material-icons">
-              logout
-            </span>
-            <span class="show-at-lg">
-              로그아웃
-            </span>
-          </a>
-          <a href="/profile">
-            <span class="material-icons">
-              account_circle
-            </span>
-            <span>이름</span>님의 프로필
-          </a>
+        <div class="contents-area">
+            <a href="/" class="logo">
+                <span class="material-icons">
+                    home
+                </span>
+                <span class="show-at-lg">
+                    로고
+                </span>
+            </a>
+            <div class="right">
+                <a href="/logout">
+                    <span class="material-icons">
+                        logout
+                    </span>
+                    <span class="show-at-lg">
+                        로그아웃
+                    </span>
+                </a>
+                <a href="/profile">
+                    <span class="material-icons">
+                        account_circle
+                    </span>
+                    <div class="show-xs">
+                        <span>이름</span>님의 프로필
+                    </div>
+                </a>
+            </div>
         </div>
-      </div>
     </header>
     <section class="join contents-area">
-      <form class="list-form" action="/join" method="post">
+      <!-- method="post" -->
+      <form class="list-form" action="/join">
         <h1 class="title">join</h1>
         <div class="list-row">
           <label for="name" class="left">이름 : </label>
