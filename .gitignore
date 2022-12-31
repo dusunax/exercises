@@ -3,8 +3,10 @@
 *.php
 
 */소스
-*/node_modules
 */예시
 */보류
 /보류
 /기획
+
+/node_modules
+.env
