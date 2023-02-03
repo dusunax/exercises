@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>포켓몬 뽑기</title>
+    <link rel="stylesheet" href="./poketmon.css" />
+  </head>
+  <body>
+    <div class="app">
+      <h2>포켓몬 월드에 오신 걸 환영합니다.</h2>
+      <section class="random-poketmon">
+        <h3>포켓몬 뽑기</h3>
+        <div class="new-poketmon">
+          <div class="name"></div>
+          <div class="img">
+            <img src="/" alt="포켓몬" />
+          </div>
+        </div>
+        <button onclick="drawHandler()">뽑기</button>
+      </section>
+      <section class="timer">
+        <h3>타이머</h3>
+        <div id="lastUpdated"></div>
+        <div id="countDown"></div>
+        <div id="countUp"></div>
+      </section>
+      <section class="encyclopedia">
+        <h3>포켓몬 리스트</h3>
+        <div class="saved-poketmon"></div>
+      </section>
+    </div>
+    <script src="./poketmon.js"></script>
+  </body>
+</html>
