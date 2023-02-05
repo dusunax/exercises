@@ -1,13 +1,24 @@
 // api
-const baseUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/`;
+const baseImgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/`;
+const baseNameUrl = `https://pokeapi.co/api/v2/pokemon-species/`;
 
 // html elements => 나중에 리액트로
-const newPokemonBox = document.querySelector(".new-poketmon");
+const newPokemonBox = document.querySelector(".new-pokemon");
 
-const setNewPokemon = ({ name, img }) => {
-  console.log(newPokemonBox.querySelector(".name"));
-  newPokemonBox.querySelector(".name").innerHTML = name;
+const setNewPokemon = ({ names, img }) => {
+  newPokemonBox.querySelector(".name").innerHTML = names[2].name;
   newPokemonBox.querySelector(".img img").setAttribute("src", img);
+};
+
+const fetchpokemon = async (url) => {
+  try {
+    let response = await fetch(url);
+    let data = await response.json();
+
+    return generateNewPokemon(data);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const savedPokemons = [];
@@ -28,23 +39,25 @@ function fetchLastUpdated() {
 }
 
 // 뽑기
-function drawHandler() {
-  const poketmonObj = generateNewPokemon();
-  setNewPokemon(poketmonObj);
-  savePokemons(poketmonObj);
+async function drawHandler() {
+  const id = parseInt(Math.random() * 800);
+  const pokemonObj = await fetchpokemon(`${baseNameUrl}${id}`);
+
+  setNewPokemon(pokemonObj);
+  savePokemons(pokemonObj);
 }
 
-function savePokemons(poketmonObj) {
-  savedPokemons.unshift(poketmonObj);
+function savePokemons(pokemonObj) {
+  savedPokemons.unshift(pokemonObj);
 
-  document.querySelector(".saved-poketmon").innerHTML = "";
+  document.querySelector(".saved-pokemon").innerHTML = "";
   const newUl = document.createElement("ul");
 
   savedPokemons.map((eachPokemon, idx) => {
     if (idx === 0) return;
     const newList = document.createElement("li");
-    newList.innerHTML = `<div class="poketmon">
-      <div class="name">${eachPokemon.name}</div>
+    newList.innerHTML = `<div class="pokemon">
+      <div class="name">${eachPokemon.names[2].name}</div>
       <div class="img">
         <img src=${eachPokemon.img} alt="포켓몬" />
       </div>
@@ -52,15 +65,14 @@ function savePokemons(poketmonObj) {
     newUl.appendChild(newList);
   });
 
-  document.querySelector(".saved-poketmon").appendChild(newUl);
+  document.querySelector(".saved-pokemon").appendChild(newUl);
 }
 
 // 새 포켓몬
-function generateNewPokemon() {
-  const num = parseInt(Math.random() * 800);
-  const imageUrl = baseUrl + `${num}.png`;
+function generateNewPokemon(data) {
+  const imageUrl = baseImgUrl + `${data.id}.png`;
 
-  return { img: imageUrl, name: "newPokemon" };
+  return { ...data, img: imageUrl };
 }
 
 // 타이머
