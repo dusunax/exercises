@@ -21,6 +21,7 @@ const sockets = [];
 
 wss.on("connection", (socket) => {
   sockets.push(socket);
+  socket["nickname"] = "익명";
 
   socket.on("close", () => {
     return console.log("disconnect socket");
@@ -29,8 +30,21 @@ wss.on("connection", (socket) => {
   console.log("브라우저와 연결되었습니다.");
   socket.send("안녕~🖐");
 
+  // 메시지 이벤트 리스너
   socket.on("message", (message) => {
-    sockets.forEach((eachSocket) => eachSocket.send(message.toString()));
+    const parsed = JSON.parse(message.toString());
+
+    switch (parsed.type) {
+      case "new_message":
+        sockets.forEach((eachSocket) =>
+          eachSocket.send(`${socket.nickname}: ${parsed.payload} `)
+        );
+        break;
+      case "nickname":
+        socket["nickname"] = parsed.payload;
+        break;
+      default:
+    }
   });
 });
 
