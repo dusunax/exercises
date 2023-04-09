@@ -16,7 +16,12 @@ const handleListen = () => console.log("Listen on http://localhost:" + PORT);
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+// 임시 DB
+const sockets = [];
+
 wss.on("connection", (socket) => {
+  sockets.push(socket);
+
   socket.on("close", () => {
     return console.log("disconnect socket");
   });
@@ -25,7 +30,7 @@ wss.on("connection", (socket) => {
   socket.send("안녕~🖐");
 
   socket.on("message", (message) => {
-    console.log(message);
+    sockets.forEach((eachSocket) => eachSocket.send(message.toString()));
   });
 });
 
