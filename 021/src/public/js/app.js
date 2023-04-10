@@ -5,18 +5,21 @@ const welcomeForm = welcome.querySelector("form");
 const room = document.querySelector("#room");
 
 room.hidden = true;
-let roomName;
+let chatRoomName;
 
 // -- 이벤트핸들러 ---
-/** 방이름 Submit */
+/** 방입장 Submit */
 const handleRoomSubmit = (event) => {
   event.preventDefault();
 
-  const input = welcomeForm.querySelector("input");
-  socket.emit("enter_room", { payload: input.value }, enterRoom);
-  roomName = input.value;
-
-  input.value = "";
+  const nickname = welcomeForm.querySelector("input#nickname");
+  const roomName = welcomeForm.querySelector("input#roomName");
+  socket.emit(
+    "enter_room",
+    { payload: { nickname: nickname.value, roomName: roomName.value } },
+    enterRoom
+  );
+  chatRoomName = roomName.value;
 };
 welcomeForm.addEventListener("submit", handleRoomSubmit);
 
@@ -25,21 +28,12 @@ const handleMessageSubmit = (event) => {
   event.preventDefault();
 
   const input = room.querySelector("#message input");
-  const value = input.value; // 변수에 담아서 보내기
-  socket.emit("new_message", input.value, roomName, () => {
-    addMessage(`나: ${value}`);
+  // const value = input.value; // 변수에 담아서 보내기
+  socket.emit("new_message", input.value, chatRoomName, (text) => {
+    // addMessage(`나: ${value}`);
+    addMessage(text);
   });
 
-  input.value = "";
-};
-
-/** 메시지 Submit */
-const handleNicknameSubmit = (event) => {
-  console.log("hi");
-  event.preventDefault();
-
-  const input = room.querySelector("#nickname input");
-  socket.emit("new_nickname", input.value);
   input.value = "";
 };
 
@@ -49,12 +43,10 @@ const enterRoom = () => {
   room.hidden = false;
 
   const h2 = room.querySelector("h2");
-  h2.innerHTML = `💎${roomName}💎`;
+  h2.innerHTML = `💎${chatRoomName}💎`;
 
   const msgForm = room.querySelector("#message");
-  const nicknameForm = room.querySelector("#nickname");
   msgForm.addEventListener("submit", handleMessageSubmit);
-  nicknameForm.addEventListener("submit", handleNicknameSubmit);
 };
 
 /** 메시지 추가 */
@@ -68,8 +60,8 @@ const addMessage = (text) => {
 
 // -- 이벤트리스너 ---
 // Room Notifications
-socket.on("welcome", () => {
-  addMessage(`누군가 방에 입장함.😎`);
+socket.on("welcome", (nickname) => {
+  addMessage(`${nickname === "익명" ? "누군가" : nickname} 방에 입장함.😎`);
 });
 
 socket.on("bye", (nickname) => {

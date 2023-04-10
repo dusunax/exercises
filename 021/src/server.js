@@ -17,14 +17,16 @@ const httpServer = http.createServer(app);
 const io = SocketIO(httpServer);
 
 io.on("connection", (socket) => {
-  socket["nickname"] = "익명";
-
   // 입장
-  socket.on("enter_room", (roomName, done) => {
-    socket.join(roomName.payload);
+  socket.on("enter_room", ({ payload }, done) => {
+    const { nickname, roomName } = payload;
+
+    socket.join(roomName);
+    socket["nickname"] = nickname;
+
     done();
 
-    socket.to(roomName.payload).emit("welcome");
+    socket.to(roomName).emit("welcome", socket.nickname);
   });
 
   // 퇴장
@@ -37,12 +39,11 @@ io.on("connection", (socket) => {
   // 채팅
   socket.on("new_message", (msg, roomName, done) => {
     socket.to(roomName).emit("new_message", `${socket.nickname}: ${msg}`);
-    done();
+    done(`${socket.nickname}: ${msg}`);
   });
 
-  // 닉네임 저장
+  // 새 닉네임 또는 닉네임 수정
   socket.on("new_nickname", (nickname) => {
-    console.log(nickname);
     socket["nickname"] = nickname;
   });
 });

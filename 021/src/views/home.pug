@@ -4,7 +4,7 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Document
+    title 채팅방
     link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
   body 
     header
@@ -12,7 +12,8 @@ html(lang="en")
     main
       div#welcome
         form
-          input(type="text", placeholder="채팅방 이름", required)
+          input#roomName(type="text", placeholder="채팅방 이름", required)
+          input#nickname(type="text", value="익명", required)
           button 들어가기
       div#room
         h2
@@ -20,8 +21,5 @@ html(lang="en")
         form#message
           input(type="text", placeholder="메시지 입력", required)
           button 클릭!
-        form#nickname
-          input(type="text", placeholder="이름 저장", required)
-          button 저장
     script(src="/socket.io/socket.io.js") 
     script(src="/public/js/app.js") 
