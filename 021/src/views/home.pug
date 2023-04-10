@@ -8,14 +8,17 @@ html(lang="en")
     link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
   body 
     header
-      h1 🥳 Hello WS Chat! 🥳
+      h1 🥳 Hello SocketIO Chat! 🥳
     main
-      ul
-      form#nickname
-        input(type="text", placeholder="닉네임를 입력하세요" required)
-        button 저장!
-      form#message
-        input(type="text", placeholder="메시지를 입력하세요" required)
-        button 클릭!
+      div#welcome
+        form
+          input(type="text", placeholder="채팅방 이름", required)
+          button 들어가기
+      div#room
+        h2
+        ul 
+        form
+          input(type="text", placeholder="메시지 입력", required)
+          button 클릭!
     script(src="/socket.io/socket.io.js") 
     script(src="/public/js/app.js") 

@@ -17,39 +17,24 @@ const httpServer = http.createServer(app);
 const io = SocketIO(httpServer);
 
 io.on("connection", (socket) => {
-  console.log(socket);
+  // 입장
+  socket.on("enter_room", (roomName, done) => {
+    socket.join(roomName.payload);
+    done();
+
+    socket.to(roomName.payload).emit("welcome");
+  });
+
+  // 퇴장
+  socket.on("disconnecting", () => {
+    socket.rooms.forEach((room) => socket.to(room).emit("bye"));
+  });
+
+  // 채팅
+  socket.on("new_message", (msg, roomName, done) => {
+    socket.to(roomName).emit("new_message", msg);
+    done();
+  });
 });
-
-// 임시 DB
-// const sockets = [];
-
-// wss.on("connection", (socket) => {
-//   sockets.push(socket);
-//   socket["nickname"] = "익명";
-
-//   socket.on("close", () => {
-//     return console.log("disconnect socket");
-//   });
-
-//   console.log("브라우저와 연결되었습니다.");
-//   socket.send("안녕~🖐");
-
-//   // 메시지 이벤트 리스너
-//   socket.on("message", (message) => {
-//     const parsed = JSON.parse(message.toString());
-
-//     switch (parsed.type) {
-//       case "new_message":
-//         sockets.forEach((eachSocket) =>
-//           eachSocket.send(`${socket.nickname}: ${parsed.payload} `)
-//         );
-//         break;
-//       case "nickname":
-//         socket["nickname"] = parsed.payload;
-//         break;
-//       default:
-//     }
-//   });
-// });
 
 httpServer.listen(PORT, handleListen);
