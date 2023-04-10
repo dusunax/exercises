@@ -45,4 +45,4 @@ https://nomadcoders.co/javascript-for-beginners-2/lobby
 
 020: 포켓몬 스티커 뽑기
 
-021: 채팅
+021: 채팅방(Socket.IO) https://nomadcoders.co/noom/lobby
