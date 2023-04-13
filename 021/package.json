@@ -1,11 +1,11 @@
 {
-  "name": "021",
+  "name": "021_chat_rooms",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon"
   },
-  "description": "WebRTC & WebSocket",
+  "description": "Make a chat room using Socket.IO, learn about how WebSockets work.",
   "dependencies": {
     "@socket.io/admin-ui": "^0.5.1",
     "express": "^4.18.2",
