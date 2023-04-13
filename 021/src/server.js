@@ -1,6 +1,7 @@
 import http from "http";
-import SocketIO from "socket.io";
 import express from "express";
+import { Server } from "socket.io";
+import { instrument } from "@socket.io/admin-ui";
 
 const app = express();
 
@@ -14,7 +15,16 @@ const PORT = 3000;
 const handleListen = () => console.log("Listen on http://localhost:" + PORT);
 
 const httpServer = http.createServer(app);
-const io = SocketIO(httpServer);
+const io = new Server(httpServer, {
+  cors: {
+    origin: ["https://admin.socket.io"],
+    credential: true,
+  },
+});
+
+instrument(io, {
+  auth: false,
+});
 
 /** 공개방 배열을 return합니다.
  * 1. adapter의 rooms와 sids를 비교합니다.
