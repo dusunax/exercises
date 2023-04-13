@@ -28,9 +28,7 @@ const handleMessageSubmit = (event) => {
   event.preventDefault();
 
   const input = room.querySelector("#message input");
-  // const value = input.value; // 변수에 담아서 보내기
   socket.emit("new_message", input.value, chatRoomName, (text) => {
-    // addMessage(`나: ${value}`);
     addMessage(text);
   });
 
@@ -70,4 +68,18 @@ socket.on("bye", (nickname) => {
 
 socket.on("new_message", (text) => {
   addMessage(text);
+});
+
+// 방 전환
+socket.on("room_change", (rooms) => {
+  console.log("hi", rooms);
+
+  const roomList = welcome.querySelector("ul");
+  roomList.innerHTML = "";
+
+  rooms.forEach((room) => {
+    const li = document.createElement("li");
+    li.innerText = room;
+    roomList.appendChild(li);
+  });
 });

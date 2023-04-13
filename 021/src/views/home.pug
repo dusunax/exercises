@@ -12,9 +12,11 @@ html(lang="en")
     main
       div#welcome
         form
-          input#roomName(type="text", placeholder="채팅방 이름", required)
+          input#roomName(type="text", placeholder="채팅방 이름", required autocomplete='off')
           input#nickname(type="text", value="익명", required)
           button 들어가기
+        h3 채팅방 목록
+        ul
       div#room
         h2
         ul 
