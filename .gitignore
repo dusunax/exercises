@@ -1,12 +1,18 @@
+# General
+/node_modules
+.env
+
+# Ignored files in all directories
+**/node_modules
+**/.env
+
+# Text files
 *.hwp
 *.txt
 *.php
 
-*/소스
-*/예시
-*/보류
+# Source directories
+/소스
+/예시
 /보류
 /기획
-
-/node_modules
-.env
