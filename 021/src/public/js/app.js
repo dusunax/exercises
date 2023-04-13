@@ -24,7 +24,7 @@ const handleRoomSubmit = (event) => {
 welcomeForm.addEventListener("submit", handleRoomSubmit);
 
 /** 메시지 Submit */
-const handleMessageSubmit = (event) => {
+const handleMessageSendButtonClick = (event) => {
   event.preventDefault();
 
   const input = room.querySelector("#message input");
@@ -35,6 +35,14 @@ const handleMessageSubmit = (event) => {
   input.value = "";
 };
 
+const handleRoomExitButtonClick = (event) => {
+  event.preventDefault();
+
+  socket.emit("leave_room", leaveRoom);
+};
+
+//----------------------------------------------------------------
+
 /** 방 입장 */
 const enterRoom = () => {
   welcome.hidden = true;
@@ -44,7 +52,19 @@ const enterRoom = () => {
   h2.innerHTML = `💎${chatRoomName}💎`;
 
   const msgForm = room.querySelector("#message");
-  msgForm.addEventListener("submit", handleMessageSubmit);
+  msgForm.addEventListener("submit", handleMessageSendButtonClick);
+
+  const roomExitButton = room.querySelector("button#exit");
+  roomExitButton.addEventListener("click", handleRoomExitButtonClick);
+};
+
+/** 방 퇴장 */
+const leaveRoom = () => {
+  welcome.hidden = false;
+  room.hidden = true;
+
+  const h2 = room.querySelector("h2");
+  h2.innerHTML = `💎${chatRoomName}💎`;
 };
 
 /** 메시지 추가 */
@@ -56,14 +76,28 @@ const addMessage = (text) => {
   ul.append(li);
 };
 
-// -- 이벤트리스너 ---
+// -- socket 이벤트리스너 ---
 // Room Notifications
-socket.on("welcome", (nickname) => {
-  addMessage(`${nickname === "익명" ? "누군가" : nickname} 방에 입장함.😎`);
+socket.on("welcome", (nickname, newCount) => {
+  addMessage(
+    `${
+      nickname === "익명" ? "누군가" : nickname
+    } 방에 입장함.😎 (현재 인원: ${newCount}명)`
+  );
+
+  const h2 = room.querySelector("h2");
+  h2.innerHTML = `💎${chatRoomName}💎 / ${newCount}`;
 });
 
-socket.on("bye", (nickname) => {
-  addMessage(`${nickname === "익명" ? "누군가" : nickname} 퇴장함.🖐`);
+socket.on("bye", (nickname, newCount) => {
+  addMessage(
+    `${
+      nickname === "익명" ? "누군가" : nickname
+    } 퇴장함.🖐 (현재 인원: ${newCount}명)`
+  );
+
+  const h2 = room.querySelector("h2");
+  h2.innerHTML = `💎${chatRoomName}💎 / ${newCount}`;
 });
 
 socket.on("new_message", (text) => {

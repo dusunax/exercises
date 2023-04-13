@@ -30,6 +30,31 @@ const publicRooms = () => {
   return publicRooms;
 };
 
+const countRooms = (roomName) => {
+  return io.sockets.adapter.rooms.get(roomName)?.size;
+};
+
+const exitAllRoom = (socket) => {
+  socket.rooms.forEach((roomName) => {
+    socket.leave(roomName);
+
+    const remainingUsers = countRooms(roomName); // 방을 떠난 후 남은 유저 수
+    socket.to(roomName).emit("bye", socket.nickname, remainingUsers);
+  });
+  io.sockets.emit("room_change", publicRooms());
+};
+
+const exitRoom = (socket, roomName) => {
+  socket.leave(roomName);
+
+  const remainingUsers = countRooms(roomName) - 1; // 방을 떠난 후 남은 유저 수
+  socket.to(roomName).emit("bye", socket.nickname, remainingUsers);
+
+  io.sockets.emit("room_change", publicRooms());
+};
+
+// ----------------------------------------------------------------
+
 // 접속
 io.on("connection", (socket) => {
   socket["nickname"] = "익명";
@@ -49,20 +74,32 @@ io.on("connection", (socket) => {
     done();
 
     socket["nickname"] = nickname;
-    socket.to(roomName).emit("welcome", socket.nickname);
+    socket.to(roomName).emit("welcome", socket.nickname, countRooms(roomName));
     io.sockets.emit("room_change", publicRooms());
   });
 
-  // 퇴장A. 유저가 방을 떠나기 바로 전 disconnecting
+  // 퇴장A. 유저가 방을 떠나기 바로 전 disconnecting (인사)
   socket.on("disconnecting", () => {
-    socket.rooms.forEach((room) =>
-      socket.to(room).emit("bye", socket.nickname)
+    socket.rooms.forEach(
+      (roomName) =>
+        socket
+          .to(roomName)
+          .emit("bye", socket.nickname, countRooms(roomName) - 1)
+      // 사용자가 아직 room을 떠나지 않았으므로, room의 size를 구할 수 있음
+      // 사용자가 아직 room을 떠나지 않았으므로, countRooms 반환값에 -1
     );
   });
 
   // 퇴장B. 유저가 방을 떠난 후
   socket.on("disconnect", () => {
-    io.sockets.emit("room_change", publicRooms());
+    exitAllRoom(socket);
+  });
+
+  // 퇴장C. 유저가 방 나가기 버튼을 클릭함
+  socket.on("leave_room", (done) => {
+    exitAllRoom(socket);
+
+    done();
   });
 
   // 채팅
