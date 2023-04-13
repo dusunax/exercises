@@ -10,7 +10,7 @@
 | 005 | 가위바위보 | 게임 |  |
 | 006 | 피자만들기 | 게임 |  |
 | 007 | 현재 날씨 | 날씨 api | https://openweathermap.org/ |
-| 008 | 키보드 불량 테스트 | keyboard event |  |
+| 008 | 키보드 불량 테스트 | keyboard event | https://dusunax.github.io/exercises/008/ |
 | 009 | 뉴스레터 구독 | 뉴스레터 api | https://mailchimp.com/ |
 | 010 | 모의고사 시험점수 CRUD | 정처기 시험 |  |
 | 011 | 커피 취향 테스트 | step+선택지 구현 |  |
