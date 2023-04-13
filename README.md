@@ -24,4 +24,4 @@
 | 019 | 10억년 버튼 | 게임 |  |
 | 020 | 포켓몬 스티커 뽑기 | 포켓몬 api | https://github.com/dusunax/toy 에서 토이 이어서 진행 |
 | 021 | 채팅방 | socketIO | https://nomadcoders.co/noom/ |
-| 021 | 줌 클론 | WebRTC | https://nomadcoders.co/noom/ |
+| 022 | 줌 클론 | WebRTC | https://nomadcoders.co/noom/ |
