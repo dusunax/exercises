@@ -8,7 +8,18 @@ html(lang="en")
     link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
   body 
     header
-      h1 Hello World!
+      h1 📸 카메라 📷
     main
+      div 
+        video#face(
+          autoplay,
+          playsinline,
+          with="900", 
+          height="400"
+        )
+      div
+        button#mute 음소거
+        button#camera 카메라 끄기
+        select#cameraSelect
     script(src="/socket.io/socket.io.js") 
     script(src="/public/js/app.js") 
