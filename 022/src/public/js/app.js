@@ -1,10 +1,14 @@
 const socket = io();
 
-// 카메라
-const localFace = document.querySelector("#localFace");
-const remoteFace = document.querySelector("#remoteFace");
+// 카메라 contents
+const localContents = document.querySelector("#localContents");
+const remoteContents = document.querySelector("#remoteContents");
+const localVideo = localContents.querySelector("video");
+const remoteVideo = remoteContents.querySelector("video");
+const localUsername = localContents.querySelector(".userName");
+const remoteUsername = remoteContents.querySelector(".userName");
 
-// 버튼
+// 버튼 및 select
 const muteBtn = document.querySelector("#mute");
 const cameraBtn = document.querySelector("#camera");
 const cameraSelect = document.querySelector("#cameraSelect");
@@ -13,8 +17,12 @@ const reciveSoundBtn = document.querySelector("#reciveSound");
 // 변수
 let localStream;
 let remoteStream;
-let currentRoomName = "";
 let peerConnection;
+
+let currentRoomName = "";
+let currentUserName = "";
+let currentRemoteName = "";
+let numUsers = 0;
 
 let isMuted = false;
 let isCameraOff = false;
@@ -39,16 +47,20 @@ const initCall = async () => {
 
 const handleWelcomeSubmit = async (event) => {
   event.preventDefault();
-  const input = welcomeForm.querySelector("input");
-  currentRoomName = input.value;
+  const roomNameInput = welcomeForm.querySelector("input#roomName");
+  const userNameInput = welcomeForm.querySelector("input#userName");
+  currentRoomName = roomNameInput.value;
+  currentUserName = userNameInput.value;
+
+  document.getElementById("title").innerHTML = `📸 ${currentRoomName} 💎`;
 
   await initCall();
-  console.log("방 이름: " + input.value);
+  console.log(`${roomNameInput.value}에 입장했습니다.`);
+  localUsername.innerHTML = currentUserName;
 
-  socket.emit("join_room", input.value);
-  input.value = "";
-
-  initCall();
+  socket.emit("join_room", roomNameInput.value, userNameInput.value);
+  roomNameInput.value = "";
+  userNameInput.value = "";
 };
 welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 
@@ -64,6 +76,7 @@ const getCameras = async () => {
     const devices = await navigator.mediaDevices.enumerateDevices();
     const cameras = devices.filter((device) => device.kind === "videoinput");
     const currentCamera = localStream.getVideoTracks()[0];
+    cameraSelect.innerHTML = "";
 
     cameras.forEach((camera) => {
       const option = document.createElement("option");
@@ -72,7 +85,6 @@ const getCameras = async () => {
       cameraSelect.appendChild(option);
 
       if (currentCamera?.label === camera.label) {
-        console.log(currentCamera);
         option.selected = true;
       }
     });
@@ -82,7 +94,7 @@ const getCameras = async () => {
 };
 
 /** 미디어 데이터를 출력합니다.
- * video#face에 navigator mediaDevices의 stream을 할당합니다.
+ * video에 navigator mediaDevices의 stream을 할당합니다.
  */
 const getMedia = async (deviceId) => {
   // 카메라 Constrains
@@ -99,7 +111,7 @@ const getMedia = async (deviceId) => {
     localStream = await navigator.mediaDevices.getUserMedia(
       deviceId ? cameraConstrains : initialConstrains
     );
-    localFace.srcObject = localStream;
+    localVideo.srcObject = localStream;
 
     if (!deviceId) {
       await getCameras();
@@ -154,7 +166,12 @@ const handleCameraClick = () => {
 const handleCameraSelect = async () => {
   await getMedia(cameraSelect.value);
   if (peerConnection) {
-    console.log(peerConnection.getSenders());
+    const videoTrack = localStream.getVideoTracks()[0];
+    const videoSender = peerConnection
+      .getSenders()
+      .find((sender) => sender.track.kind === "video");
+
+    videoSender.replaceTrack(videoTrack);
   }
 };
 
@@ -185,20 +202,27 @@ cameraSelect.addEventListener("input", handleCameraSelect);
 // socket
 
 socket.on("welcome", async () => {
-  console.log("누군가 입장");
+  const newUser = remoteUsername.innerHTML;
+  console.log(newUser === "익명" ? "누군가 입장" : newUser + " 입장");
 });
 
-socket.on("offer", async (offer) => {
+/** offer를 받았을 때 */
+socket.on("offer", async (offer, newUserName) => {
   peerConnection.setRemoteDescription(offer);
 
   const answer = await peerConnection.createAnswer();
   peerConnection.setLocalDescription(answer);
 
-  socket.emit("answer", answer, currentRoomName);
+  remoteUsername.innerHTML = newUserName;
+  console.log("입장한 유저: " + newUserName, " 기존 유저: " + currentUserName);
+
+  socket.emit("answer", answer, currentRoomName, currentUserName);
 });
 
-socket.on("answer", (answer) => {
+/** answer를 받았을 때 */
+socket.on("answer", (answer, prevUserName) => {
   peerConnection.setRemoteDescription(answer);
+  remoteUsername.innerHTML = prevUserName;
 });
 
 socket.on("ice", (iceCandidate) => {
@@ -206,19 +230,30 @@ socket.on("ice", (iceCandidate) => {
 });
 
 // RTC
-
 const handleIceCandidate = (data) => {
   socket.emit("ice", data.candidate, currentRoomName);
 };
 
 const handleAddStream = (data) => {
   remoteStream = data.stream;
-  remoteFace.srcObject = remoteStream;
+  remoteVideo.srcObject = remoteStream;
 };
 
 /** 연결을 시도하는 곳에서 실행 */
 const makeConnection = async () => {
-  peerConnection = new RTCPeerConnection();
+  peerConnection = new RTCPeerConnection({
+    iceServers: [
+      {
+        urls: [
+          "stun:stun.l.google.com:19302",
+          "stun:stun1.l.google.com:19302",
+          "stun:stun2.l.google.com:19302",
+          "stun:stun3.l.google.com:19302",
+          "stun:stun4.l.google.com:19302",
+        ],
+      },
+    ],
+  });
   peerConnection.addEventListener("icecandidate", handleIceCandidate);
   peerConnection.addEventListener("addstream", handleAddStream);
   localStream
@@ -228,5 +263,5 @@ const makeConnection = async () => {
   const offer = await peerConnection.createOffer();
   peerConnection.setLocalDescription(offer);
 
-  socket.emit("offer", offer, currentRoomName);
+  socket.emit("offer", offer, currentRoomName, currentUserName);
 };

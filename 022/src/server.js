@@ -31,16 +31,16 @@ io.on("connection", (socket) => {
 
   socket.on("join_room", (roomName) => {
     socket.join(roomName);
+  });
+
+  socket.on("offer", (offer, roomName, userName) => {
+    socket.to(roomName).emit("offer", offer, userName);
+  });
+
+  socket.on("answer", (answer, roomName, userName) => {
+    socket.to(roomName).emit("answer", answer, userName);
 
     socket.emit("welcome");
-  });
-
-  socket.on("offer", (offer, roomName) => {
-    socket.to(roomName).emit("offer", offer);
-  });
-
-  socket.on("answer", (answer, roomName) => {
-    socket.to(roomName).emit("answer", answer);
   });
 
   socket.on("ice", (iceCandidate, roomName) => {

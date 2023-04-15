@@ -8,24 +8,24 @@ html(lang="en")
     link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
   body 
     header
-      h1 📸 카메라 📷
+      h1#title 📸 1:1 화상 대화 💎
     main
       div#welcome
         form
           input#roomName(type="text", placeholder="채팅방 이름", required autocomplete='off')
-          input#nickname(type="text", value="익명", required)
+          input#userName(type="text", value="익명", required)
           button 들어가기
-        h3 채팅방 목록
-        ul
       div#call
-        div#localStream
+        div#localContents
+          p.userName
           video#localFace(
             autoplay,
             playsinline,
             with="900", 
             height="400"
           )
-        div#remoteStream
+        div#remoteContents
+          p.userName
           video#remoteFace(
             autoplay,
             playsinline,
