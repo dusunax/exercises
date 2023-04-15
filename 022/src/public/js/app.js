@@ -11,7 +11,8 @@ const cameraSelect = document.querySelector("#cameraSelect");
 const reciveSoundBtn = document.querySelector("#reciveSound");
 
 // 변수
-let stream;
+let localStream;
+let remoteStream;
 let currentRoomName = "";
 let peerConnection;
 
@@ -42,7 +43,7 @@ const handleWelcomeSubmit = async (event) => {
   currentRoomName = input.value;
 
   await initCall();
-  console.log(input.value);
+  console.log("방 이름: " + input.value);
 
   socket.emit("join_room", input.value);
   input.value = "";
@@ -62,7 +63,7 @@ const getCameras = async () => {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
     const cameras = devices.filter((device) => device.kind === "videoinput");
-    const currentCamera = stream.getVideoTracks()[0];
+    const currentCamera = localStream.getVideoTracks()[0];
 
     cameras.forEach((camera) => {
       const option = document.createElement("option");
@@ -95,18 +96,20 @@ const getMedia = async (deviceId) => {
   };
 
   try {
-    stream = await navigator.mediaDevices.getUserMedia(
+    localStream = await navigator.mediaDevices.getUserMedia(
       deviceId ? cameraConstrains : initialConstrains
     );
-    localFace.srcObject = stream;
+    localFace.srcObject = localStream;
 
     if (!deviceId) {
       await getCameras();
     }
 
     // 카메라의 설정을 확인합니다.
-    stream.getAudioTracks().forEach((track) => (track.enabled = !isMuted));
-    stream.getVideoTracks().forEach((track) => (track.enabled = !isCameraOff));
+    localStream.getAudioTracks().forEach((track) => (track.enabled = !isMuted));
+    localStream
+      .getVideoTracks()
+      .forEach((track) => (track.enabled = !isCameraOff));
   } catch (e) {
     console.log(e);
   }
@@ -118,20 +121,27 @@ const getMedia = async (deviceId) => {
 // --------------------------------
 // 이벤트 핸들러
 
+/** 음소거/음소거 해제 버튼을 클릭했을 때, 오디오를 토글합니다. */
 const handleMuteClick = () => {
-  stream.getAudioTracks().forEach((track) => (track.enabled = isMuted));
   isMuted = !isMuted;
 
+  localStream.getAudioTracks().forEach((track) => (track.enabled = !isMuted));
+  remoteStream?.getAudioTracks().forEach((track) => (track.enabled = !isMuted));
+
   if (isMuted) {
-    muteBtn.innerHTML = isMuted ? "음소거 해제" : "음소거";
+    muteBtn.innerHTML = "음소거 해제";
   } else {
     muteBtn.innerHTML = "음소거";
   }
 };
 
+/** 카메라 켜기/끄기 버튼을 클릭했을 때, 비디오를 토글합니다. */
 const handleCameraClick = () => {
-  stream.getVideoTracks().forEach((track) => (track.enabled = isCameraOff));
   isCameraOff = !isCameraOff;
+
+  localStream
+    .getVideoTracks()
+    .forEach((track) => (track.enabled = !isCameraOff));
 
   if (isCameraOff) {
     cameraBtn.innerHTML = "카메라 켜기";
@@ -140,24 +150,30 @@ const handleCameraClick = () => {
   }
 };
 
-const handleReciveSoundClick = () => {
-  remoteFace.srcObject
-    .getTracks()
-    .filter((track) => track.kind === "audio")
-    .forEach((track) => (track.enabled = isSoundOff));
-
-  isSoundOff = !isSoundOff;
-  console.log(remoteFace.srcObject.getTracks());
-
-  if (isSoundOff) {
-    reciveSoundBtn.innerHTML = "헤드셋 켜기";
-  } else {
-    reciveSoundBtn.innerHTML = "헤드셋 끄기";
+/** 카메라를 변경합니다. */
+const handleCameraSelect = async () => {
+  await getMedia(cameraSelect.value);
+  if (peerConnection) {
+    console.log(peerConnection.getSenders());
   }
 };
 
-const handleCameraSelect = async () => {
-  await getMedia(cameraSelect.value);
+const handleReciveSoundClick = () => {
+  isSoundOff = !isSoundOff;
+  muteBtn.hidden = isSoundOff ? true : false;
+
+  remoteStream
+    .getAudioTracks()
+    .forEach((track) => (track.enabled = !isSoundOff));
+  localStream
+    .getAudioTracks()
+    .forEach((track) => (track.enabled = !isSoundOff));
+
+  if (isSoundOff) {
+    reciveSoundBtn.innerHTML = "전체 오디오 켜기";
+  } else {
+    reciveSoundBtn.innerHTML = "전체 오디오 끄기";
+  }
 };
 
 muteBtn.addEventListener("click", handleMuteClick);
@@ -173,7 +189,6 @@ socket.on("welcome", async () => {
 });
 
 socket.on("offer", async (offer) => {
-  console.log("offer를 받음");
   peerConnection.setRemoteDescription(offer);
 
   const answer = await peerConnection.createAnswer();
@@ -183,28 +198,22 @@ socket.on("offer", async (offer) => {
 });
 
 socket.on("answer", (answer) => {
-  console.log("answer를 받음");
   peerConnection.setRemoteDescription(answer);
 });
 
 socket.on("ice", (iceCandidate) => {
   peerConnection.addIceCandidate(iceCandidate);
-  console.log("ice 받음");
 });
 
 // RTC
 
 const handleIceCandidate = (data) => {
-  console.log("ice 보냄");
   socket.emit("ice", data.candidate, currentRoomName);
 };
 
 const handleAddStream = (data) => {
-  console.log("add stream");
-  console.log(data.stream);
-  console.log(stream);
-
-  remoteFace.srcObject = data.stream;
+  remoteStream = data.stream;
+  remoteFace.srcObject = remoteStream;
 };
 
 /** 연결을 시도하는 곳에서 실행 */
@@ -212,7 +221,9 @@ const makeConnection = async () => {
   peerConnection = new RTCPeerConnection();
   peerConnection.addEventListener("icecandidate", handleIceCandidate);
   peerConnection.addEventListener("addstream", handleAddStream);
-  stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
+  localStream
+    .getTracks()
+    .forEach((track) => peerConnection.addTrack(track, localStream));
 
   const offer = await peerConnection.createOffer();
   peerConnection.setLocalDescription(offer);
