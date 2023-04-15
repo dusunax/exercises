@@ -26,8 +26,26 @@ instrument(io, {
   auth: false,
 });
 
-//----------------------------------------------------------------
+io.on("connection", (socket) => {
+  socket.onAny((event) => console.log("이벤트: " + event));
 
-//----------------------------------------------------------------
+  socket.on("join_room", (roomName) => {
+    socket.join(roomName);
+
+    socket.emit("welcome");
+  });
+
+  socket.on("offer", (offer, roomName) => {
+    socket.to(roomName).emit("offer", offer);
+  });
+
+  socket.on("answer", (answer, roomName) => {
+    socket.to(roomName).emit("answer", answer);
+  });
+
+  socket.on("ice", (iceCandidate, roomName) => {
+    socket.to(roomName).emit("ice", iceCandidate);
+  });
+});
 
 httpServer.listen(PORT, handleListen);

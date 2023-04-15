@@ -1,13 +1,55 @@
 const socket = io();
 
-const face = document.querySelector("#face");
+// 카메라
+const localFace = document.querySelector("#localFace");
+const remoteFace = document.querySelector("#remoteFace");
+
+// 버튼
 const muteBtn = document.querySelector("#mute");
 const cameraBtn = document.querySelector("#camera");
 const cameraSelect = document.querySelector("#cameraSelect");
+const reciveSoundBtn = document.querySelector("#reciveSound");
 
+// 변수
 let stream;
+let currentRoomName = "";
+let peerConnection;
+
 let isMuted = false;
 let isCameraOff = false;
+let isSoundOff = false;
+
+// phone call : form
+const welcome = document.querySelector("#welcome");
+const welcomeForm = welcome.querySelector("form");
+const call = document.querySelector("#call");
+
+call.hidden = true;
+
+// --------------------------------
+// call 기능
+const initCall = async () => {
+  welcome.hidden = true;
+  call.hidden = false;
+
+  await getMedia();
+  makeConnection();
+};
+
+const handleWelcomeSubmit = async (event) => {
+  event.preventDefault();
+  const input = welcomeForm.querySelector("input");
+  currentRoomName = input.value;
+
+  await initCall();
+  console.log(input.value);
+
+  socket.emit("join_room", input.value);
+  input.value = "";
+
+  initCall();
+};
+welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 
 // --------------------------------
 // 카메라 기능
@@ -56,7 +98,7 @@ const getMedia = async (deviceId) => {
     stream = await navigator.mediaDevices.getUserMedia(
       deviceId ? cameraConstrains : initialConstrains
     );
-    face.srcObject = stream;
+    localFace.srcObject = stream;
 
     if (!deviceId) {
       await getCameras();
@@ -70,8 +112,8 @@ const getMedia = async (deviceId) => {
   }
 };
 
-getMedia();
-getCameras();
+// getMedia();
+// getCameras();
 
 // --------------------------------
 // 이벤트 핸들러
@@ -98,10 +140,82 @@ const handleCameraClick = () => {
   }
 };
 
+const handleReciveSoundClick = () => {
+  remoteFace.srcObject
+    .getTracks()
+    .filter((track) => track.kind === "audio")
+    .forEach((track) => (track.enabled = isSoundOff));
+
+  isSoundOff = !isSoundOff;
+  console.log(remoteFace.srcObject.getTracks());
+
+  if (isSoundOff) {
+    reciveSoundBtn.innerHTML = "헤드셋 켜기";
+  } else {
+    reciveSoundBtn.innerHTML = "헤드셋 끄기";
+  }
+};
+
 const handleCameraSelect = async () => {
   await getMedia(cameraSelect.value);
 };
 
 muteBtn.addEventListener("click", handleMuteClick);
 cameraBtn.addEventListener("click", handleCameraClick);
+reciveSoundBtn.addEventListener("click", handleReciveSoundClick);
 cameraSelect.addEventListener("input", handleCameraSelect);
+
+// --------------------------------
+// socket
+
+socket.on("welcome", async () => {
+  console.log("누군가 입장");
+});
+
+socket.on("offer", async (offer) => {
+  console.log("offer를 받음");
+  peerConnection.setRemoteDescription(offer);
+
+  const answer = await peerConnection.createAnswer();
+  peerConnection.setLocalDescription(answer);
+
+  socket.emit("answer", answer, currentRoomName);
+});
+
+socket.on("answer", (answer) => {
+  console.log("answer를 받음");
+  peerConnection.setRemoteDescription(answer);
+});
+
+socket.on("ice", (iceCandidate) => {
+  peerConnection.addIceCandidate(iceCandidate);
+  console.log("ice 받음");
+});
+
+// RTC
+
+const handleIceCandidate = (data) => {
+  console.log("ice 보냄");
+  socket.emit("ice", data.candidate, currentRoomName);
+};
+
+const handleAddStream = (data) => {
+  console.log("add stream");
+  console.log(data.stream);
+  console.log(stream);
+
+  remoteFace.srcObject = data.stream;
+};
+
+/** 연결을 시도하는 곳에서 실행 */
+const makeConnection = async () => {
+  peerConnection = new RTCPeerConnection();
+  peerConnection.addEventListener("icecandidate", handleIceCandidate);
+  peerConnection.addEventListener("addstream", handleAddStream);
+  stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
+
+  const offer = await peerConnection.createOffer();
+  peerConnection.setLocalDescription(offer);
+
+  socket.emit("offer", offer, currentRoomName);
+};

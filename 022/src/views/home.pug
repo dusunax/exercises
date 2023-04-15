@@ -10,16 +10,32 @@ html(lang="en")
     header
       h1 📸 카메라 📷
     main
-      div 
-        video#face(
-          autoplay,
-          playsinline,
-          with="900", 
-          height="400"
-        )
-      div
-        button#mute 음소거
-        button#camera 카메라 끄기
-        select#cameraSelect
+      div#welcome
+        form
+          input#roomName(type="text", placeholder="채팅방 이름", required autocomplete='off')
+          input#nickname(type="text", value="익명", required)
+          button 들어가기
+        h3 채팅방 목록
+        ul
+      div#call
+        div#localStream
+          video#localFace(
+            autoplay,
+            playsinline,
+            with="900", 
+            height="400"
+          )
+        div#remoteStream
+          video#remoteFace(
+            autoplay,
+            playsinline,
+            with="900", 
+            height="400"
+          )
+        div
+          button#mute 음소거
+          button#camera 카메라 끄기
+          //- button#reciveSound 헤드셋 끄기
+          select#cameraSelect
     script(src="/socket.io/socket.io.js") 
     script(src="/public/js/app.js") 
