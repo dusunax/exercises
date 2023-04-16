@@ -18,6 +18,7 @@ const reciveSoundBtn = document.querySelector("#reciveSound");
 let localStream;
 let remoteStream;
 let peerConnection;
+let dataChannel;
 
 let currentRoomName = "";
 let currentUserName = "";
@@ -52,7 +53,9 @@ const handleWelcomeSubmit = async (event) => {
   currentRoomName = roomNameInput.value;
   currentUserName = userNameInput.value;
 
-  document.getElementById("title").innerHTML = `📸 ${currentRoomName} 💎`;
+  document.getElementById(
+    "title"
+  ).innerHTML = `지금 있는 방은 ${currentRoomName}입니다.😎`;
 
   await initCall();
   console.log(`${roomNameInput.value}에 입장했습니다.`);
@@ -119,9 +122,10 @@ const getMedia = async (deviceId) => {
 
     // 카메라의 설정을 확인합니다.
     localStream.getAudioTracks().forEach((track) => (track.enabled = !isMuted));
-    localStream
-      .getVideoTracks()
-      .forEach((track) => (track.enabled = !isCameraOff));
+    localStream.getVideoTracks().forEach((track) => {
+      track.enabled = !isCameraOff;
+      track.muted = true;
+    });
   } catch (e) {
     console.log(e);
   }
@@ -141,9 +145,11 @@ const handleMuteClick = () => {
   remoteStream?.getAudioTracks().forEach((track) => (track.enabled = !isMuted));
 
   if (isMuted) {
-    muteBtn.innerHTML = "음소거 해제";
+    muteBtn.innerHTML = "🔈";
+    muteBtn.classList.add("off");
   } else {
-    muteBtn.innerHTML = "음소거";
+    muteBtn.innerHTML = "🔊";
+    muteBtn.classList.remove("off");
   }
 };
 
@@ -156,9 +162,11 @@ const handleCameraClick = () => {
     .forEach((track) => (track.enabled = !isCameraOff));
 
   if (isCameraOff) {
-    cameraBtn.innerHTML = "카메라 켜기";
+    cameraBtn.innerHTML = "❌";
+    cameraBtn.classList.add("off");
   } else {
-    cameraBtn.innerHTML = "카메라 끄기";
+    cameraBtn.innerHTML = "📸";
+    cameraBtn.classList.remove("off");
   }
 };
 
@@ -179,17 +187,19 @@ const handleReciveSoundClick = () => {
   isSoundOff = !isSoundOff;
   muteBtn.hidden = isSoundOff ? true : false;
 
-  remoteStream
-    .getAudioTracks()
-    .forEach((track) => (track.enabled = !isSoundOff));
   localStream
     .getAudioTracks()
     .forEach((track) => (track.enabled = !isSoundOff));
+  remoteStream
+    ?.getAudioTracks()
+    .forEach((track) => (track.enabled = !isSoundOff));
 
   if (isSoundOff) {
-    reciveSoundBtn.innerHTML = "전체 오디오 켜기";
+    reciveSoundBtn.innerHTML = "❌";
+    reciveSoundBtn.classList.add("off");
   } else {
-    reciveSoundBtn.innerHTML = "전체 오디오 끄기";
+    reciveSoundBtn.innerHTML = "🎧";
+    reciveSoundBtn.classList.remove("off");
   }
 };
 
@@ -204,6 +214,10 @@ cameraSelect.addEventListener("input", handleCameraSelect);
 socket.on("welcome", async (newUser) => {
   console.log(newUser === "익명" ? "누군가 입장" : newUser + " 입장");
 
+  // 데이터 채널
+  dataChannel = peerConnection.createDataChannel("chat");
+  dataChannel.addEventListener("message", console.log);
+
   const offer = await peerConnection.createOffer();
   peerConnection.setLocalDescription(offer);
 
@@ -212,7 +226,13 @@ socket.on("welcome", async (newUser) => {
 
 /** offer를 받았을 때 */
 socket.on("offer", async (offer, newUserName) => {
+  peerConnection.addEventListener("datachannel", (event) => {
+    dataChannel = event.channel;
+    dataChannel.addEventListener("message", console.log);
+  });
+
   peerConnection.setRemoteDescription(offer);
+  console.log("offet 보내기");
 
   const answer = await peerConnection.createAnswer();
   peerConnection.setLocalDescription(answer);

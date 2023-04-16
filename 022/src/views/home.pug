@@ -6,36 +6,38 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title 소켓
     link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
+    link(rel="stylesheet", href="/public/css/app.css")
   body 
     header
       h1#title 📸 1:1 화상 대화 💎
     main
       div#welcome
         form
-          input#roomName(type="text", placeholder="채팅방 이름", required autocomplete='off')
-          input#userName(type="text", value="익명", required)
+          label(for="roomName") 방 이름
+          input#roomName(type="text", placeholder="채팅방 이름", required autocomplete="off" autofocus)
+          label(for="roomName") 닉네임
+          input#userName(type="text", value="익명", required autocomplete="off")
           button 들어가기
       div#call
-        div#localContents
-          p.userName
-          video#localFace(
-            autoplay,
-            playsinline,
-            with="900", 
-            height="400"
-          )
-        div#remoteContents
-          p.userName
-          video#remoteFace(
-            autoplay,
-            playsinline,
-            with="900", 
-            height="400"
-          )
-        div
-          button#mute 음소거
-          button#camera 카메라 끄기
-          button#reciveSound 전체 오디오 끄기
-          select#cameraSelect
+        div.videoBox
+          div#localContents
+            video#localFace(
+              autoplay,
+              playsinline,
+            )
+            p.userName
+          div#remoteContents
+            video#remoteFace(
+              autoplay,
+              playsinline,
+            )
+            p.userName 상대방
+        div.buttonBox
+          div.selectBox
+            label 카메라 선택
+            select#cameraSelect
+          button#mute 🔊
+          button#camera 📸
+          button#reciveSound 🎧
     script(src="/socket.io/socket.io.js") 
     script(src="/public/js/app.js") 
