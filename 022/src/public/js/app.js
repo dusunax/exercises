@@ -36,7 +36,7 @@ const call = document.querySelector("#call");
 call.hidden = true;
 
 // --------------------------------
-// call 기능
+// init & 방 입장
 const initCall = async () => {
   welcome.hidden = true;
   call.hidden = false;
@@ -201,9 +201,13 @@ cameraSelect.addEventListener("input", handleCameraSelect);
 // --------------------------------
 // socket
 
-socket.on("welcome", async () => {
-  const newUser = remoteUsername.innerHTML;
+socket.on("welcome", async (newUser) => {
   console.log(newUser === "익명" ? "누군가 입장" : newUser + " 입장");
+
+  const offer = await peerConnection.createOffer();
+  peerConnection.setLocalDescription(offer);
+
+  socket.emit("offer", offer, currentRoomName, currentUserName);
 });
 
 /** offer를 받았을 때 */
@@ -259,9 +263,4 @@ const makeConnection = async () => {
   localStream
     .getTracks()
     .forEach((track) => peerConnection.addTrack(track, localStream));
-
-  const offer = await peerConnection.createOffer();
-  peerConnection.setLocalDescription(offer);
-
-  socket.emit("offer", offer, currentRoomName, currentUserName);
 };

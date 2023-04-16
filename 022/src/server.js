@@ -29,8 +29,9 @@ instrument(io, {
 io.on("connection", (socket) => {
   socket.onAny((event) => console.log("이벤트: " + event));
 
-  socket.on("join_room", (roomName) => {
+  socket.on("join_room", (roomName, userName) => {
     socket.join(roomName);
+    socket.emit("welcome", userName);
   });
 
   socket.on("offer", (offer, roomName, userName) => {
@@ -39,8 +40,6 @@ io.on("connection", (socket) => {
 
   socket.on("answer", (answer, roomName, userName) => {
     socket.to(roomName).emit("answer", answer, userName);
-
-    socket.emit("welcome");
   });
 
   socket.on("ice", (iceCandidate, roomName) => {
