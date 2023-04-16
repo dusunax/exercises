@@ -124,7 +124,7 @@ video {
 }
 
 #cameraSelect {
-  min-width: 26em;
+  min-width: 22em;
   margin: 0 1em 0 0;
 }
 
@@ -139,13 +139,17 @@ video {
     padding-top: 1em;
   }
 
+  header {
+    padding: 0;
+  }
+
   #call .videoBox {
     flex-flow: column;
-    gap: 3.4em;
+    gap: 4em;
   }
 
   #call .videoBox > div {
-    padding-bottom: 80% !important;
+    padding-bottom: 50% !important;
   }
 
   #call .buttonBox {
@@ -156,6 +160,25 @@ video {
   #cameraSelect {
     width: 100%;
     min-width: 0;
+  }
+
+  .userName {
+    font-size: 1.2em;
+    padding: 0.3em 1em;
+
+    bottom: -13px;
+    transform: translateX(-50%) translateY(100%);
+  }
+}
+
+@media (max-width: 500px) {
+  #call .videoBox > div {
+    padding-bottom: 80% !important;
+  }
+
+  #call .videoBox {
+    flex-flow: column;
+    gap: 3.4em;
   }
 
   .userName {
