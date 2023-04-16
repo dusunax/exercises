@@ -172,13 +172,18 @@ video {
 }
 
 @media (max-width: 500px) {
+  #title {
+    font-size: 1.8em;
+  }
+
   #call .videoBox > div {
     padding-bottom: 80% !important;
   }
 
   #call .videoBox {
     flex-flow: column;
-    gap: 3.4em;
+    gap: 3em;
+    margin-bottom: 4em;
   }
 
   .userName {
@@ -189,5 +194,12 @@ video {
     left: 0;
     right: 0;
     transform: translateX(0) translateY(100%);
+  }
+
+  #call .buttonBox button {
+    padding: 0.5em;
+  }
+  select {
+    font-size: 1.4em;
   }
 }
