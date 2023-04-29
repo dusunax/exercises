@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="assets/styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -24,7 +24,7 @@
       <a href="#step-one">시작하기</a>
     </header>
 
-    <!-- 첫 번째: 닉네임과 나이를 입력 받습니다. -->
+    <!-- 첫 번째 step: 닉네임과 나이를 입력 받습니다. -->
     <section id="step-one" class="flex-column">
       <h2 class="title">#1. 너의 이름은?</h2>
       <div class="card">
@@ -56,6 +56,7 @@
       <button class="go-next-button" onclick="saveUserAndGoNext()">다음</button>
     </section>
 
+    <!-- 두 번째 step -->
     <section id="step-two" class="flex-column">
       <h2 class="title">#2. 안녕하세요?</h2>
       <div class="card">
@@ -65,6 +66,15 @@
           <strong class="age">이문</strong>세 일겁니다.🧙‍♂️
         </h3>
       </div>
+
+      <!-- 다음으로 버튼 -->
+      <a href="#start">
+        <button class="go-first-button">처음으로</button>
+      </a>
+      <!-- <button class="go-next-button" onclick="goToNextStep('step-three')"> -->
+      <button class="go-next-button" onclick="seeYouLater()">
+        🚧 다음에 계속 🚧
+      </button>
     </section>
 
     <footer>
@@ -80,6 +90,6 @@
     <input type="hidden" id="temp-nickname" />
     <input type="hidden" id="temp-age" />
 
-    <script src="index.js"></script>
+    <script src="assets/index.js"></script>
   </body>
 </html>
