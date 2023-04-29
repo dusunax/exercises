@@ -8,6 +8,15 @@ const ages = document.querySelectorAll("strong.age");
 const ageArea = document.querySelector(".age-area");
 const progressBar = document.querySelector(".progress");
 
+const setHeight = () => {
+  const body = document.querySelector("body");
+  const vh = window.innerHeight * 0.01;
+  body.style.height = `${vh}px`;
+};
+
+window.addEventListener("resize", setHeight);
+setHeight();
+
 /**
  * [유저 저장 및 step 이동]
  * - step 1 => 2

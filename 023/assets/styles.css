@@ -55,7 +55,13 @@ a {
 
 /* 레이아웃 Layout */
 body {
-  padding-bottom: 100px;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 section {
@@ -79,7 +85,8 @@ section .title {
 }
 
 .card {
-  width: var(--width-card-medium);
+  max-width: var(--width-card-medium);
+  padding: 0 2em;
 }
 
 header {
@@ -92,7 +99,10 @@ header {
 footer {
   width: 100%;
   height: 100px;
-  padding: 0;
+  padding: 0 2em;
+  box-sizing: border-box;
+
+  font-size: 14px;
 
   display: flex;
   align-items: center;
@@ -275,6 +285,8 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 100%;
   width: 25%;
   border-radius: 10px;
-  background-color: var(--color-secondary);
+
+  background: linear-gradient(to right, #920de9 0%, #ba25f0 100%);
+
   transition: width 0.2s ease-in-out;
 }
