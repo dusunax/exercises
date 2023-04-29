@@ -31,7 +31,7 @@
   --font-family: "LOTTERIADDAG", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   --hover-brightness: 1.2;
-  --justify-important: left;
+  --justify-important: center;
   --justify-normal: left;
   --line-height: 1.6;
   --width-card: 285px;
@@ -66,11 +66,15 @@ body::-webkit-scrollbar {
 
 section {
   height: calc(100vh - 100px);
-  border-bottom: 1px solid var(--color-link);
+  /* border-bottom: 1px solid var(--color-link); */
+}
+
+section:last-of-type {
+  padding-bottom: 100px;
 }
 
 section .title {
-  margin-top: 100px;
+  margin-top: 1em;
 }
 
 .flex-item-center {
@@ -246,7 +250,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .age-area {
   position: relative;
   margin: 0 auto;
-  padding: 8em 0;
+  padding: 10vh 0;
 }
 
 #age {
