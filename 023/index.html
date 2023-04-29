@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <title>킹받는 UI nor UX</title>
+  </head>
+
+  <body>
+    <!-- 시작하기 -->
+    <header class="flex-column" id="start">
+      <h1>킹받는 UI <span class="rotate">x</span> UX</h1>
+      <h4 class="word-bubble">
+        🧑 당신이 열받는다면 <strong>성공!</strong> 👩
+      </h4>
+      <button onclick="window.close()">끝내기</button>
+      <a href="#step-one">시작하기</a>
+    </header>
+
+    <!-- 첫 번째: 닉네임과 나이를 입력 받습니다. -->
+    <section id="step-one" class="flex-column">
+      <h2 class="title">#1. 너의 이름은?</h2>
+      <div class="card">
+        <!-- 닉네임 -->
+        <label for="nickname">닉네임</label>
+        <input
+          id="nickname"
+          name="nickname"
+          type="text"
+          value="닉네임을 입력하세요."
+          maxlength="20"
+          minlength="1"
+        />
+
+        <!-- 나이-->
+        <label for="nickname">나이</label>
+        <div class="age-area">
+          <div class="progress-bar">
+            <input type="number" min="0" max="100" value="25" id="age" />
+            <div class="progress"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 다음으로 버튼 -->
+      <a href="#start">
+        <button class="go-first-button">처음으로</button>
+      </a>
+      <button class="go-next-button" onclick="saveUserAndGoNext()">다음</button>
+    </section>
+
+    <section id="step-two" class="flex-column">
+      <h2 class="title">#2. 안녕하세요?</h2>
+      <div class="card">
+        <label>hello, ${유저 이름}</label>
+        <h3 class="word-bubble text-center">
+          <strong class="nickname">너</strong>의 나이는
+          <strong class="age">이문</strong>세 일겁니다.🧙‍♂️
+        </h3>
+      </div>
+    </section>
+
+    <footer>
+      <p class="text-center">
+        이 페이지는
+        <a href="https://userinyerface.com/" target="_blank"
+          >User Inyerface (https://userinyerface.com/)</a
+        >를 모티브로 제작했습니다.
+      </p>
+      <a href="#start" class="top-button">🏠</a>
+    </footer>
+
+    <input type="hidden" id="temp-nickname" />
+    <input type="hidden" id="temp-age" />
+
+    <script src="index.js"></script>
+  </body>
+</html>
