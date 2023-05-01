@@ -82,6 +82,8 @@ section {
   width: 100%;
   max-width: var(--width-card-wide);
   margin: auto;
+
+  background-color: #fff;
   /* border-bottom: 1px solid var(--color-link); */
 }
 
