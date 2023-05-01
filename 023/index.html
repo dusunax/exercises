@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css" />
-    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -76,11 +76,65 @@
       </div>
 
       <!-- 다음으로 버튼 -->
+      <a href="#step-one">
+        <button class="go-first-button">아닌데요</button>
+      </a>
+      <a href="#step-three">
+        <button class="go-next-button">그럴걸요</button>
+      </a>
+    </section>
+
+    <!-- 세 번째 step -->
+    <section id="step-three" class="flex-column">
+      <h2 class="title">#3. 당신의 육십갑자</h2>
+      <div class="card">
+        <label>hello, <strong class="nickname">너</strong></label>
+        <h3 class="word-bubble text-center">당신의 생년월일이 맞나요?</h3>
+      </div>
+      <div class="birth-container">
+        <div class="birth text-xl">1923</div>
+        년생
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
+      <div class="result text-lg">🤔</div>
+
+      <!-- 모바일용 버튼 -->
+      <button class="show-at-mobile show-result-button" onclick="showResult()">
+        육십갑자 알아보기
+      </button>
+      <!-- ------------ -->
+
+      <!-- 다음으로 버튼 -->
+      <a href="#step-four">
+        <button class="go-next-button">다음으로</button>
+      </a>
+    </section>
+
+    <!-- 다음에 계속 -->
+    <section id="step-four" class="flex-column">
+      <h2 class="title">#n. 다음에 계속</h2>
+      <div class="card">
+        <label>hello, <strong class="nickname">너</strong></label>
+        <h3 class="word-bubble text-center">
+          이름: <strong class="nickname">당신</strong> (<strong class="age"
+            >'-'</strong
+          >)
+          <br />
+          갑자: <strong class="branch"> 👾👾 </strong>
+          <br />
+          <strong class="branch-emoji"> 👾👾 </strong>
+        </h3>
+      </div>
+
+      <!-- 다음으로 버튼 -->
       <a href="#start">
         <button class="go-first-button">처음으로</button>
       </a>
       <!-- <button class="go-next-button" onclick="goToNextStep('step-three')"> -->
       <button class="go-next-button" onclick="seeYouLater()">
+        뭔가를 더 보여드리겠습니다!<br />
         🚧 다음에 계속 🚧
       </button>
     </section>
@@ -97,7 +151,12 @@
 
     <input type="hidden" id="temp-nickname" />
     <input type="hidden" id="temp-age" />
+    <input type="hidden" id="temp-branch" />
 
-    <script src="assets/index.js"></script>
+    <script src="assets/js/contants.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/stepOne.js"></script>
+    <script src="assets/js/stepThree.js"></script>
+    <script src="assets/js/earthly-branch.js"></script>
   </body>
 </html>

@@ -35,8 +35,9 @@
   --justify-normal: left;
   --line-height: 1.6;
   --width-card: 285px;
+  --width-card-small: 360px;
   --width-card-medium: 460px;
-  --width-card-wide: 800px;
+  --width-card-wide: 500px;
   --width-content: none;
 }
 
@@ -51,6 +52,14 @@ a {
 
 .text-center {
   text-align: center;
+}
+
+.text-xl {
+  font-size: 3em;
+}
+
+.text-lg {
+  font-size: 2em;
 }
 
 /* 레이아웃 Layout */
@@ -89,7 +98,8 @@ section .title {
 }
 
 .card {
-  max-width: var(--width-card-medium);
+  width: 100%;
+  max-width: var(--width-card-wide);
   padding: 0 2em;
 }
 
@@ -136,6 +146,11 @@ footer a {
   cursor: pointer;
 }
 
+.fade-in {
+  opacity: 0.5;
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
 @keyframes rotate {
   0% {
     transform: rotateX(0);
@@ -151,6 +166,15 @@ footer a {
   }
   50% {
     transform: scale(100);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -183,6 +207,8 @@ input[type="number"]::-webkit-inner-spin-button {
   padding: 1em 2em;
   border-radius: var(--border-radius);
   background-color: #fff;
+
+  word-break: keep-all;
 
   box-shadow: 2px 2px 10px rgba(127, 128, 134, 0.5);
 
@@ -250,7 +276,8 @@ input[type="number"]::-webkit-inner-spin-button {
 .age-area {
   position: relative;
   margin: 0 auto;
-  padding: 10vh 0;
+  padding: 30% 0;
+  box-sizing: border-box;
 }
 
 #age {
@@ -273,24 +300,94 @@ input[type="number"]::-webkit-inner-spin-button {
   text-align: center;
 }
 
-.progress-bar {
+#step-one .progress-bar {
   height: 10px;
   width: 100%;
-  background-color: #eee;
   border-radius: 10px;
-  position: relative;
   margin-bottom: 10px;
+
+  background-color: #eee;
+
+  position: relative;
 }
 
-.progress {
+#step-one .progress {
+  height: 100%;
+  width: 25%;
+
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 25%;
   border-radius: 10px;
 
   background: linear-gradient(to right, #920de9 0%, #ba25f0 100%);
 
   transition: width 0.2s ease-in-out;
+}
+
+/* step3 */
+#step-three .progress-container {
+  width: 80%;
+  height: 20px;
+  margin: 10px auto;
+
+  position: relative;
+
+  background-color: #ddd;
+}
+
+#step-three .progress-bar {
+  height: 100%;
+  width: 0%;
+
+  position: absolute;
+
+  background: linear-gradient(to right, #920de9 0%, #ba25f0 100%);
+}
+
+#step-three .birth-container {
+  max-width: 3.5em;
+  min-height: 3rem;
+  color: #aaa;
+
+  margin: 10px auto;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+#step-three .result {
+  margin: 10px 0;
+}
+
+#step-three .result {
+  margin: 10px 0;
+}
+
+.branch-emoji {
+  font-size: 3em;
+}
+
+/* 미디어쿼리 */
+.show-at-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .show-at-mobile {
+    display: block;
+  }
+
+  .card {
+    max-width: var(--width-card-small);
+  }
+}
+
+@media (max-width: 460px) {
+  .card {
+    max-width: calc(100% - 2em);
+  }
 }
