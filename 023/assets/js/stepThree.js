@@ -49,6 +49,12 @@ const setProgressBar = (percentage) => {
   progressBarThree.style.width = `${percentage}%`;
 };
 
+/** 프로그래스바를 업데이트합니다. */
+const setStepTwoValueOnTempAgeChange = (age) => {
+  progressBarThree.style.width = `${100 - age}%`;
+  ageInput.value = age;
+};
+
 /** 프로그래스바 핸들러 */
 const mouseMoveProgressBarHandler = (event) => {
   const mousePosition = event.clientX;

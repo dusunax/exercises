@@ -27,7 +27,8 @@ const updateUserNameAndAge = (newNickName, newAge) => {
     ages.forEach((e) => (e.innerText = newAge));
     tempAgeInput.value = newAge;
 
-    setStepOneValueOnTempAgeChange();
+    setStepOneValueOnTempAgeChange(newAge);
+    setStepTwoValueOnTempAgeChange(newAge);
   }
 };
 
@@ -49,8 +50,7 @@ const handleMouseMove = (e) => {
 };
 
 /** 프로그래스바를 업데이트합니다. */
-const setStepOneValueOnTempAgeChange = () => {
-  const age = parseInt(tempAgeInput.value);
+const setStepOneValueOnTempAgeChange = (age) => {
   const progress = age + "%";
 
   progressBarOne.style.width = progress;

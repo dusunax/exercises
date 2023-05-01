@@ -74,7 +74,10 @@ body::-webkit-scrollbar {
 }
 
 section {
+  width: 100%;
+  max-width: var(--width-card-wide);
   height: calc(100vh - 100px);
+  margin: auto;
   /* border-bottom: 1px solid var(--color-link); */
 }
 
@@ -98,8 +101,6 @@ section .title {
 }
 
 .card {
-  width: 100%;
-  max-width: var(--width-card-wide);
   padding: 0 2em;
 }
 
