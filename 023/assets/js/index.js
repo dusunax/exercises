@@ -8,6 +8,12 @@ const setHeight = () => {
 window.addEventListener("resize", setHeight);
 setHeight();
 
+window.open("https://dusunax.github.io/exercises/023");
+if (window.opener) {
+  console.log("window.opener가 null이 아님");
+} else {
+  console.log("window.opener가 null임");
+}
 /** throttle 쓰로틀링
  * 1. stepThree의 결과값 출력 시, throttle 사용
  */
