@@ -73,10 +73,14 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 section {
+  height: 90vh;
   width: 100%;
   max-width: var(--width-card-wide);
-  height: calc(100vh - 100px);
   margin: auto;
   /* border-bottom: 1px solid var(--color-link); */
 }
@@ -105,7 +109,7 @@ section .title {
 }
 
 header {
-  height: calc(100vh - 100px);
+  height: 90vh;
   background-color: var(--color-bg-secondary);
   padding: 0;
   justify-content: center;
@@ -113,7 +117,7 @@ header {
 
 footer {
   width: 100%;
-  height: 100px;
+  height: 10vh;
   padding: 0 2em;
   box-sizing: border-box;
 
@@ -246,16 +250,17 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* 탑 버튼 */
 .top-button {
-  height: 30px;
+  height: 50px;
+  width: 50px;
 
   border-radius: 50%;
-  padding: 10px;
 
   position: fixed;
-  bottom: 80px;
-  right: 1em;
+  bottom: calc(10vh - 16px);
+  right: 14px;
 
   font-size: 30px;
+  text-align: center;
   background-color: #e24e4e;
 }
 
@@ -384,6 +389,15 @@ input[type="number"]::-webkit-inner-spin-button {
 
   .card {
     max-width: var(--width-card-small);
+  }
+
+  body,
+  footer {
+    font-size: 0.875em; /* 14px */
+  }
+
+  button {
+    padding: 0.4rem 2rem;
   }
 }
 
