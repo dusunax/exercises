@@ -200,6 +200,12 @@ input {
   transition: all 0.3s;
 }
 
+input[type="text"],
+textarea {
+  width: 100%;
+  max-width: 100%;
+}
+
 input:focus {
   box-shadow: 2px 2px 5px rgba(127, 128, 134, 0.5);
 }
@@ -263,7 +269,7 @@ input[type="number"]::-webkit-inner-spin-button {
   border-radius: 50%;
 
   position: fixed;
-  height: calc(var(--vh, 1vh) * 90 - 16px);
+  bottom: calc(var(--vh, 1vh) * 10 - 16px);
   right: 14px;
 
   font-size: 30px;
@@ -411,5 +417,30 @@ input[type="number"]::-webkit-inner-spin-button {
 @media (max-width: 460px) {
   .card {
     max-width: calc(100% - 2em);
+  }
+}
+
+@media (max-height: 500px) {
+  section {
+    height: calc(var(--vh, 1vh) * 100);
+  }
+
+  body,
+  button,
+  #age {
+    font-size: 0.5em;
+    font-size: 0.5em;
+  }
+
+  input[type="text"] {
+    font-size: 2em;
+  }
+
+  footer {
+    display: none;
+  }
+
+  .age-area {
+    padding: 10% 0;
   }
 }
