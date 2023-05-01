@@ -415,15 +415,15 @@ input[type="number"]::-webkit-inner-spin-button {
   footer {
     font-size: 0.875em; /* 14px */
   }
-
-  button {
-    padding: 0.4rem 2rem;
-  }
 }
 
 @media (max-width: 460px) {
   .card {
     max-width: calc(100% - 2em);
+  }
+
+  button {
+    padding: 0.4rem 2rem;
   }
 }
 
