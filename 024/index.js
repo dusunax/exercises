@@ -64,6 +64,12 @@ const RATE_MODAL = document.getElementById("rate-modal");
  * 4. 모임 정보 초기화
  */
 let isModalOpen = false;
+let write_id;
+if (!localStorage.getItem("write_id")) {
+  localStorage.setItem("write_id", uuid.v4());
+} else {
+  write_id = localStorage.getItem("write_id");
+}
 
 async function initialize(group) {
   try {
@@ -72,7 +78,7 @@ async function initialize(group) {
     initializeGuestsData(group);
     document.title = group.title;
   } catch (e) {
-    window.location = "/024/error.html";
+    window.location = "/exercises/024/error.html";
   }
 }
 
@@ -191,8 +197,9 @@ function setMessageList(message, listElement) {
   deleteButton.classList.add("delete");
 
   deleteButton.addEventListener("click", () => {
-    deleteMessage(message.id);
-    li.remove();
+    if (deleteMessage(message.id) !== false) {
+      li.remove();
+    }
   });
 
   li.classList.add("message-item");
@@ -287,6 +294,7 @@ function openModal(modalElement) {
 async function createMessage(values) {
   const messageData = {
     id: uuid.v4(),
+    write_id: write_id,
     createdAt: new Date().getTime(),
     ...values,
   };
@@ -297,16 +305,11 @@ async function createMessage(values) {
     const snapshot = await getDoc(groupDocRef);
     const data = snapshot.data();
 
-    const newCount = {
-      ...data.count,
-      message: !data.messages?.length ? 0 + 1 : data.messages.length + 1,
-    };
-
     await setDoc(
       groupDocRef,
       {
         messages: updatedMessages,
-        count: newCount,
+        write_id: write_id,
       },
       { merge: true }
     );
@@ -322,9 +325,14 @@ async function createMessage(values) {
  * @param {string} id - Message ID
  */
 async function deleteMessage(id) {
+  const userWriteId = localStorage.getItem("write_id");
+  if (!userWriteId) {
+    alert("삭제에 실패했습니다. 관리자에게 문의해주세요");
+    return false;
+  }
   const confirmation = confirm("정말로 메시지를 삭제하시겠습니까?");
   if (!confirmation) {
-    return;
+    return false;
   }
 
   try {
@@ -332,19 +340,19 @@ async function deleteMessage(id) {
     const snapshot = await getDoc(groupDocRef);
     const data = snapshot.data();
 
-    const updatedMessages = (data.messages || []).filter(
-      (message) => message.id !== id
-    );
-    const newCount = {
-      ...data.count,
-      message: (data.count && data.count.message) - 1 || 0,
-    };
+    const updatedMessages = (data.messages || []).filter((message) => {
+      if (message.write_id !== userWriteId)
+        alert(
+          "삭제에 실패했습니다. 관리자에게 문의해주세요\n(본인의 글만 삭제할 수 있습니다)"
+        );
+      window.location.href = window.location;
+      throw Error("a matching write_id is required");
+    });
 
     await setDoc(
       groupDocRef,
       {
         messages: updatedMessages,
-        count: newCount,
       },
       { merge: true }
     );
