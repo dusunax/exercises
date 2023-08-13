@@ -7,15 +7,25 @@
   - 모임 ID를 통해 firestore DB의 collection 특정
 - HTML + CSS + JavaScript
 
+#### index.html & error.html
+<img width="200px" src="https://github.com/dusunax/exercises/assets/94776135/fb62216b-72d4-478d-8107-059f7598e46d" />
+<img width="200px" src="https://github.com/dusunax/exercises/assets/94776135/0a11c61a-154a-4131-aeb0-5b13dc9c0838" />
+
+#### meeting.html
+<img width="600px" src="https://github.com/dusunax/exercises/assets/94776135/8ac857a6-8bf6-442a-9c9f-a4136abb8d40" />
+
+
 ## 작업 내용
 
 - 애니메이션(Rottie), MVP.css, 아이콘(font-awesome)
 - uuid에 따라 meetup page 구분
-- 기능A: 기념품 랜덤 추첨
+- 기능A: `참여자` 패칭, 추가, 기념품 랜덤 추첨
   - 이름 사이 \*표시
   - 모달창, 각 추첨 확률 표시
-- 기능B: 메시지 작성 및 삭제
+- 기능B: `메시지` 패칭, 작성 및 삭제
   - 삭제 기능(로컬의 임시id 사용), 개선 필요
+
+
 
 ## DB: Firestore
 
