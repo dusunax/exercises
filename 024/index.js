@@ -21,14 +21,17 @@ const firebaseConfig = {
   appId: "1:478706830624:web:a72720b7b0569b56441b45",
   measurementId: "G-ZYBYSGJREY",
 };
-const SAVED_COLLECTION_ID = "3e0768b0-d92c-47e5-ba57-c25c794d9e78";
+
+const getIdFromString = (str) =>
+  new URLSearchParams(window.location.search).get(str);
+const QUERY_COLLECTION_ID = getIdFromString("id");
 
 // Firebase 초기화
 // Firestore 인스턴스 생성
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
-let groupData = await getGroup(SAVED_COLLECTION_ID);
+let groupData = await getGroup(QUERY_COLLECTION_ID);
 
 // -------------------------------------------------------
 /** dom elements
@@ -41,7 +44,7 @@ let groupData = await getGroup(SAVED_COLLECTION_ID);
 
 // 모임 정보
 const MEETUP_ID = document.getElementById("meetup-id");
-MEETUP_ID.innerText = SAVED_COLLECTION_ID;
+MEETUP_ID.innerText = QUERY_COLLECTION_ID;
 
 // 인풋
 const NAME_INPUT = document.getElementById("name-input");
@@ -111,8 +114,9 @@ SAVE_BUTTON.addEventListener("click", () => {
 
     MESSAGE_INPUT.value = "";
     NAME_INPUT.value = "익명";
-    groupData.count.message += 1;
-    MESSAGE_COUNT.textContent = groupData.count.message;
+    const newCount = groupData.count.message + 1;
+    MESSAGE_COUNT.textContent = newCount;
+    groupData.count.message = newCount;
   }
 });
 
@@ -126,10 +130,21 @@ function initMessageList(message, listElement) {
   deleteButton.classList.add("fa-trash");
   deleteButton.classList.add("delete");
 
+  deleteButton.addEventListener("click", () => {
+    deleteMessage(message.id);
+    li.remove();
+
+    const MESSAGE_COUNT = document.getElementById("message-count");
+    const newCount = groupData.count.message - 1;
+    MESSAGE_COUNT.textContent = newCount;
+    groupData.count.message = newCount;
+  });
+
   li.classList.add("message-item");
   nameSpan.classList.add("name");
   textSpan.classList.add("text");
 
+  li.dataset.id = message.id;
   nameSpan.textContent = message.name;
   textSpan.textContent = message.message;
 
@@ -198,8 +213,7 @@ async function getGroup(collectionId) {
 
 /**
  * 2. 메시지 생성
- * @param {string} collectionId - Collection ID
- * @param {object} nameAndText - Message data object {name: string, text: string}
+ * @param {object} values - Message data object {name: string, text: string}
  */
 async function createMessage(values) {
   const messageData = {
@@ -234,13 +248,44 @@ async function createMessage(values) {
   }
 }
 
-// 삭제 버튼 클릭 시
-// function deleteMessage(messageId) {
-//   if (confirm("정말로 이 메시지를 삭제하시겠습니까?")) {
-//     deleteMessageFromFirestore(messageId); // Firestore에서 메시지 삭제
-//     refreshMessageList(); // 메시지 리스트 갱신
-//   }
-// }
+/**
+ * 3. 메시지 삭제
+ * @param {string} id - Message ID
+ */
+async function deleteMessage(id) {
+  const confirmation = confirm("정말로 메시지를 삭제하시겠습니까?");
+  if (!confirmation) {
+    return;
+  }
+
+  try {
+    const groupDocRef = doc(db, "groups", groupData.id);
+    const snapshot = await getDoc(groupDocRef);
+    const data = snapshot.data();
+
+    const updatedMessages = (data.messages || []).filter(
+      (message) => message.id !== id
+    );
+    const newCount = {
+      ...data.count,
+      message: (data.count && data.count.message) - 1 || 0,
+    };
+
+    await setDoc(
+      groupDocRef,
+      {
+        messages: updatedMessages,
+        count: newCount,
+      },
+      { merge: true }
+    );
+
+    console.log("Message successfully deleted from the group");
+  } catch (err) {
+    console.error("Error deleting message:", err);
+  }
+}
+
 // -------------------------------------------------------
 // rottie 애니메이션
 const starAnimationContainer = document.getElementById("star");
