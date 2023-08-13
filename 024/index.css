@@ -2,6 +2,121 @@
   text-align: center;
 }
 
+.hidden {
+  opacity: 0;
+  display: none;
+}
+
+.show {
+  opacity: 1;
+  display: block;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 9;
+  transition: all 0.3 ease-in-out;
+}
+
+.modal .shadow {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: -1;
+}
+
+.modal aside {
+  border-radius: 10px;
+
+  padding: 20px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.button-small {
+  padding: 2px 4px;
+  margin: 0;
+
+  font-size: xx-small;
+  font-weight: 400;
+
+  background-color: #fff;
+  color: #333;
+  border-color: #333;
+  border-width: 1px;
+}
+
+/* 헤더 */
+header {
+  padding: 16px 30px 10px;
+  margin-bottom: 6px;
+
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+
+  position: relative;
+}
+
+header .background {
+  width: 100vw;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: #eee;
+  z-index: -1;
+}
+
+header h1 {
+  margin: 0;
+  font-size: x-large;
+}
+
+#meetup-info .row {
+  min-height: 17px;
+  text-align: left;
+}
+
+/* Message List */
 #message-list {
   padding: 0;
 }
@@ -9,15 +124,87 @@
 .message-item {
   font-size: small;
   display: flex;
+  /* justify-content: space-between; */
   gap: 10px;
   align-items: center;
 }
 
+.message-item .delete {
+  color: #aaa;
+  cursor: pointer;
+}
+
 .message-item .name {
+  flex: 0 0 60px;
   display: inline-block;
   background-color: #aaa;
   color: #fff;
 
   padding: 2px 10px;
   border-radius: 20px;
+}
+
+.message-item .text {
+  flex: 1;
+  text-align: left;
+}
+
+/* Guest List */
+#guest-list {
+  height: 200px;
+  padding: 20px;
+
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  gap: 12px;
+
+  position: relative;
+
+  background: #ddd url("/024/assets/background-party.png") center / cover;
+  overflow-y: auto;
+}
+
+#guest-info {
+  justify-content: space-between;
+  gap: 6px;
+  font-size: xx-small;
+}
+
+#guest-list li {
+  height: 20px;
+  padding: 2px 6px;
+
+  display: block;
+
+  background-color: #fff;
+  font-size: small;
+}
+
+/*  */
+
+#rate-modal {
+  font-size: medium;
+}
+
+/* 결과 모달 */
+#result-modal aside {
+  width: 400px;
+  height: 400px;
+}
+
+/* rottie */
+#confetti {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  pointer-events: none;
+  z-index: 99;
+}
+
+#star {
+  width: 200px;
+
+  transition: all 0.2s ease-in-out;
 }

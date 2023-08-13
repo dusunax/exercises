@@ -9,6 +9,11 @@
 
     <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css" />
     <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js"></script>
 
     <script
       type="module"
@@ -16,13 +21,40 @@
     ></script>
   </head>
   <body>
-    <section class="text-center">
+    <div id="confetti"></div>
+
+    <!-- 헤더 -->
+    <header>
+      <div class="background"></div>
+      <h1 class="title">모임 이름</h1>
+
+      <div id="meetup-info">
+        <div class="row">
+          <sub class="description"></sub>
+        </div>
+
+        <div class="row">
+          <small class="place"></small>
+        </div>
+
+        <div class="row">
+          <a href="http://" class="link-web"></a>
+          <button class="link-map button-small">지도</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="text-center flex">
+      <!-- aside A. messages -->
       <aside>
         <h1>📮 소원 수리함 📮</h1>
-        <label>df</label>
+        <p>
+          <small>id:</small>
+          <small id="meetup-id"></small>
+        </p>
 
         <input
-          type="name"
+          type="text"
           id="name-input"
           placeholder="Enter your name"
           value="익명"
@@ -32,7 +64,9 @@
           id="message-input"
           placeholder="Enter your message"
         />
-        <button id="save-button">Save Message</button>
+        <button id="save-button">
+          <i class="fas fa-save"></i> 메시지 남기기
+        </button>
 
         <div>
           <sub for="message-input" class="small"
@@ -42,7 +76,61 @@
           <ul id="message-list"></ul>
         </div>
       </aside>
+
+      <!-- aside B. guest -->
+      <aside>
+        <h1>참여자 리스트 <span id="guest-count"></span></h1>
+
+        <div id="guest-info" class="flex-center">
+          <div class="flex-center">
+            <sub>소정의 상품 :</sub>
+            <small>1등(🎁) 2등(🍰) 3등(🧃)</small>
+          </div>
+          <button id="show-rate-button" class="button-small">확률 공개</button>
+
+          <div id="rate-modal" class="modal hidden">
+            <div class="shadow"></div>
+            <aside>
+              <p class="row">
+                <strong>1등: </strong>
+                <span>15% </span>
+              </p>
+              <p class="row">
+                <strong>2등: </strong>
+                <span>35% </span>
+              </p>
+              <p class="row">
+                <strong>3등: </strong>
+                <span>50% </span>
+              </p>
+            </aside>
+          </div>
+        </div>
+
+        <div class="guest-list-container">
+          <ul id="guest-list">
+            <li>🎁두*아🎁</li>
+            <li>🎇*선아🎇</li>
+          </ul>
+        </div>
+
+        <input type="text" id="name-input" placeholder="Enter your name" />
+        <button id="show-result-button">참여자 등록</button>
+        <p>
+          <small>추첨은 이름별 1회만 가능합니다</small>
+        </p>
+      </aside>
     </section>
+
+    <!-- Modal A. result -->
+    <div id="result-modal" class="modal text-center hidden">
+      <div class="shadow"></div>
+      <aside>
+        <div id="result-content"></div>
+        <div id="star" class="hidden"></div>
+        <button class="close">닫기</button>
+      </aside>
+    </div>
 
     <script type="module" src="index.js"></script>
   </body>
