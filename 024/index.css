@@ -1,0 +1,23 @@
+.text-center {
+  text-align: center;
+}
+
+#message-list {
+  padding: 0;
+}
+
+.message-item {
+  font-size: small;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.message-item .name {
+  display: inline-block;
+  background-color: #aaa;
+  color: #fff;
+
+  padding: 2px 10px;
+  border-radius: 20px;
+}
