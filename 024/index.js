@@ -5,8 +5,6 @@ import {
   collection,
   getDocs,
   setDoc,
-  updateDoc,
-  addDoc,
   getDoc,
   doc,
 } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
@@ -22,8 +20,6 @@ const firebaseConfig = {
   measurementId: "G-ZYBYSGJREY",
 };
 
-const getIdFromString = (str) =>
-  new URLSearchParams(window.location.search).get(str);
 const QUERY_COLLECTION_ID = getIdFromString("id");
 
 // Firebase 초기화
@@ -31,7 +27,9 @@ const QUERY_COLLECTION_ID = getIdFromString("id");
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
+
 let groupData = await getGroup(QUERY_COLLECTION_ID);
+initialize(groupData);
 
 // -------------------------------------------------------
 /** dom elements
@@ -46,9 +44,9 @@ let groupData = await getGroup(QUERY_COLLECTION_ID);
 const MEETUP_ID = document.getElementById("meetup-id");
 MEETUP_ID.innerText = QUERY_COLLECTION_ID;
 
-// 인풋
-const NAME_INPUT = document.getElementById("name-input");
-const MESSAGE_INPUT = document.getElementById("message-input");
+// ASIDE
+const GEUEST_ASIDE = document.getElementById("guest-aside");
+const MESSAGE_ASIDE = document.getElementById("message-aside");
 
 // 버튼
 const SAVE_BUTTON = document.getElementById("save-button");
@@ -60,32 +58,60 @@ const RESULT_MODAL = document.getElementById("result-modal");
 const RATE_MODAL = document.getElementById("rate-modal");
 
 /** 초기화 initialize
- * 1. 메시지 리스트 초기화
- * 2. 참여자 리스트 초기화
- * 3. 모임 정보 초기화
+ * 1. 그룹 패칭
+ * 2. 메시지 리스트 초기화
+ * 3. 참여자 리스트 초기화
+ * 4. 모임 정보 초기화
  */
 async function initialize(group) {
-  initializeMessages(group);
-  initializeMeetup(group);
+  try {
+    initializeMessagesData(group);
+    initializeMeetupData(group);
+    initializeGuestsData(group);
+    document.title = group.title;
+  } catch (e) {
+    window.location = "/024/error.html";
+  }
 }
-initialize(groupData);
 
-async function initializeMessages(group) {
+async function getGroup(collectionId) {
+  const col = collection(db, "groups");
+  const snapshot = await getDocs(col);
+  const groups = snapshot.docs.map((doc) => doc.data());
+
+  return groups.find((e) => e.id === collectionId);
+}
+
+async function initializeMessagesData(group) {
+  if (!group) return console.log("group not found");
+
   const MESSAGE_COUNT = document.getElementById("message-count");
-  MESSAGE_COUNT.appendChild(document.createTextNode(group.count.message));
+  MESSAGE_COUNT.appendChild(document.createTextNode(group.count?.message));
 
   const MESSAGE_LIST = document.getElementById("message-list");
+  MESSAGE_LIST.innerHTML = "";
   const list = group.messages;
 
-  list.forEach((message) => {
-    initMessageList(message, MESSAGE_LIST);
+  list?.forEach((message) => {
+    setMessageList(message, MESSAGE_LIST);
   });
 }
 
-async function initializeMeetup(group) {
+async function initializeGuestsData(group) {
+  const GUEST_LIST = document.getElementById("guest-list");
+  GUEST_LIST.innerHTML = "";
+  const list = group.guests;
+
+  list?.forEach((guest) => {
+    setGuestList(guest, GUEST_LIST);
+  });
+}
+
+async function initializeMeetupData(group) {
   const MEETUP = document.getElementById("meetup-info");
   const { map, web } = group.link;
 
+  MEETUP.parentElement.querySelector(".title").innerHTML = group.title;
   MEETUP.querySelector(".description").innerHTML = group.description;
   MEETUP.querySelector(".place").innerHTML = group.place;
 
@@ -101,26 +127,27 @@ async function initializeMeetup(group) {
 // ----------------------------------------------------------------
 // 이벤트 구독
 SAVE_BUTTON.addEventListener("click", () => {
-  const name = NAME_INPUT.value;
-  const message = MESSAGE_INPUT.value;
-  2;
+  const nameInput = MESSAGE_ASIDE.querySelector("input[name='nickname']");
+  const messageInput = MESSAGE_ASIDE.querySelector("input[name='message']");
 
   const MESSAGE_LIST = document.getElementById("message-list");
   const MESSAGE_COUNT = document.getElementById("message-count");
 
-  if (name && message) {
-    createMessage({ name, message });
-    initMessageList({ name, message }, MESSAGE_LIST);
+  if (nameInput.value && messageInput.value) {
+    const newValues = { name: nameInput.value, message: messageInput.value };
+    createMessage(newValues);
+    setMessageList(newValues, MESSAGE_LIST);
 
-    MESSAGE_INPUT.value = "";
-    NAME_INPUT.value = "익명";
+    messageInput.value = "";
+    nameInput.value = "익명";
+
     const newCount = groupData.count.message + 1;
     MESSAGE_COUNT.textContent = newCount;
     groupData.count.message = newCount;
   }
 });
 
-function initMessageList(message, listElement) {
+function setMessageList(message, listElement) {
   const li = document.createElement("li");
   const nameSpan = document.createElement("span");
   const textSpan = document.createElement("span");
@@ -135,7 +162,8 @@ function initMessageList(message, listElement) {
     li.remove();
 
     const MESSAGE_COUNT = document.getElementById("message-count");
-    const newCount = groupData.count.message - 1;
+    const newCount =
+      groupData.count.message - 1 > 0 ? groupData.count.message - 1 : 0;
     MESSAGE_COUNT.textContent = newCount;
     groupData.count.message = newCount;
   });
@@ -152,6 +180,25 @@ function initMessageList(message, listElement) {
   li.appendChild(textSpan);
   li.appendChild(deleteButton);
   listElement.prepend(li);
+}
+
+async function setGuestList(guest, listElement) {
+  const li = document.createElement("li");
+  const nameSpan = document.createElement("span");
+  const prizeLeftSpan = document.createElement("span");
+  const prizeRightSpan = document.createElement("span");
+
+  li.classList.add("guest-item");
+
+  const PRIZE = ["", "🎁", "🍰", "🧃"];
+  nameSpan.textContent = guest.filteredName;
+  prizeLeftSpan.textContent = PRIZE[guest.prize];
+  prizeRightSpan.textContent = PRIZE[guest.prize];
+
+  li.appendChild(prizeLeftSpan);
+  li.appendChild(nameSpan);
+  li.appendChild(prizeRightSpan);
+  listElement.appendChild(li);
 }
 
 // ----------------------------------------------------------------
@@ -189,30 +236,13 @@ function initMessageList(message, listElement) {
  */
 
 // ----------------------------------------------------------------
-/** 함수
- * 1. 메시지 리스트 패칭
- * {name: '김파이어', createdAt: '2232132', message: ""}
- * 2. 메시지 생성
- * 3. 메시지 삭제
- * 4. 참여자 리스트 패칭
- * 5. 참여자 리스트에 참여자 추가
+/** firestore 관련 함수
+ * 1. 새 메시지 생성
+ * 2. 메시지 삭제
+ * 3. 새 참여자 추가
  */
-// ----------------------------------------------------------------
 
-/** 1. 메시지 리스트 패칭
- * @param {string} collectionId 컬렉션 ID
- * @returns {Array} 메시지 리스트
- */
-async function getGroup(collectionId) {
-  const col = collection(db, "groups");
-  const snapshot = await getDocs(col);
-  const groups = snapshot.docs.map((doc) => doc.data());
-
-  return groups.find((e) => e.id === collectionId);
-}
-
-/**
- * 2. 메시지 생성
+/** 1. 메시지 생성
  * @param {object} values - Message data object {name: string, text: string}
  */
 async function createMessage(values) {
@@ -221,7 +251,7 @@ async function createMessage(values) {
     createdAt: new Date().getTime(),
     ...values,
   };
-  const updatedMessages = [...groupData.messages, messageData];
+  const updatedMessages = [...(groupData.messages || []), messageData];
 
   try {
     const groupDocRef = doc(db, "groups", groupData.id);
@@ -230,7 +260,7 @@ async function createMessage(values) {
 
     const newCount = {
       ...data.count,
-      message: data.messages.length + 1,
+      message: !data.messages?.length ? 0 + 1 : data.messages.length + 1,
     };
 
     await setDoc(
@@ -243,13 +273,13 @@ async function createMessage(values) {
     );
 
     console.log("Message successfully created and added to the group");
+    return updatedMessages;
   } catch (err) {
     console.error("Error creating message:", err);
   }
 }
 
-/**
- * 3. 메시지 삭제
+/** 2. 메시지 삭제
  * @param {string} id - Message ID
  */
 async function deleteMessage(id) {
@@ -281,8 +311,50 @@ async function deleteMessage(id) {
     );
 
     console.log("Message successfully deleted from the group");
+    return updatedMessages;
   } catch (err) {
     console.error("Error deleting message:", err);
+  }
+}
+
+/**
+ * 3. 참여자 리스트 패칭
+ * @param {string} name 이름
+ * @param {number} prize 당첨내용
+ */
+async function addGuest(name, prize) {
+  const newGuest = {
+    id: uuid.v4(),
+    filteredName: addStarToName(name),
+    name,
+    prize,
+    createdAt: new Date().getTime(),
+  };
+
+  try {
+    const groupDocRef = doc(db, "groups", groupData.id);
+    const snapshot = await getDoc(groupDocRef);
+    const data = snapshot.data();
+
+    const updatedGuests = [...(data.guests || []), newGuest];
+
+    await setDoc(
+      groupDocRef,
+      {
+        guests: updatedGuests,
+      },
+      { merge: true }
+    );
+
+    const GUEST_LIST = document.getElementById("guest-list");
+    setGuestList(newGuest, GUEST_LIST);
+    groupData.guests = updatedGuests;
+    GEUEST_ASIDE.querySelector('input[name="name"]').value = "";
+
+    console.log("New guest successfully added to the group");
+    return updatedGuests;
+  } catch (err) {
+    console.error("Error adding new guest:", err);
   }
 }
 
@@ -357,10 +429,22 @@ const prizes = [
 ];
 
 OPEN_RESULT.addEventListener("click", () => {
-  randomResultHandler();
+  const resultName = RESULT_MODAL.querySelector(".result-content .name");
+  const nameInput = GEUEST_ASIDE.querySelector("input[name='name']");
+  const newName = nameInput.value;
+
+  const isNameDuplicate = checkNameDuplicate(newName);
+  if (isNameDuplicate) {
+    alert("이미 등록된 이름입니다. 다른 이름을 입력해주세요.");
+    return;
+  }
+
+  const prizeRank = randomResultHandler(newName);
+  addGuest(newName, prizeRank);
 
   star.goToAndPlay(0);
   confetti.goToAndPlay(0);
+  resultName.innerHTML = nameInput.value;
 
   starAnimationContainer.classList.remove("hidden");
   starAnimationContainer.classList.add("show");
@@ -370,36 +454,56 @@ OPEN_RESULT.addEventListener("click", () => {
   }, 200);
 });
 
-function randomResultHandler() {
+function randomResultHandler(newName) {
   const randomValue = Math.random();
   let accumulatedProbability = 0;
 
   for (const prize of prizes) {
     accumulatedProbability += prize.probability;
     if (randomValue <= accumulatedProbability) {
-      showResultModal(prize.rank);
-      break;
+      showResultModal(newName, prize.rank);
+      return prize.rank;
     }
   }
 }
 
-function showResultModal(rank) {
-  const resultContent = document.getElementById("result-content");
+function showResultModal(newName, rank) {
+  const resultName = RESULT_MODAL.querySelector(".result-content .name");
+  const resultTitle = RESULT_MODAL.querySelector(".result-content .title");
+  const resultText = RESULT_MODAL.querySelector(".result-content .text");
 
-  if (rank === 1) {
-    resultContent.innerHTML = `
-      <h2>축하합니다!</h2>
-      <p>1등에 당첨되셨습니다!</p>
-    `;
-  } else if (rank === 2) {
-    resultContent.innerHTML = `
-      <h2>축하합니다!</h2>
-      <p>2등에 당첨되셨습니다!</p>
-    `;
-  } else if (rank === 3) {
-    resultContent.innerHTML = `
-      <h2>3등입니다</h2>
-      <p>다음 기회에 더 좋은 결과를 기대해주세요!</p>
-    `;
-  }
+  const results = [
+    { title: "", text: "" },
+    { title: "축하합니다!", text: "1등에 당첨되셨습니다!" },
+    { title: "축하합니다!", text: "2등에 당첨되셨습니다!" },
+    { title: "3등입니다", text: "다음 기회에 더 좋은 결과를 기대해주세요!" },
+  ];
+
+  resultName.innerText = newName;
+  resultTitle.innerText = results[rank].title;
+  resultText.innerText = results[rank].text;
+}
+
+// -------------------------------------------------------
+// utils
+function getIdFromString(str) {
+  return new URLSearchParams(window.location.search).get(str);
+}
+
+function addStarToName(name) {
+  const nameWithMaskedCharacter = name.split("");
+  const randomIndex = Math.floor(
+    Math.random() * nameWithMaskedCharacter.length
+  );
+  nameWithMaskedCharacter[randomIndex] = "*";
+
+  return nameWithMaskedCharacter.join("");
+}
+
+function checkNameDuplicate(newName) {
+  if (groupData.guests === undefined || groupData.guests?.length <= 0)
+    return false;
+
+  const existingNames = groupData.guests.map((guest) => guest.name);
+  return existingNames.includes(newName);
 }
