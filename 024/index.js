@@ -159,7 +159,7 @@ RESULT_MODAL.querySelector(".shadow").addEventListener("click", () => {
 });
 
 RATE_MODAL.querySelector(".shadow").addEventListener("click", () => {
-  isModalOpen ? closeModal() : openModal(RATE_MODAL);
+  isModalOpen ? closeModal(RATE_MODAL) : openModal(RATE_MODAL);
 
   setTimeout(() => {
     starAnimationContainer.classList.remove("show");
@@ -413,7 +413,7 @@ const starAnimation = {
   renderer: "svg",
   loop: true,
   autoplay: true,
-  path: "/024/assets/star.json",
+  path: "/exercises/024/assets/star.json",
 };
 
 const confettiAnimationContainer = document.getElementById("confetti");
@@ -422,7 +422,7 @@ const confettiAnimation = {
   renderer: "svg",
   loop: false,
   autoplay: false,
-  path: "/024/assets/confetti.json",
+  path: "/exercises/024/assets/confetti.json",
 };
 
 const star = lottie.loadAnimation(starAnimation);
@@ -439,6 +439,14 @@ const prizes = [
   { rank: 2, probability: 0.25 },
   { rank: 3, probability: 0.5 },
 ];
+
+function setRateText(prizes) {
+  const rates = prizes.map((e) => e.probability * 100);
+  RATE_MODAL.querySelector(".first").innerHTML = rates[0];
+  RATE_MODAL.querySelector(".second").innerHTML = rates[1];
+  RATE_MODAL.querySelector(".third").innerHTML = rates[2];
+}
+setRateText(prizes);
 
 RESULT_BUTTON.addEventListener("click", (event) => {
   event.preventDefault();
