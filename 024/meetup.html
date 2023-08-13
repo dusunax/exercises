@@ -53,28 +53,28 @@
           <small id="meetup-id"></small>
         </p>
 
-        <input
-          type="text"
-          name="nickname"
-          placeholder="Enter your name"
-          value="익명"
-          autocomplete="off"
-        />
-        <input
-          type="text"
-          name="message"
-          placeholder="Enter your message"
-          autocomplete="off"
-        />
-        <button id="save-button">
-          <i class="fas fa-save"></i> 메시지 남기기
-        </button>
+        <form>
+          <input
+            type="text"
+            name="nickname"
+            placeholder="이름 입력"
+            value="익명"
+            autocomplete="off"
+            required
+          />
+          <input
+            type="text"
+            name="message"
+            placeholder="메시지 입력"
+            autocomplete="off"
+            required
+          />
+          <button id="save-button">
+            <i class="fas fa-save"></i> 메시지 남기기
+          </button>
+        </form>
 
         <div>
-          <sub for="message-input" class="small"
-            >메시지
-            <span id="message-count"></span>
-          </sub>
           <ul id="message-list"></ul>
         </div>
       </aside>
@@ -113,13 +113,16 @@
           <ul id="guest-list"></ul>
         </div>
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter your name"
-          autocomplete="off"
-        />
-        <button id="show-result-button">참여자 등록</button>
+        <form>
+          <input
+            type="text"
+            name="name"
+            placeholder="이름 입력"
+            autocomplete="off"
+            required
+          />
+          <button id="show-result-button">참여자 등록</button>
+        </form>
 
         <div class="info-row">
           <p class="row">

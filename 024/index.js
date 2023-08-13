@@ -50,8 +50,8 @@ const MESSAGE_ASIDE = document.getElementById("message-aside");
 
 // 버튼
 const SAVE_BUTTON = document.getElementById("save-button");
-const OPEN_RESULT = document.getElementById("show-result-button");
-const OPEN_RATE = document.getElementById("show-rate-button");
+const RESULT_BUTTON = document.getElementById("show-result-button");
+const OPEN_RATE_BUTTON = document.getElementById("show-rate-button");
 
 // 모달
 const RESULT_MODAL = document.getElementById("result-modal");
@@ -63,6 +63,8 @@ const RATE_MODAL = document.getElementById("rate-modal");
  * 3. 참여자 리스트 초기화
  * 4. 모임 정보 초기화
  */
+let isModalOpen = false;
+
 async function initialize(group) {
   try {
     initializeMessagesData(group);
@@ -84,9 +86,6 @@ async function getGroup(collectionId) {
 
 async function initializeMessagesData(group) {
   if (!group) return console.log("group not found");
-
-  const MESSAGE_COUNT = document.getElementById("message-count");
-  MESSAGE_COUNT.appendChild(document.createTextNode(group.count?.message));
 
   const MESSAGE_LIST = document.getElementById("message-list");
   MESSAGE_LIST.innerHTML = "";
@@ -126,26 +125,60 @@ async function initializeMeetupData(group) {
 
 // ----------------------------------------------------------------
 // 이벤트 구독
-SAVE_BUTTON.addEventListener("click", () => {
+SAVE_BUTTON.addEventListener("click", (event) => {
+  event.preventDefault();
+  saveMessageHandler();
+});
+
+document
+  .querySelector("#message-aside form")
+  .addEventListener("submit", (event) => {
+    event.preventDefault();
+    saveMessageHandler();
+  });
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && isModalOpen) {
+    closeModal(RESULT_MODAL);
+    closeModal(RATE_MODAL);
+  }
+});
+
+RESULT_MODAL.querySelector("button.close").addEventListener("click", () => {
+  closeModal(RESULT_MODAL);
+  closeModal(RATE_MODAL);
+});
+RESULT_MODAL.querySelector(".shadow").addEventListener("click", () => {
+  closeModal(RESULT_MODAL);
+});
+
+RATE_MODAL.querySelector(".shadow").addEventListener("click", () => {
+  isModalOpen ? closeModal() : openModal(RATE_MODAL);
+
+  setTimeout(() => {
+    starAnimationContainer.classList.remove("show");
+    starAnimationContainer.classList.add("hidden");
+  }, 0);
+});
+
+// 이벤트 핸들러
+function saveMessageHandler() {
   const nameInput = MESSAGE_ASIDE.querySelector("input[name='nickname']");
   const messageInput = MESSAGE_ASIDE.querySelector("input[name='message']");
 
   const MESSAGE_LIST = document.getElementById("message-list");
-  const MESSAGE_COUNT = document.getElementById("message-count");
 
   if (nameInput.value && messageInput.value) {
     const newValues = { name: nameInput.value, message: messageInput.value };
     createMessage(newValues);
     setMessageList(newValues, MESSAGE_LIST);
 
-    messageInput.value = "";
-    nameInput.value = "익명";
-
-    const newCount = groupData.count.message + 1;
-    MESSAGE_COUNT.textContent = newCount;
-    groupData.count.message = newCount;
+    setTimeout(() => {
+      messageInput.value = "";
+      nameInput.value = "익명";
+    }, 0);
   }
-});
+}
 
 function setMessageList(message, listElement) {
   const li = document.createElement("li");
@@ -160,12 +193,6 @@ function setMessageList(message, listElement) {
   deleteButton.addEventListener("click", () => {
     deleteMessage(message.id);
     li.remove();
-
-    const MESSAGE_COUNT = document.getElementById("message-count");
-    const newCount =
-      groupData.count.message - 1 > 0 ? groupData.count.message - 1 : 0;
-    MESSAGE_COUNT.textContent = newCount;
-    groupData.count.message = newCount;
   });
 
   li.classList.add("message-item");
@@ -199,6 +226,18 @@ async function setGuestList(guest, listElement) {
   li.appendChild(nameSpan);
   li.appendChild(prizeRightSpan);
   listElement.appendChild(li);
+}
+
+function closeModal(modalElement) {
+  modalElement.classList.remove("show");
+  modalElement.classList.add("hidden");
+  isModalOpen = false;
+}
+
+function openModal(modalElement) {
+  modalElement.classList.remove("hidden");
+  modalElement.classList.add("show");
+  isModalOpen = true;
 }
 
 // ----------------------------------------------------------------
@@ -381,45 +420,10 @@ const confettiAnimation = {
 const star = lottie.loadAnimation(starAnimation);
 const confetti = lottie.loadAnimation(confettiAnimation);
 
-RESULT_MODAL.querySelector("button.close").addEventListener("click", () => {
-  toggleModal(RESULT_MODAL);
-  setTimeout(() => {
-    starAnimationContainer.classList.remove("show");
-    starAnimationContainer.classList.add("hidden");
-  }, 0);
-});
-RESULT_MODAL.querySelector(".shadow").addEventListener("click", () => {
-  toggleModal(RESULT_MODAL);
-  setTimeout(() => {
-    starAnimationContainer.classList.remove("show");
-    starAnimationContainer.classList.add("hidden");
-  }, 0);
-});
-
-function toggleModal(modalElement) {
-  const isModalOpen = modalElement.classList.contains("show");
-
-  if (isModalOpen) {
-    modalElement.classList.remove("show");
-    modalElement.classList.add("hidden");
-  } else {
-    modalElement.classList.remove("hidden");
-    modalElement.classList.add("show");
-  }
-}
-
-RATE_MODAL.querySelector(".shadow").addEventListener("click", () => {
-  toggleModal(RATE_MODAL);
-  setTimeout(() => {
-    starAnimationContainer.classList.remove("show");
-    starAnimationContainer.classList.add("hidden");
-  }, 0);
-});
-
 // -------------------------------------------------------
 // 랜덤 뽑기
-OPEN_RATE.addEventListener("click", () => {
-  toggleModal(RATE_MODAL);
+OPEN_RATE_BUTTON.addEventListener("click", () => {
+  isModalOpen ? closeModal(RATE_MODAL) : openModal(RATE_MODAL);
 });
 
 const prizes = [
@@ -428,7 +432,18 @@ const prizes = [
   { rank: 3, probability: 0.5 },
 ];
 
-OPEN_RESULT.addEventListener("click", () => {
+RESULT_BUTTON.addEventListener("click", (event) => {
+  event.preventDefault();
+  saveGuestHandler();
+});
+document
+  .querySelector("#guest-aside form")
+  .addEventListener("submit", (event) => {
+    event.preventDefault();
+    saveGuestHandler();
+  });
+
+function saveGuestHandler() {
   const resultName = RESULT_MODAL.querySelector(".result-content .name");
   const nameInput = GEUEST_ASIDE.querySelector("input[name='name']");
   const newName = nameInput.value;
@@ -450,9 +465,9 @@ OPEN_RESULT.addEventListener("click", () => {
   starAnimationContainer.classList.add("show");
 
   setTimeout(() => {
-    toggleModal(RESULT_MODAL);
+    isModalOpen ? closeModal(RESULT_MODAL) : openModal(RESULT_MODAL);
   }, 200);
-});
+}
 
 function randomResultHandler(newName) {
   const randomValue = Math.random();
