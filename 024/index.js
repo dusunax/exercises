@@ -20,8 +20,37 @@ const firebaseConfig = {
   measurementId: "G-ZYBYSGJREY",
 };
 
+// ----------------------------------------------------------------
+/** constant
+ * - PRIZE_OPTIONS: 당첨
+ */
+const PRIZE_OPTIONS = [
+  { rank: 0, probability: 0, emoji: "", title: "", text: "" },
+  {
+    rank: 1,
+    probability: 0.15,
+    emoji: "🎁",
+    title: "축하합니다!",
+    text: "1등에 당첨되셨습니다!",
+  },
+  {
+    rank: 2,
+    probability: 0.25,
+    emoji: "🍰",
+    title: "축하합니다!",
+    text: "2등에 당첨되셨습니다!",
+  },
+  {
+    rank: 3,
+    probability: 0.6,
+    emoji: "🧃",
+    title: "3등입니다",
+    text: "다음 기회에 더 좋은 결과를 기대해주세요!",
+  },
+];
 const QUERY_COLLECTION_ID = getIdFromString("id");
 
+// ----------------------------------------------------------------
 // Firebase 초기화
 // Firestore 인스턴스 생성
 const app = initializeApp(firebaseConfig);
@@ -57,6 +86,7 @@ const OPEN_RATE_BUTTON = document.getElementById("show-rate-button");
 const RESULT_MODAL = document.getElementById("result-modal");
 const RATE_MODAL = document.getElementById("rate-modal");
 
+// --------------------------------------------------------
 /** 초기화 initialize
  * 1. 그룹 패칭
  * 2. 메시지 리스트 초기화
@@ -224,10 +254,9 @@ async function setGuestList(guest, listElement) {
 
   li.classList.add("guest-item");
 
-  const PRIZE = ["", "🎁", "🍰", "🧃"];
   nameSpan.textContent = guest.filteredName;
-  prizeLeftSpan.textContent = PRIZE[guest.prize];
-  prizeRightSpan.textContent = PRIZE[guest.prize];
+  prizeLeftSpan.textContent = PRIZE_OPTIONS[guest.prize].emoji;
+  prizeRightSpan.textContent = PRIZE_OPTIONS[guest.prize].emoji;
 
   li.appendChild(prizeLeftSpan);
   li.appendChild(nameSpan);
@@ -434,19 +463,13 @@ OPEN_RATE_BUTTON.addEventListener("click", () => {
   isModalOpen ? closeModal(RATE_MODAL) : openModal(RATE_MODAL);
 });
 
-const prizes = [
-  { rank: 1, probability: 0.15 },
-  { rank: 2, probability: 0.25 },
-  { rank: 3, probability: 0.5 },
-];
-
 function setRateText(prizes) {
   const rates = prizes.map((e) => e.probability * 100);
-  RATE_MODAL.querySelector(".first").innerHTML = rates[0];
-  RATE_MODAL.querySelector(".second").innerHTML = rates[1];
-  RATE_MODAL.querySelector(".third").innerHTML = rates[2];
+  RATE_MODAL.querySelector(".first").innerHTML = rates[1];
+  RATE_MODAL.querySelector(".second").innerHTML = rates[2];
+  RATE_MODAL.querySelector(".third").innerHTML = rates[3];
 }
-setRateText(prizes);
+setRateText(PRIZE_OPTIONS);
 
 RESULT_BUTTON.addEventListener("click", (event) => {
   event.preventDefault();
@@ -471,6 +494,10 @@ function saveGuestHandler() {
   }
 
   const prizeRank = randomResultHandler(newName);
+  if (prizeRank < 0) {
+    return alert("현재 당첨 확률에 오류가 있습니다.");
+  }
+
   addGuest(newName, prizeRank);
 
   star.goToAndPlay(0);
@@ -488,31 +515,32 @@ function saveGuestHandler() {
 function randomResultHandler(newName) {
   const randomValue = Math.random();
   let accumulatedProbability = 0;
+  let result;
 
-  for (const prize of prizes) {
+  for (const prize of PRIZE_OPTIONS) {
     accumulatedProbability += prize.probability;
     if (randomValue <= accumulatedProbability) {
-      showResultModal(newName, prize.rank);
-      return prize.rank;
+      result = prize; // 현재 상금 옵션을 저장합니다.
     }
+  }
+
+  if (result && accumulatedProbability === 1) {
+    showResultModal(newName, result);
+    return result.rank;
+  } else {
+    console.log("합이 100%가 아님..!");
+    return -1;
   }
 }
 
-function showResultModal(newName, rank) {
+function showResultModal(newName, prize) {
   const resultName = RESULT_MODAL.querySelector(".result-content .name");
   const resultTitle = RESULT_MODAL.querySelector(".result-content .title");
   const resultText = RESULT_MODAL.querySelector(".result-content .text");
 
-  const results = [
-    { title: "", text: "" },
-    { title: "축하합니다!", text: "1등에 당첨되셨습니다!" },
-    { title: "축하합니다!", text: "2등에 당첨되셨습니다!" },
-    { title: "3등입니다", text: "다음 기회에 더 좋은 결과를 기대해주세요!" },
-  ];
-
   resultName.innerText = newName;
-  resultTitle.innerText = results[rank].title;
-  resultText.innerText = results[rank].text;
+  resultTitle.innerText = prize.title;
+  resultText.innerText = prize.text;
 }
 
 // -------------------------------------------------------
