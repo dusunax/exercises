@@ -15,13 +15,13 @@
 | 010 | 모의고사 시험점수 CRUD | 정처기 시험 |  |
 | 011 | 커피 취향 테스트 | step+선택지 구현 |  |
 | 012 | 식단 기록장 | PT 기록  |  |
-| 013 | 헬스 기구 + 사진 todo |  | |
+| 013 | 헬스 기구 todo |  | |
 | 014 | 육십갑자 구하기 | 육십갑자 계산 | ☘ https://dusunax.github.io/exercises/014/ |
 | 015 | 추억의 장소 공유하기 | 맵 api, 스파르타 코딩 |  |
 | 016 | 틱택토 | 게임 |  |
 | 017 | 헬스 도감(kg 기록장) | crud, 헬스 PT 기록 |  |
 | 018 | todo |  |  |
-| 019 | 10억년 버튼 | 게임 |  |
+| 019 | 10억년 버튼 | 게임 | ☘ [https://dusunax.github.io/exercises/019/](https://dusunax.github.io/exercises/019/) |
 | 020 | 포켓몬 스티커 뽑기 | 포켓몬 api | https://github.com/dusunax/toy 에서 토이 이어서 진행 |
 | 021 | 채팅방 | socketIO | https://nomadcoders.co/noom/ |
 | 022 | 줌 클론 | WebRTC | https://nomadcoders.co/noom/ |
