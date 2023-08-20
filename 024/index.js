@@ -109,11 +109,14 @@ async function initialize(group) {
     initializeMessages(group);
     initializeMeetupData(group);
     initializeGuests(group);
-    initializeSelects(group);
-    initializeSelectOption(group);
+
+    if (group.selectOptions && group.selectOptions.length > 0) {
+      initializeSelects(group);
+      initializeSelectOption(group);
+      SELECT_OPTIONS = group.selectOptions[0].options;
+    }
 
     document.title = group.title;
-    SELECT_OPTIONS = group.selectOptions[0].options;
   } catch (e) {
     window.location = "/exercises/024/error.html";
   }
@@ -687,9 +690,6 @@ function checkNameDuplicate(newName) {
 
 // ----------------------------------------------------------------
 // Select 리스트 + Chart API
-
-// DB값으로 대체하기
-
 const selectElement = document.getElementById("select_element");
 const typeInput = document.getElementById("select_customization");
 
@@ -746,7 +746,7 @@ function updateChart(selects) {
     ],
   };
 
-  // Chart.js를 사용하여 그래프 생성
+  // Chart.js
   chartInstance = new Chart(ctx, {
     type: "bar",
     data: data,

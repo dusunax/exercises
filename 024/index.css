@@ -273,6 +273,7 @@ header h1 {
   gap: 4px;
 
   position: relative;
+  background-color: rgba(0, 0, 0, 0.9);
 
   overflow-y: auto;
 }
@@ -285,11 +286,9 @@ header h1 {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
 
   opacity: 0.7;
-  background: #000
-    url("https://img.podbbang.com/pbi/t/640/375/0/786/009/000009786/9786.jpg")
+  background: url("https://img.podbbang.com/pbi/t/640/375/0/786/009/000009786/9786.jpg")
     center / contain no-repeat;
 }
 
@@ -301,6 +300,9 @@ header h1 {
 
   display: flex;
   gap: 4px;
+
+  position: relative;
+  z-index: 9;
 
   font-size: small;
   white-space: nowrap;
