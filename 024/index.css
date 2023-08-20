@@ -287,6 +287,25 @@ header h1 {
   margin: 0;
 }
 
+#select-list .select-item {
+  height: 30px;
+  padding: 0px 16px;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: small;
+  white-space: nowrap;
+
+  text-align: left;
+  margin: 0;
+}
+
+#select-list .select-item strong {
+  color: #699bec;
+}
+
 /* 확률 공개 모달 */
 #rate-modal {
   font-size: medium;

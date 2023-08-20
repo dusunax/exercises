@@ -76,11 +76,13 @@ MEETUP_ID.innerText = QUERY_COLLECTION_ID;
 // ASIDE
 const GEUEST_ASIDE = document.getElementById("guest-aside");
 const MESSAGE_ASIDE = document.getElementById("message-aside");
+const SELECT_ASIDE = document.getElementById("select-aside");
 
 // 버튼
 const SAVE_BUTTON = document.getElementById("save-button");
 const RESULT_BUTTON = document.getElementById("show-result-button");
 const OPEN_RATE_BUTTON = document.getElementById("show-rate-button");
+const SELECT_BUTTON = document.getElementById("select-button");
 
 // 모달
 const RESULT_MODAL = document.getElementById("result-modal");
@@ -106,6 +108,7 @@ async function initialize(group) {
     initializeMessagesData(group);
     initializeMeetupData(group);
     initializeGuestsData(group);
+    initializeSelectsData(group);
     document.title = group.title;
   } catch (e) {
     window.location = "/exercises/024/error.html";
@@ -159,11 +162,26 @@ async function initializeMeetupData(group) {
   });
 }
 
+async function initializeSelectsData(group) {
+  const SELECT_LIST = document.getElementById("select-list");
+  SELECT_LIST.innerHTML = "";
+  const list = group.selects;
+
+  list?.forEach((select) => {
+    setSelectList(select, SELECT_LIST);
+  });
+}
+
 // ----------------------------------------------------------------
 // 이벤트 구독
 SAVE_BUTTON.addEventListener("click", (event) => {
   event.preventDefault();
   saveMessageHandler();
+});
+
+SELECT_BUTTON.addEventListener("click", (event) => {
+  event.preventDefault();
+  saveSelectHandler();
 });
 
 document
@@ -216,6 +234,29 @@ function saveMessageHandler() {
   }
 }
 
+function saveSelectHandler() {
+  const selectElement = SELECT_ASIDE.querySelector("#select_element");
+  const typeInput = document.getElementById("select_customization");
+  const selectValues = selectElement.value.split(".");
+
+  const SELECT_LIST = document.getElementById("select-list");
+
+  if (typeInput?.value && selectValues?.length == 2) {
+    const newValues = {
+      type: typeInput.value,
+      value: selectValues[0],
+      label: selectValues[1],
+    };
+    createSelect(newValues);
+    setSelectList(newValues, SELECT_LIST);
+
+    setTimeout(() => {
+      typeInput.value = "";
+      nameInput.value = "익명";
+    }, 0);
+  }
+}
+
 function setMessageList(message, listElement) {
   const li = document.createElement("li");
   const nameSpan = document.createElement("span");
@@ -255,12 +296,27 @@ async function setGuestList(guest, listElement) {
   li.classList.add("guest-item");
 
   nameSpan.textContent = guest.filteredName;
-  prizeLeftSpan.textContent = PRIZE_OPTIONS[guest.prize].emoji;
-  prizeRightSpan.textContent = PRIZE_OPTIONS[guest.prize].emoji;
+  prizeLeftSpan.textContent = PRIZE_OPTIONS[guest.prize]?.emoji;
+  prizeRightSpan.textContent = PRIZE_OPTIONS[guest.prize]?.emoji;
 
   li.appendChild(prizeLeftSpan);
   li.appendChild(nameSpan);
   li.appendChild(prizeRightSpan);
+  listElement.appendChild(li);
+}
+
+async function setSelectList(select, listElement) {
+  const li = document.createElement("li");
+  const labelSpan = document.createElement("strong");
+  const customSpan = document.createElement("span");
+
+  li.classList.add("select-item");
+
+  labelSpan.textContent = select.label;
+  customSpan.textContent = select.type;
+
+  li.appendChild(labelSpan);
+  li.appendChild(customSpan);
   listElement.appendChild(li);
 }
 
@@ -434,6 +490,37 @@ async function addGuest(name, prize) {
   }
 }
 
+/** 4. 선택내용 생성
+ * @param {object} values - Select data object {type: string, label: string, value: string}
+ */
+async function createSelect(values) {
+  const selectData = {
+    id: uuid.v4(),
+    createdAt: new Date().getTime(),
+    ...values,
+  };
+  const updatedSelects = [...(groupData.selects || []), selectData];
+
+  try {
+    const groupDocRef = doc(db, "groups", groupData.id);
+    const snapshot = await getDoc(groupDocRef);
+    const data = snapshot.data();
+
+    await setDoc(
+      groupDocRef,
+      {
+        selects: updatedSelects,
+      },
+      { merge: true }
+    );
+
+    console.log("Message successfully created and added to the group");
+    return updatedSelects;
+  } catch (err) {
+    console.error("Error creating message:", err);
+  }
+}
+
 // -------------------------------------------------------
 // rottie 애니메이션
 const starAnimationContainer = document.getElementById("star");
@@ -565,4 +652,98 @@ function checkNameDuplicate(newName) {
 
   const existingNames = groupData.guests.map((guest) => guest.name);
   return existingNames.includes(newName);
+}
+
+// ----------------------------------------------------------------
+// Select 리스트 + Chart API
+
+// DB값으로 대체하기
+const SELECT_OPTIONS = [
+  {
+    value: "soju",
+    label: "소주",
+    defaultCustom: "진로",
+  },
+  {
+    value: "beer",
+    label: "맥주",
+    defaultCustom: "테라",
+  },
+];
+
+const selectList = document.getElementById("select-list");
+const selectElement = document.getElementById("select_element");
+const typeInput = document.getElementById("select_customization");
+
+selectElement.addEventListener("change", function () {
+  const selectedOption = SELECT_OPTIONS.find(
+    (option) => option.value === selectElement.value
+  );
+
+  if (selectedOption) {
+    typeInput.value = selectedOption.defaultCustom;
+  } else {
+    typeInput.value = "";
+  }
+});
+
+const chartCanvas = document.getElementById("chart");
+
+updateChart();
+
+function updateChart() {
+  const ctx = chartCanvas.getContext("2d");
+  let currentObj = {};
+
+  groupData.selects.map((e) =>
+    SELECT_OPTIONS.map((opt) => {
+      const currentValue = e.label;
+      const optValue = opt.label;
+
+      if (optValue === currentValue) {
+        if (currentObj[optValue] === undefined) {
+          currentObj[optValue] = 1;
+        } else {
+          currentObj[optValue] = currentObj[optValue] + 1;
+        }
+      }
+    })
+  );
+
+  const selectedLabels = Object.keys(currentObj);
+  const selectedData = Object.values(currentObj);
+
+  const data = {
+    labels: selectedLabels,
+    datasets: [
+      {
+        label: "",
+        data: selectedData,
+        backgroundColor: ["#eeaaaa", "#aaaaee", "#aaeeee"],
+      },
+    ],
+  };
+
+  // Chart.js를 사용하여 그래프 생성
+  new Chart(ctx, {
+    type: "bar",
+    data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+      },
+      scales: {
+        y: {
+          ticks: {
+            stepSize: 1,
+            beginAtZero: true,
+          },
+          suggestedMax: 10,
+        },
+      },
+    },
+  });
 }
