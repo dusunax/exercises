@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.text-left {
+  text-align: left;
+}
+
 .hidden {
   opacity: 0;
   display: none;
@@ -10,6 +14,14 @@
 .show {
   opacity: 1;
   display: block;
+}
+
+.block {
+  display: block;
+}
+
+.m-0 {
+  margin: 0;
 }
 
 .flex-center {
@@ -220,6 +232,58 @@ header h1 {
 }
 
 #guest-aside .info-row .row {
+  margin: 0;
+}
+
+/* */
+#select-aside form {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+}
+
+#select-aside select {
+  width: 100%;
+}
+
+#select-aside .row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+}
+
+#select-aside .row input {
+  margin: 0;
+}
+
+#select-aside .row > *:first-child {
+  flex: 0 0 50px;
+  font-size: 12px;
+}
+
+#select-list {
+  height: 220px;
+  border-radius: 6px;
+  padding: 0;
+
+  border: 1px solid #eee;
+
+  overflow-y: auto;
+}
+
+#select-list li {
+  height: 40px;
+  padding: 0px 16px;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: small;
+  white-space: nowrap;
+
+  text-align: left;
   margin: 0;
 }
 

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MOSO | 모임 확인하기 📬</title>
-    
-    <meta property="og:title" content="MOSO | 모임 확인하기 📬" /> 
-    <meta property="og:description" content="당신의 모임을 확인하세요" /> 
-    
+
+    <meta property="og:title" content="MOSO | 모임 확인하기 📬" />
+    <meta property="og:description" content="당신의 모임을 확인하세요" />
+
     <script nomodule src="index.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css" />
@@ -22,6 +22,8 @@
       type="module"
       src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuid.min.js"
     ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div id="confetti"></div>
@@ -48,6 +50,44 @@
     </header>
 
     <section class="text-center flex">
+      <!-- aside C. select -->
+      <aside id="select-aside">
+        <h1>선택해주세요</h1>
+        <p>
+          <small id="select-info">소주 vs 맥주</small>
+        </p>
+
+        <canvas id="chart"></canvas>
+
+        <form>
+          <div class="row">
+            <small class="block text-left">선택</small>
+            <select id="select_element" class="m-0">
+              <option value="soju.소주">소주</option>
+              <option value="beer.맥주">맥주</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <small class="block text-left">종류</small>
+            <input
+              type="text"
+              name="type"
+              id="select_customization"
+              placeholder="종류"
+              value="진로"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button id="select-button">선택 완료</button>
+        </form>
+
+        <div class="select-list-container">
+          <ul id="select-list"></ul>
+        </div>
+      </aside>
+
       <!-- aside A. messages -->
       <aside id="message-aside">
         <h1>📮 소원 수리함 📮</h1>
