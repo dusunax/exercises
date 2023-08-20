@@ -235,7 +235,7 @@ header h1 {
   margin: 0;
 }
 
-/* */
+/* 선택 옵션 */
 #select-aside form {
   display: flex;
   flex-flow: column;
@@ -265,41 +265,45 @@ header h1 {
 #select-list {
   height: 220px;
   border-radius: 6px;
-  padding: 0;
+  padding: 16px;
 
-  border: 1px solid #eee;
+  display: flex;
+  flex-flow: column;
+  align-items: start;
+  gap: 4px;
+
+  position: relative;
 
   overflow-y: auto;
 }
 
-#select-list li {
-  height: 40px;
-  padding: 0px 16px;
+#select-list::after {
+  content: "";
+  width: 100%;
+  height: 100%;
 
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 
-  font-size: small;
-  white-space: nowrap;
-
-  text-align: left;
-  margin: 0;
+  opacity: 0.7;
+  background: #000
+    url("https://img.podbbang.com/pbi/t/640/375/0/786/009/000009786/9786.jpg")
+    center / contain no-repeat;
 }
 
 #select-list .select-item {
-  height: 30px;
-  padding: 0px 16px;
+  height: 20px;
+  padding: 2px 16px;
+  background-color: #fff;
+  border-radius: 20px;
 
   display: flex;
-  align-items: center;
   gap: 4px;
 
   font-size: small;
   white-space: nowrap;
-
-  text-align: left;
-  margin: 0;
 }
 
 #select-list .select-item strong {

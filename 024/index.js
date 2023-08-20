@@ -58,6 +58,7 @@ const db = getFirestore(app);
 const analytics = getAnalytics(app);
 
 let groupData = await getGroup(QUERY_COLLECTION_ID);
+let SELECT_OPTIONS = [];
 initialize(groupData);
 
 // -------------------------------------------------------
@@ -105,11 +106,14 @@ if (!localStorage.getItem("write_id")) {
 
 async function initialize(group) {
   try {
-    initializeMessagesData(group);
+    initializeMessages(group);
     initializeMeetupData(group);
-    initializeGuestsData(group);
-    initializeSelectsData(group);
+    initializeGuests(group);
+    initializeSelects(group);
+    initializeSelectOption(group);
+
     document.title = group.title;
+    SELECT_OPTIONS = group.selectOptions[0].options;
   } catch (e) {
     window.location = "/exercises/024/error.html";
   }
@@ -123,7 +127,7 @@ async function getGroup(collectionId) {
   return groups.find((e) => e.id === collectionId);
 }
 
-async function initializeMessagesData(group) {
+async function initializeMessages(group) {
   if (!group) return console.log("group not found");
 
   const MESSAGE_LIST = document.getElementById("message-list");
@@ -135,7 +139,7 @@ async function initializeMessagesData(group) {
   });
 }
 
-async function initializeGuestsData(group) {
+async function initializeGuests(group) {
   const GUEST_LIST = document.getElementById("guest-list");
   GUEST_LIST.innerHTML = "";
   const list = group.guests;
@@ -162,7 +166,7 @@ async function initializeMeetupData(group) {
   });
 }
 
-async function initializeSelectsData(group) {
+async function initializeSelects(group) {
   const SELECT_LIST = document.getElementById("select-list");
   SELECT_LIST.innerHTML = "";
   const list = group.selects;
@@ -170,6 +174,26 @@ async function initializeSelectsData(group) {
   list?.forEach((select) => {
     setSelectList(select, SELECT_LIST);
   });
+}
+
+async function initializeSelectOption(group) {
+  const SELECT = document.getElementById("select_element");
+  const SELECT_INFO = document.getElementById("select-info");
+  const selectOptionLabels = [];
+  const TARGET_OPTION = group.selectOptions[0].options;
+
+  TARGET_OPTION.map((e) => {
+    const { value, label } = e;
+    const option = document.createElement("option");
+
+    selectOptionLabels.push(label);
+    option.textContent = label;
+    option.setAttribute("value", value + "." + label);
+
+    SELECT.appendChild(option);
+  });
+
+  SELECT_INFO.textContent = "option: " + selectOptionLabels.join(", ");
 }
 
 // ----------------------------------------------------------------
@@ -189,6 +213,13 @@ document
   .addEventListener("submit", (event) => {
     event.preventDefault();
     saveMessageHandler();
+  });
+
+document
+  .querySelector("#select-aside form")
+  .addEventListener("submit", (event) => {
+    event.preventDefault();
+    saveSelectHandler();
   });
 
 document.addEventListener("keydown", (event) => {
@@ -252,7 +283,6 @@ function saveSelectHandler() {
 
     setTimeout(() => {
       typeInput.value = "";
-      nameInput.value = "익명";
     }, 0);
   }
 }
@@ -500,11 +530,11 @@ async function createSelect(values) {
     ...values,
   };
   const updatedSelects = [...(groupData.selects || []), selectData];
-
   try {
     const groupDocRef = doc(db, "groups", groupData.id);
     const snapshot = await getDoc(groupDocRef);
     const data = snapshot.data();
+    groupData = data;
 
     await setDoc(
       groupDocRef,
@@ -513,6 +543,7 @@ async function createSelect(values) {
       },
       { merge: true }
     );
+    updateChart(updatedSelects);
 
     console.log("Message successfully created and added to the group");
     return updatedSelects;
@@ -658,26 +689,13 @@ function checkNameDuplicate(newName) {
 // Select 리스트 + Chart API
 
 // DB값으로 대체하기
-const SELECT_OPTIONS = [
-  {
-    value: "soju",
-    label: "소주",
-    defaultCustom: "진로",
-  },
-  {
-    value: "beer",
-    label: "맥주",
-    defaultCustom: "테라",
-  },
-];
 
-const selectList = document.getElementById("select-list");
 const selectElement = document.getElementById("select_element");
 const typeInput = document.getElementById("select_customization");
 
 selectElement.addEventListener("change", function () {
   const selectedOption = SELECT_OPTIONS.find(
-    (option) => option.value === selectElement.value
+    (option) => option.value === selectElement.value.split(".")[0]
   );
 
   if (selectedOption) {
@@ -688,14 +706,18 @@ selectElement.addEventListener("change", function () {
 });
 
 const chartCanvas = document.getElementById("chart");
+let chartInstance;
 
-updateChart();
+updateChart(groupData.selects);
+function updateChart(selects) {
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
 
-function updateChart() {
   const ctx = chartCanvas.getContext("2d");
   let currentObj = {};
 
-  groupData.selects.map((e) =>
+  selects?.map((e) =>
     SELECT_OPTIONS.map((opt) => {
       const currentValue = e.label;
       const optValue = opt.label;
@@ -725,7 +747,7 @@ function updateChart() {
   };
 
   // Chart.js를 사용하여 그래프 생성
-  new Chart(ctx, {
+  chartInstance = new Chart(ctx, {
     type: "bar",
     data: data,
     options: {
