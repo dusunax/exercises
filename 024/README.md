@@ -1,10 +1,16 @@
 # 모임 안내 페이지 \_ 230813~4
 
-- 작업일자: 8월 13일(저녁)~ 14일(새벽)
-- 내용:
-  - 간단한 모임 관련 안내 페이지
-  - 사은품 추첨 이벤트 등을 통해 모임 참여를 독려
-  - 모임 ID를 통해 firestore DB의 collection 특정
+- 작업일자:
+  - (1차) 8월 13일(저녁)~ 14일(새벽)
+  - (2차) 8월 20일(오전, 밤)
+- 작업 내용:
+  - (1차) 
+    - 간단한 모임 관련 안내 페이지
+    - 사은품 추첨 이벤트 등을 통해 모임 참여를 독려
+    - 모임 ID를 통해 firestore DB의 collection 특정
+  - (2차)
+    - select option aside 추가(모임에 해당하는 select option을 firestore DB에서 가져오도록 구현)
+    - chart.js를 사용해 select 통계 
 - HTML + CSS + JavaScript
 
 #### index.html & error.html
@@ -13,7 +19,8 @@
 
 #### meeting.html
 <img width="600px" src="https://github.com/dusunax/exercises/assets/94776135/8ac857a6-8bf6-442a-9c9f-a4136abb8d40" />
-
+<br />
+<img width="240px" src="https://github.com/dusunax/exercises/assets/94776135/f0b9a4c9-f0f2-45a9-b546-5500b10baa9e" />
 
 ## 작업 내용
 
@@ -24,6 +31,9 @@
   - 모달창, 각 추첨 확률 표시
 - 기능B: `메시지` 패칭, 작성 및 삭제
   - 삭제 기능(로컬의 임시id 사용), 개선 필요
+- 기능C: `선택 옵션` 출력 및 리스트 저장
+  - option과 value 출력, 유저의 선택 리스트 저장 및 출력
+  - 결과를 차트로 표기(chart.js)
 
 
 
@@ -57,7 +67,7 @@
  */
 
 /**
- * 참여자 Geust
+ * 참여자 Guest
  * @typedef {object} Guest
  * @property {string} id - 참여자의 ID
  * @property {string} name - 참여자의 이름
