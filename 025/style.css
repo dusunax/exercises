@@ -18,6 +18,27 @@
   --color-light-cute: #ffecec;
 }
 
+/* boy */
+.bg-primary,
+.bg-primary-boy {
+  background-color: var(--color-primary-boy);
+}
+
+.bg-secondary,
+.bg-secondary-boy {
+  background-color: var(--color-secondary-boy);
+}
+
+.bg-accent,
+.bg-accent-boy {
+  background-color: var(--color-accent-boy);
+}
+
+.bg-light,
+.bg-light-boy {
+  background-color: var(--color-light-boy);
+}
+
 /* nice */
 .bg-primary-nice {
   background-color: var(--color-primary-nice);
@@ -33,23 +54,6 @@
 
 .bg-light-nice {
   background-color: var(--color-light-nice);
-}
-
-/* boy */
-.bg-primary-boy {
-  background-color: var(--color-primary-boy);
-}
-
-.bg-secondary-boy {
-  background-color: var(--color-secondary-boy);
-}
-
-.bg-accent-boy {
-  background-color: var(--color-accent-boy);
-}
-
-.bg-light-boy {
-  background-color: var(--color-light-boy);
 }
 
 /* cute */
