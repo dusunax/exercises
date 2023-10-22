@@ -1,0 +1,70 @@
+:root {
+  --color-primary: #a8df8e;
+  --color-secondary: #f3fde8;
+
+  --color-primary-nice: #a8df8e;
+  --color-secondary-nice: #f3fde8;
+  --color-accent-nice: #ffbfbf;
+  --color-light-nice: #ffe5e5;
+
+  --color-primary-boy: #f4e869;
+  --color-secondary-boy: #faf2d3;
+  --color-accent-boy: #3085c3;
+  --color-light-boy: #5cd2e6;
+
+  --color-primary-cute: #f875aa;
+  --color-secondary-cute: #ffdfdf;
+  --color-accent-cute: #aedefc;
+  --color-light-cute: #ffecec;
+}
+
+/* nice */
+.bg-primary-nice {
+  background-color: var(--color-primary-nice);
+}
+
+.bg-secondary-nice {
+  background-color: var(--color-secondary-nice);
+}
+
+.bg-accent-nice {
+  background-color: var(--color-accent-nice);
+}
+
+.bg-light-nice {
+  background-color: var(--color-light-nice);
+}
+
+/* boy */
+.bg-primary-boy {
+  background-color: var(--color-primary-boy);
+}
+
+.bg-secondary-boy {
+  background-color: var(--color-secondary-boy);
+}
+
+.bg-accent-boy {
+  background-color: var(--color-accent-boy);
+}
+
+.bg-light-boy {
+  background-color: var(--color-light-boy);
+}
+
+/* cute */
+.bg-primary-cute {
+  background-color: var(--color-primary-cute);
+}
+
+.bg-secondary-cute {
+  background-color: var(--color-secondary-cute);
+}
+
+.bg-accent-cute {
+  background-color: var(--color-accent-cute);
+}
+
+.bg-light-cute {
+  background-color: var(--color-light-cute);
+}
