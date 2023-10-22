@@ -1,21 +1,26 @@
 :root {
-  --color-primary: #a8df8e;
+  --color-primary: #6bb549;
   --color-secondary: #f3fde8;
 
-  --color-primary-nice: #a8df8e;
+  --color-primary-nice: #6bb549;
   --color-secondary-nice: #f3fde8;
   --color-accent-nice: #ffbfbf;
   --color-light-nice: #ffe5e5;
 
-  --color-primary-boy: #f4e869;
+  --color-primary-boy: #fde238;
   --color-secondary-boy: #faf2d3;
   --color-accent-boy: #3085c3;
   --color-light-boy: #5cd2e6;
 
-  --color-primary-cute: #f875aa;
+  --color-primary-cute: #ff6ba6;
   --color-secondary-cute: #ffdfdf;
   --color-accent-cute: #aedefc;
   --color-light-cute: #ffecec;
+
+  --color-primary-bad: #383838;
+  --color-secondary-bad: #f1efef;
+  --color-accent-bad: #b9b9b9;
+  --color-light-bad: #eee;
 }
 
 /* boy */
@@ -71,4 +76,21 @@
 
 .bg-light-cute {
   background-color: var(--color-light-cute);
+}
+
+/* bad */
+.bg-primary-bad {
+  background-color: var(--color-primary-bad);
+}
+
+.bg-secondary-bad {
+  background-color: var(--color-secondary-bad);
+}
+
+.bg-accent-bad {
+  background-color: var(--color-accent-bad);
+}
+
+.bg-light-bad {
+  background-color: var(--color-light-bad);
 }
