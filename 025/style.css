@@ -24,22 +24,18 @@
 }
 
 /* boy */
-.bg-primary,
 .bg-primary-boy {
   background-color: var(--color-primary-boy);
 }
 
-.bg-secondary,
 .bg-secondary-boy {
   background-color: var(--color-secondary-boy);
 }
 
-.bg-accent,
 .bg-accent-boy {
   background-color: var(--color-accent-boy);
 }
 
-.bg-light,
 .bg-light-boy {
   background-color: var(--color-light-boy);
 }
