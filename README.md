@@ -27,3 +27,4 @@
 | 022 | 줌 클론 | WebRTC | https://nomadcoders.co/noom/ |
 | 023 | 열받는 UI/UX | HTML, CSS | ☘ [https://dusunax.github.io/exercises/023/](https://dusunax.github.io/exercises/023/) |
 | 024 | 모임 확인 MOSO | 모임 내 익명 소통, 참여자 리스트 | ☘ [https://dusunax.github.io/exercises/024/](https://dusunax.github.io/exercises/024/) |
+| 025 | AI 친구 채팅방 | openai 채팅 | ☘ [https://dusunax.github.io/exercises/025/](https://dusunax.github.io/exercises/025/) |
