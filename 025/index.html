@@ -36,7 +36,7 @@
 
   <body class="bg-secondary">
     <section
-      class="pure-g flex-col justify-center content-center gap-4 h-screen max-w-[600px] mx-auto pt-40 md:pt-20 py-8 px-4 md:px-16"
+      class="flex flex-col justify-center content-center gap-4 h-screen max-w-[600px] mx-auto pt-36 md:pt-20 py-8 px-4 md:px-16"
     >
       <header
         class="pure-g justify-between items-center w-full mx-auto py-2 px-8 rounded-2xl text-center bg-primary shadow-md relative"
@@ -47,11 +47,10 @@
           class="absolute z-[-1] left-1/2 bottom-8 -translate-x-1/2 w-32"
         />
         Friend Chat
-        <h1 class="text-2xl">
-          <span
-            class="friend-name absolute left-2/3 -top-6 -translate-y-14 translate-x-16 text-sm bg-accent px-4 py-2 rounded-full animate-bounce shadow-sm"
-          ></span>
-        </h1>
+        <h1 class="text-2xl h-full"></h1>
+        <span
+          class="friend-name absolute left-2/3 -top-6 -translate-y-14 translate-x-16 text-sm bg-accent px-4 py-2 rounded-full animate-bounce shadow-sm"
+        ></span>
         <button
           id="next-friend"
           class="text-sm bg-secondary px-4 py-2 rounded-xl shadow-sm"
@@ -69,12 +68,12 @@
         </li>
       </ul>
 
-      <form class="pure-g justify-end gap-4 w-full" id="submit-form">
+      <form class="flex justify-end gap-4 w-full" id="submit-form">
         <input
           id="msg"
           type="text"
           placeholder="메시지를 입력하세요"
-          class="border flex-1 px-4 py-2 rounded-lg"
+          class="border flex-1 px-4 py-2 rounded-lg w-full"
           autocomplete="off"
         />
         <button
