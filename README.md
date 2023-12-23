@@ -30,7 +30,7 @@
 | 025 | AI 친구 채팅방 | openai 채팅 | ☘ [https://dusunax.github.io/exercises/025/](https://dusunax.github.io/exercises/025/) |
 
 ## Code Sandbox
-> 예제 만들기
+> 학습 예제 만들기
 
 #### [[231223]Github API: fetch](https://codesandbox.io/p/sandbox/example-githup-api-33yt4h?file=%2Fsrc%2Findex.js)
 <img src="https://github.com/dusunax/exercises/assets/94776135/183cf6fe-9b40-4481-8606-6fa9f6e260fd" width="200px" />
