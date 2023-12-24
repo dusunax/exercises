@@ -1,4 +1,4 @@
-import CardMaker from "@/components/CardMaker";
+import CardMaker from "@/components/CardMaker/CardMaker";
 
 const CardPage = () => {
   return <CardMaker />;
