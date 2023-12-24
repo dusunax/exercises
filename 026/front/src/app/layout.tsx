@@ -19,7 +19,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <div id="portal" />
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+        />
+      </head>
       <body
         className={`${
           (inter.className, "justify-center")
@@ -30,6 +35,7 @@ export default function RootLayout({
           <ContentsArea>{children}</ContentsArea>
         </div>
       </body>
+      <div id="portal" />
     </html>
   );
 }

@@ -2,6 +2,8 @@
 import { usePathname, useRouter } from "next/navigation";
 import { PropsWithChildren } from "react";
 import ContentsArea from "./ContentsArea";
+import { Button } from "antd";
+import { LeftOutlined } from "@ant-design/icons";
 
 export default function Header({ children }: PropsWithChildren) {
   const pathname = usePathname();
@@ -11,7 +13,9 @@ export default function Header({ children }: PropsWithChildren) {
     <header>
       <ContentsArea className="flex gap-8 h-10">
         {pathname !== "/" && (
-          <button onClick={() => router.back()}>뒤로가기</button>
+          <Button type="text" onClick={() => router.back()}>
+            <LeftOutlined />
+          </Button>
         )}
         {children}
       </ContentsArea>

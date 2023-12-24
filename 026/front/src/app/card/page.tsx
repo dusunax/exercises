@@ -1,7 +1,7 @@
-import CardComponent from "@/pages/component";
+import CardMaker from "@/components/CardMaker";
 
 const CardPage = () => {
-  return <CardComponent />;
+  return <CardMaker />;
 };
 
 export default CardPage;
