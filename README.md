@@ -1,4 +1,4 @@
-### 예제 실습
+## Github
 
 | 번호 | 프로젝트 | 기능 | 링크 |
 | --- | --- | --- | --- |
@@ -28,3 +28,24 @@
 | 023 | 열받는 UI/UX | HTML, CSS | ☘ [https://dusunax.github.io/exercises/023/](https://dusunax.github.io/exercises/023/) |
 | 024 | 모임 확인 MOSO | 모임 내 익명 소통, 참여자 리스트 | ☘ [https://dusunax.github.io/exercises/024/](https://dusunax.github.io/exercises/024/) |
 | 025 | AI 친구 채팅방 | openai 채팅 | ☘ [https://dusunax.github.io/exercises/025/](https://dusunax.github.io/exercises/025/) |
+
+## Code Sandbox
+> 학습 예제 만들기
+
+#### [[231223]Github API: fetch](https://codesandbox.io/p/sandbox/example-githup-api-33yt4h?file=%2Fsrc%2Findex.js)
+<img src="https://github.com/dusunax/exercises/assets/94776135/183cf6fe-9b40-4481-8606-6fa9f6e260fd" width="200px" />
+
+#### [[231223]크리스마스 게임: promise chain](https://codesandbox.io/p/sandbox/javascript-keuriseumaseu-kwijeu-geim-promise-chain-vqppp6?file=%2Fsrc%2Findex.js)
+<img src="https://github.com/dusunax/exercises/assets/94776135/de6db514-5f0f-4930-98fa-aa738ac9054b" width="200px" />
+
+#### [[231202]노드 트리 탐색: DOM](https://codesandbox.io/p/sandbox/javascript-node-tree-vs37w4?file=%2Fsrc%2Findex.js%3A47%2C1)
+<img src="https://github.com/dusunax/exercises/assets/94776135/715596b7-5cc6-458d-89a2-93c803483a67" width="200px" />
+
+#### [[231118]TV와 리모컨: 객체 지향, Class](https://codesandbox.io/p/sandbox/javascript-tvwa-rimokeon-z245cx?file=%2Fsrc%2Findex.mjs%3A99%2C9)
+<img src="https://github.com/dusunax/exercises/assets/94776135/c9fdd54a-86ff-4868-9c58-9a9c368aba01" width="200px" />
+
+#### [[231111]빼빼로 만들기: 객체 지향, Class](https://codesandbox.io/p/sandbox/javascript-yeje-bbaebbaero-class-kz8q3y?file=%2Fsrc%2Findex.mjs)
+<img src="https://github.com/dusunax/exercises/assets/94776135/28639b5b-9a74-462b-a7a5-627316164139" width="200px" />
+
+#### [[231028]만두 공장: this, closer](https://codesandbox.io/p/sandbox/javascript-yeje-mandu-gongjang-this-closer-yqpmtm?file=%2Fsrc%2Findex.mjs%3A15%2C50)
+<img src="https://github.com/dusunax/exercises/assets/94776135/872ecbb5-c49b-4ac4-9adb-fb57c330cd94" width="200px" />
