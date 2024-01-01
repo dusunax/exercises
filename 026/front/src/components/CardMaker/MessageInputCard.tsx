@@ -6,13 +6,11 @@ import { getRandomMessage } from "@/constant/cardMessages";
 import { Message } from "@/interface/card";
 
 interface CardMessageInputProps {
-  handleInputConfirm: (message: Message) => void;
   message: Message;
   setMessage: Dispatch<SetStateAction<Message>>;
 }
 
 export default function CardMessageInput({
-  handleInputConfirm,
   message,
   setMessage,
 }: CardMessageInputProps) {
@@ -22,25 +20,29 @@ export default function CardMessageInput({
   // 메시지 변경 핸들러
   const handleMessageChange = (newMessage: Message) => {
     setOnRandom(false);
-
     setMessage(newMessage);
   };
 
   // 랜덤 메시지 설정
-  const setRandomMessage = () => {
+  const handleRandomMessage = () => {
     setOnRandom(true);
-
     const randomMessage = getRandomMessage();
     setMessage({ ...message, text: randomMessage.ko }); // 한글 메시지!
   };
 
   return (
-    <Card title={t("cardMessageInput.cardMessage")}>
+    <Card title={t("cardMessageInput.cardMessage")} className="w-full">
       <form action="" className="flex flex-col gap-2">
         <Input
           placeholder="메시지 받을 사람"
           onChange={(e) =>
             handleMessageChange({ ...message, to: e.target.value })
+          }
+        />
+        <Input
+          placeholder="메시지 보내는 사람"
+          onChange={(e) =>
+            handleMessageChange({ ...message, from: e.target.value })
           }
         />
         <Input.TextArea
@@ -52,12 +54,9 @@ export default function CardMessageInput({
           className={`${onRandom ? "bg-primary-100" : ""}`}
           rows={4}
         />
-        <Button type="primary" onClick={() => handleInputConfirm(message)}>
-          {t("cardMessageInput.generateImage")}
-        </Button>
         <Button
           type="default"
-          onClick={setRandomMessage} // 랜덤 메시지 설정 함수 호출
+          onClick={handleRandomMessage} // 랜덤 메시지 설정 함수 호출
         >
           {t("cardMessageInput.randomMessage")}
         </Button>

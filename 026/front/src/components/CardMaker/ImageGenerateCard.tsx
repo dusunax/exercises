@@ -3,16 +3,18 @@ import { Card, Button } from "antd";
 import { StyleSelect } from "@/interface/card";
 
 interface CardImageGeneratorProps {
+  loading: boolean;
   selectedStyles: Set<StyleSelect>;
   onImageGenerate: (styles: Set<StyleSelect>) => void;
 }
 
 export default function CardImageGenerator({
+  loading,
   selectedStyles,
   onImageGenerate,
 }: CardImageGeneratorProps) {
   return (
-    <Card title="카드 이미지 생성">
+    <Card title="카드 이미지 생성" className="w-full">
       <div className="flex flex-col justify-center gap-4">
         <div className="flex flex-wrap justify-center">
           {Array.from(selectedStyles).map((style) => (
@@ -21,13 +23,21 @@ export default function CardImageGenerator({
               type="primary"
               style={{ margin: "4px", fontSize: "xx-small" }}
               size="small"
-              className="pointer-events-none"
+              className={`pointer-events-none ${
+                loading ? "animate-pulse" : ""
+              }`}
             >
               {style.ko}
             </Button>
           ))}
         </div>
-        <Button type="primary" onClick={() => onImageGenerate(selectedStyles)}>
+        <Button
+          className={loading ? "animate-pulse" : ""}
+          type="primary"
+          onClick={() => {
+            onImageGenerate(selectedStyles);
+          }}
+        >
           이미지 생성
         </Button>
       </div>

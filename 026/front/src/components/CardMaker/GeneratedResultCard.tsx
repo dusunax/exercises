@@ -15,6 +15,13 @@ interface GeneratedResultCardProps {
   message: Message;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
+  handleStepMoving: ({
+    goTo,
+    move,
+  }: {
+    move?: 0 | 1 | -1 | undefined;
+    goTo?: number | undefined;
+  }) => void;
 }
 
 export default function GeneratedResultCard({
@@ -24,6 +31,7 @@ export default function GeneratedResultCard({
   message,
   loading,
   setLoading,
+  handleStepMoving,
 }: GeneratedResultCardProps) {
   const [loadedImage, setLoadedImage] = useState("");
 
@@ -37,15 +45,16 @@ export default function GeneratedResultCard({
           setLoadedImage(url);
           setLoading(false);
         })
-        .catch((error) => console.error("Error loading image:", error));
+        .catch((error) => console.error("Error loading image:", error))
+        .finally(() => handleStepMoving({ goTo: 2 }));
     }
   }, [generatedImage]);
 
   return (
-    <Card title="생성된 카드 이미지">
+    <Card title="생성된 카드 이미지" className="w-full">
       <div
         ref={imageRef}
-        className={`h-[300px] mb-4 bg-primary-50 shadow-md hover:shadow-xl cursor-pointer rounded-md relative ${
+        className={`h-[300px] mb-4 bg-primary-50 shadow-md hover:shadow-xl rounded-md relative ${
           loading ? "animate-pulse" : ""
         }`}
       >
@@ -80,26 +89,15 @@ export default function GeneratedResultCard({
 
 const MessageTextBox = ({ message }: { message: Message }) => {
   return (
-    <p
-      className="flex flex-col w-3/4 bg-primary px-4 pr-10 py-2 absolute text-white bottom-4 left-1/2 -translate-x-1/2 font-semibold rounded-lg text-xs break-keep"
+    <div
+      className="flex flex-col gap-1 w-3/4 bg-primary px-4 py-2 absolute text-white bottom-4 left-1/2 -translate-x-1/2  rounded-lg text-xs break-keep"
       style={{ background: "rgba(0,0,0,0.7)", color: "white" }}
     >
-      {message.to && (
-        <>
-          to: {message.to}
-          <div className="w-full border-dotted border-b-2 my-1 opacity-70" />
-        </>
-      )}
+      <p className="font-semibold">{message.to && message.to}</p>
 
-      {message.text}
+      <p>{message.text}</p>
 
-      {message.from && (
-        <>
-          <div className="w-full border-dotted border-b-2 my-1 opacity-70" />
-          <span className="text-right">from: {message.from}</span>
-        </>
-      )}
-      {message.from && `from: ${message.from}`}
-    </p>
+      <p className="font-semibold text-right">{message.from}</p>
+    </div>
   );
 };

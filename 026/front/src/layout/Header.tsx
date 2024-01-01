@@ -10,8 +10,10 @@ export default function Header({ children }: PropsWithChildren) {
   const router = useRouter();
 
   return (
-    <header>
-      <ContentsArea className="flex gap-8 h-10">
+    <header
+      style={{ position: "sticky", background: "white", zIndex: 5, top: 0 }}
+    >
+      <ContentsArea className="flex gap-8 h-10 ">
         {pathname !== "/" && (
           <Button type="text" onClick={() => router.back()}>
             <LeftOutlined />
