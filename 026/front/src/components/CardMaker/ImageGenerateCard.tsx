@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Button } from "antd";
-import { StyleSelect } from "./CardMaker";
+import { StyleSelect } from "@/interface/card";
 
 interface CardImageGeneratorProps {
   selectedStyles: Set<StyleSelect>;

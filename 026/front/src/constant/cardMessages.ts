@@ -4,6 +4,7 @@ const CARD_STYLES = [
   { ko: "레트로", en: "Retro" },
   { ko: "모던", en: "Modern" },
   { ko: "아트", en: "Artistic" },
+  { ko: "도트", en: "8-bit style" },
   { ko: "클래식", en: "Classic" },
   { ko: "유니크", en: "Unique" },
   { ko: "컬러풀", en: "Colorful" },
@@ -21,7 +22,6 @@ const CARD_STYLES = [
   { ko: "청량한", en: "Refreshing" },
   { ko: "모험적인", en: "Adventurous" },
   { ko: "포근한", en: "Cozy" },
-  { ko: "우스꽝스러운", en: "Whimsical" },
   { ko: "편안한", en: "Relaxed" },
   { ko: "고전적인", en: "Classic" },
   { ko: "파스텔", en: "Pastel" },
@@ -58,7 +58,7 @@ const CARD_MESSAGES = [
     en: "May all your wishes come true. 🌠",
   },
   {
-    ko: "새해에는 더 많은 성취와 행운이 있길 바라봐! 🌈",
+    ko: "새해에는 더 많은 성취와 행운이 있길 바라! 🌈",
     en: "Looking forward to more achievements and luck in the New Year. 🌈",
   },
   {

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import StyleSelectModal from "../modals/StyleSelectModal";
 import StyleSelectCard from "./StyleSelectCard";
@@ -7,28 +7,28 @@ import MessageInputCard from "./MessageInputCard";
 import ImageGenerateCard from "./ImageGenerateCard";
 import GeneratedResultCard from "./GeneratedResultCard";
 
-export type StyleSelect = { en: string; ko: string };
+import { StyleSelect } from "@/interface/card";
+import useCardMaker from "./hooks/useCardMaker";
 
 export default function CardMaker() {
   const [selectedStyles, setSelectedStyles] = useState<Set<StyleSelect>>(
     new Set()
   );
-  const [generatedImage, setGeneratedImage] = useState(""); // 생성된 이미지 URL
+  const imageRef = useRef<HTMLDivElement>(null);
+  const [message, setMessage] = useState({
+    to: "",
+    from: "",
+    text: "",
+  });
 
-  const handleGenerateImage = (styles: Set<StyleSelect>) => {
-    // OpenAI API
-    // styles를 사용하여 이미지를 생성하고 이미지 URL을 설정
-
-    const imageUrl = "https://example.com/generated-image.png";
-    setGeneratedImage(imageUrl);
-  };
-
-  const handleDownloadImage = () => {
-    const link = document.createElement("a");
-    link.href = generatedImage;
-    link.download = "generated-card.png";
-    link.click();
-  };
+  const {
+    handleGenerateImage,
+    handleInputConfirm,
+    handleDownloadImage,
+    generatedImage,
+    loading,
+    setLoading,
+  } = useCardMaker({ selectedStyles, imageRef });
 
   return (
     <div className="w-full max-w-[360px] mx-auto flex flex-col gap-2">
@@ -45,13 +45,17 @@ export default function CardMaker() {
         onImageGenerate={handleGenerateImage}
       />
       <MessageInputCard
-        onMessageChange={(e) => console.log(e)}
-        generatedImageSrc={generatedImage}
-        onGenerateImage={() => console.log("d")}
+        message={message}
+        setMessage={setMessage}
+        handleInputConfirm={handleInputConfirm}
       />
       <GeneratedResultCard
+        imageRef={imageRef}
+        message={message}
         generatedImage={generatedImage}
         onDownloadImage={handleDownloadImage}
+        loading={loading}
+        setLoading={setLoading}
       />
     </div>
   );

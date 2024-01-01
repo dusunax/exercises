@@ -1,29 +1,29 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Card, Input, Button } from "antd";
 import { useTranslation } from "react-i18next";
-import { getRandomMessage } from "@/constant/cardMessages"; // 랜덤 메시지를 가져옴
+
+import { getRandomMessage } from "@/constant/cardMessages";
+import { Message } from "@/interface/card";
 
 interface CardMessageInputProps {
-  onMessageChange: (message: string) => void;
-  onGenerateImage: () => void;
-  generatedImageSrc: string;
+  handleInputConfirm: (message: Message) => void;
+  message: Message;
+  setMessage: Dispatch<SetStateAction<Message>>;
 }
 
 export default function CardMessageInput({
-  onMessageChange,
-  onGenerateImage,
-  generatedImageSrc,
+  handleInputConfirm,
+  message,
+  setMessage,
 }: CardMessageInputProps) {
   const { t } = useTranslation();
-  const [message, setMessage] = useState("");
   const [onRandom, setOnRandom] = useState(false);
 
   // 메시지 변경 핸들러
-  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleMessageChange = (newMessage: Message) => {
     setOnRandom(false);
 
-    setMessage(e.target.value);
-    onMessageChange(e.target.value);
+    setMessage(newMessage);
   };
 
   // 랜덤 메시지 설정
@@ -31,22 +31,28 @@ export default function CardMessageInput({
     setOnRandom(true);
 
     const randomMessage = getRandomMessage();
-    setMessage(randomMessage.ko); // 한글 메시지를 사용
-    onMessageChange(randomMessage.ko);
+    setMessage({ ...message, text: randomMessage.ko }); // 한글 메시지!
   };
 
   return (
     <Card title={t("cardMessageInput.cardMessage")}>
       <form action="" className="flex flex-col gap-2">
-        <Input placeholder="메시지 받을 사람" />
+        <Input
+          placeholder="메시지 받을 사람"
+          onChange={(e) =>
+            handleMessageChange({ ...message, to: e.target.value })
+          }
+        />
         <Input.TextArea
-          value={message}
-          onChange={(e) => handleMessageChange(e)}
+          value={message.text}
+          onChange={(e) =>
+            handleMessageChange({ ...message, text: e.target.value })
+          }
           placeholder={t("cardMessageInput.placeholder")}
           className={`${onRandom ? "bg-primary-100" : ""}`}
           rows={4}
         />
-        <Button type="primary" onClick={onGenerateImage}>
+        <Button type="primary" onClick={() => handleInputConfirm(message)}>
           {t("cardMessageInput.generateImage")}
         </Button>
         <Button

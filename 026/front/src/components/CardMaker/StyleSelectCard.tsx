@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Card, Button, message } from "antd";
 
 import { CARD_STYLES } from "@/constant/cardMessages";
-import { StyleSelect } from "./CardMaker";
+import { StyleSelect } from "@/interface/card";
 
 interface StyleSelectCardProps {
   onSelectStyles: (selectedStyles: StyleSelect[]) => void;
@@ -62,7 +62,7 @@ export default function StyleSelectCard({
         <Button
           type="primary"
           onClick={handleConfirm}
-          disabled={selectedStyles.size !== 5}
+          disabled={selectedStyles.size > 5}
           style={{ marginTop: "10px" }}
         >
           {t("cardStyles.confirmSelection")}
