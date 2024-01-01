@@ -81,7 +81,7 @@ export default function GeneratedResultCard({
 const MessageTextBox = ({ message }: { message: Message }) => {
   return (
     <p
-      className="flex flex-col w-3/4 bg-primary px-4 py-2 absolute text-white bottom-4 left-1/2 -translate-x-1/2 font-semibold rounded-lg text-xs"
+      className="flex flex-col w-3/4 bg-primary px-4 pr-10 py-2 absolute text-white bottom-4 left-1/2 -translate-x-1/2 font-semibold rounded-lg text-xs break-keep"
       style={{ background: "rgba(0,0,0,0.7)", color: "white" }}
     >
       {message.to && (
