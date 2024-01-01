@@ -46,9 +46,10 @@ export default function StyleSelectModal({
         <p>2. 랜덤 메시지 혹은 직접 메시지를 작성한다</p>
         <br />
         <p>생성된 카드는 저장하거나 친구들과 공유할 수 있어요! 💾📤</p>
-        <p>이제 시작해볼까요? 창의성을 발휘해 보세요! ✨</p>
+        <p>이제 시작해볼까요? ✨</p>
       </Modal>
-      <Button type="primary" onClick={showModal}>
+
+      <Button type="primary" onClick={showModal} className="w-full">
         시작하기
       </Button>
     </>

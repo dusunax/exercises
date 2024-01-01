@@ -107,13 +107,50 @@ export default function useCardMaker({ imageRef }: UseCardMaker) {
 
   // Image Download
   const handleDownloadImage = () => {
-    if (imageRef.current && generatedImage) {
-      html2canvas(imageRef.current).then((canvas) => {
-        canvas.toBlob((blob) => {
-          if (blob) saveAs(blob, "message-image.png");
+    try {
+      if (imageRef.current && generatedImage) {
+        html2canvas(imageRef.current).then((canvas) => {
+          canvas.toBlob((blob) => {
+            if (blob) saveAs(blob, "2024-new-year-message.png");
+          });
         });
+      }
+      notification.info({
+        message: "카드가 저장 되었습니다",
+        closeIcon: null,
+        duration: 2,
+      });
+    } catch (err) {
+      console.log(err);
+
+      notification.error({
+        message: "카드 저장에 실패헀습니다",
+        closeIcon: null,
+        duration: 2,
       });
     }
+  };
+
+  const linkCopy = () => {
+    const currentUrl = window.location.href;
+    navigator.clipboard
+      .writeText(currentUrl)
+      .then(() => {
+        notification.info({
+          message: "링크가 복사되었습니다",
+          closeIcon: null,
+          duration: 2,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+
+        notification.error({
+          message: "링크 복사에 실패헀습니다",
+          closeIcon: null,
+          duration: 2,
+        });
+      });
   };
 
   return {
@@ -128,5 +165,6 @@ export default function useCardMaker({ imageRef }: UseCardMaker) {
     handleGenerateImage,
     handleDownloadImage,
     handleStyleSelect,
+    linkCopy,
   };
 }

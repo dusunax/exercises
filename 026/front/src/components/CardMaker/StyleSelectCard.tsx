@@ -13,10 +13,11 @@ export default function StyleSelectCard({
   selectedStyles,
   handleStyleSelect,
 }: StyleSelectCardProps) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   return (
-    <Card title={t("cardStyles.cardStyleSelection")} className="w-full">
+    // <Card title={t("cardStyles.cardStyleSelection")} className="w-full">
+    <Card title="스타일 선택 👩‍🎨" className="w-full">
       <div className="flex flex-col gap-2">
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {CARD_STYLES.map((style) => (

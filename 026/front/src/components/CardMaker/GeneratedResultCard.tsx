@@ -51,19 +51,25 @@ export default function GeneratedResultCard({
   }, [generatedImage]);
 
   return (
-    <Card title="생성된 카드 이미지" className="w-full">
+    <Card title="완성 카드" className="w-full">
       <div
         ref={imageRef}
-        className={`h-[300px] mb-4 bg-primary-50 shadow-md hover:shadow-xl rounded-md relative ${
+        className={`h-[300px] flex items-center justify-center mb-4 bg-primary-100 shadow-md hover:shadow-xl rounded-md relative ${
           loading ? "animate-pulse" : ""
         }`}
       >
-        <img
-          src={loadedImage}
-          alt="Generated Card"
-          className="absolute w-full h-full object-contain left-0 top-0"
-          crossOrigin="anonymous"
-        />
+        {loadedImage && (
+          <img
+            src={loadedImage}
+            alt="Generated Card"
+            className="absolute w-full h-full object-contain left-0 top-0"
+            crossOrigin="anonymous"
+          />
+        )}
+
+        {!loadedImage && (
+          <p className="text-xs opacity-40">이미지를 생성해주세요</p>
+        )}
 
         {message.text && <MessageTextBox message={message} />}
       </div>
@@ -75,12 +81,6 @@ export default function GeneratedResultCard({
           onClick={onDownloadImage}
         >
           저장
-        </Button>
-        <Button
-          type={loadedImage ? "primary" : "default"}
-          onClick={onDownloadImage}
-        >
-          공유하기
         </Button>
       </div>
     </Card>

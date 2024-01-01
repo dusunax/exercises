@@ -8,8 +8,8 @@ import Header from "@/layout/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "2024 💌",
-  description: "카드 만들기!",
+  title: "🐉 2024 신년 카드 만들기",
+  description: "hello, 2024!",
 };
 
 export default function RootLayout({

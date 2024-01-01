@@ -14,9 +14,9 @@ export default function CardImageGenerator({
   onImageGenerate,
 }: CardImageGeneratorProps) {
   return (
-    <Card title="카드 이미지 생성" className="w-full">
+    <Card title="카드 이미지 생성 🎨" className="w-full">
       <div className="flex flex-col justify-center gap-4">
-        <div className="flex flex-wrap justify-center">
+        <div className="flex min-h-10 flex-wrap justify-center">
           {Array.from(selectedStyles).map((style) => (
             <Button
               key={style.en}
@@ -30,10 +30,11 @@ export default function CardImageGenerator({
               {style.ko}
             </Button>
           ))}
+          {selectedStyles.size === 0 ? "?" : ""}
         </div>
         <Button
           className={loading ? "animate-pulse" : ""}
-          type="primary"
+          type={selectedStyles.size === 0 ? "default" : "primary"}
           onClick={() => {
             onImageGenerate(selectedStyles);
           }}

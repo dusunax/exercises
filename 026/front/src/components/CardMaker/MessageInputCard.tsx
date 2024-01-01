@@ -14,16 +14,14 @@ export default function CardMessageInput({
   message,
   setMessage,
 }: CardMessageInputProps) {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const [onRandom, setOnRandom] = useState(false);
 
-  // 메시지 변경 핸들러
   const handleMessageChange = (newMessage: Message) => {
     setOnRandom(false);
     setMessage(newMessage);
   };
 
-  // 랜덤 메시지 설정
   const handleRandomMessage = () => {
     setOnRandom(true);
     const randomMessage = getRandomMessage();
@@ -31,16 +29,17 @@ export default function CardMessageInput({
   };
 
   return (
-    <Card title={t("cardMessageInput.cardMessage")} className="w-full">
+    // <Card title={t("cardMessageInput.cardMessage")} className="w-full">
+    <Card title="" className="w-full">
       <form action="" className="flex flex-col gap-2">
         <Input
-          placeholder="메시지 받을 사람"
+          placeholder="(선택)메시지 받을 사람"
           onChange={(e) =>
             handleMessageChange({ ...message, to: e.target.value })
           }
         />
         <Input
-          placeholder="메시지 보내는 사람"
+          placeholder="(선택)메시지 보내는 사람"
           onChange={(e) =>
             handleMessageChange({ ...message, from: e.target.value })
           }
@@ -50,15 +49,13 @@ export default function CardMessageInput({
           onChange={(e) =>
             handleMessageChange({ ...message, text: e.target.value })
           }
-          placeholder={t("cardMessageInput.placeholder")}
+          placeholder="메시지"
           className={`${onRandom ? "bg-primary-100" : ""}`}
           rows={4}
         />
-        <Button
-          type="default"
-          onClick={handleRandomMessage} // 랜덤 메시지 설정 함수 호출
-        >
-          {t("cardMessageInput.randomMessage")}
+        <Button type="default" onClick={handleRandomMessage}>
+          랜덤 신년 메시지 🎲
+          {/* {t("cardMessageInput.randomMessageButton")} */}
         </Button>
       </form>
     </Card>
