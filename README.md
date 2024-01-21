@@ -4,7 +4,7 @@
 | --- | --- | --- | --- |
 | 000 | 1만시간의 법칙 |  | [weniv](https://www.figma.com/file/YIoHn24LhFrCBEedo96rx6/1%EB%A7%8C-%EC%8B%9C%EA%B0%84%EC%9D%98-%EB%B2%95%EC%B9%99?node-id=0%3A1 )|
 | 001 | 투두리스트 |  | |
-| 002 | 그림판 | canvas | 노마드 코더 https://nomadcoders.co/javascript-for-beginners-2/lobby |
+| 002 | 그림판 | canvas | (출처)[노마드 코더](https://nomadcoders.co/javascript-for-beginners-2/lobby)  |
 | 003 | sign-up 페이지 | auth |  |
 | 004 | fizzbuzz응용, 369 | 게임 | |
 | 005 | 가위바위보 | 게임 | ☘ [https://dusunax.github.io/exercises/005/가위바위보/](https://dusunax.github.io/exercises/005/%EA%B0%80%EC%9C%84%EB%B0%94%EC%9C%84%EB%B3%B4/) |
@@ -23,8 +23,8 @@
 | 018 | todo |  |  |
 | 019 | 10억년 버튼 | 게임 | ☘ [https://dusunax.github.io/exercises/019/](https://dusunax.github.io/exercises/019/) |
 | 020 | 포켓몬 스티커 뽑기 | 포켓몬 api | https://github.com/dusunax/toy 에서 토이 이어서 진행 |
-| 021 | 채팅방 | socketIO | https://nomadcoders.co/noom/ |
-| 022 | 줌 클론 | WebRTC | https://nomadcoders.co/noom/ |
+| 021 | 채팅방 | socketIO | (출처)[노마드 코더](https://nomadcoders.co/noom/)  |
+| 022 | 줌 클론 | WebRTC | (출처)[노마드 코더](https://nomadcoders.co/noom/)  |
 | 023 | 열받는 UI/UX | HTML, CSS | ☘ [https://dusunax.github.io/exercises/023/](https://dusunax.github.io/exercises/023/) |
 | 024 | 모임 확인 MOSO | 모임 내 익명 소통, 참여자 리스트 | ☘ [https://dusunax.github.io/exercises/024/](https://dusunax.github.io/exercises/024/) |
 | 025 | AI 친구 채팅방 | openai 채팅 | ☘ [https://dusunax.github.io/exercises/025/](https://dusunax.github.io/exercises/025/) |
