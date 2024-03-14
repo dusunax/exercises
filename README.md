@@ -32,7 +32,7 @@
 ## Code Sandbox
 > 학습 예제 만들기 & 심심풀이
 
-### [[240314]야근하기 vs 로또 1동 되기](https://codesandbox.io/p/sandbox/win-or-work-m7dpdf?file=%2Fsrc%2Fcomponents%2FLotto.tsx%3A36%2C17)
+### [[240314]야근하기 vs 로또 1등 되기](https://codesandbox.io/p/sandbox/win-or-work-m7dpdf?file=%2Fsrc%2Fcomponents%2FLotto.tsx%3A36%2C17)
 <img src="https://github.com/dusunax/exercises/assets/94776135/09750255-b6f0-46a6-a6a5-699c891193ad" width="200px" />
 <img src="https://github.com/dusunax/exercises/assets/94776135/ffd0eb81-6682-4f38-a0a2-f2f89f627a77" width="200px" />
 
