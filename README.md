@@ -53,4 +53,5 @@
 <img src="https://github.com/dusunax/exercises/assets/94776135/28639b5b-9a74-462b-a7a5-627316164139" width="300px" />
 
 #### [[231028]만두 공장: this, closure](https://codesandbox.io/p/sandbox/javascript-yeje-mandu-gongjang-this-closer-yqpmtm?file=%2Fsrc%2Findex.mjs%3A15%2C50)
-<img src="https://github.com/dusunax/exercises/assets/94776135/872ecbb5-c49b-4ac4-9adb-fb57c330cd94" width="300px" />
+<img src="https://github.com/dusunax/exercises/assets/94776135/3e5cdcc7-e1d3-488f-a303-05814c9abf5f" width="300px" />
+
