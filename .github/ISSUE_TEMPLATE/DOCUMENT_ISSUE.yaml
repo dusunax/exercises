@@ -12,13 +12,10 @@ body:
     attributes:
       label: Issue Type 📝
       options:
-        - label: 문서 추가 Document addition
-          value: document_addition
-        - label: 문서 수정 Document modification
-          value: document_modification
-        - label: 문서 삭제 Document deletion
-          value: document_deletion
-    default: 0
+        - 문서 추가 Document addition
+        - 문서 수정 Document modification
+        - 문서 삭제 Document deletion
+      default: 0
     validations:
       required: true
   - type: textarea
