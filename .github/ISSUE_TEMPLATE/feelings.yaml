@@ -8,7 +8,7 @@ body:
   - type: dropdown
     id: feelings
     attributes:
-      label: "How are you feeling today?"
+      label: How are you feeling today?
       options:
         - 😶 Meh
         - 😄 Happy
@@ -21,5 +21,14 @@ body:
         - 😇 Blessed
         - 🥰 Loving
       default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What Happened?
+      description: Today is...
+      placeholder: Tell us what happened!
+      render: shell
     validations:
       required: true
