@@ -12,9 +12,9 @@ body:
     attributes:
       label: Issue Type 📝
       options:
-        - 문서 추가 Document addition
-        - 문서 수정 Document modification
-        - 문서 삭제 Document deletion
+        - 문서_추가
+        - 문서_수정
+        - 문서_삭제
       default: 0
     validations:
       required: true
