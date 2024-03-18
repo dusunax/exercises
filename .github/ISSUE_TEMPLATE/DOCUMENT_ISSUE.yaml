@@ -7,15 +7,14 @@ body:
     attributes:
       value: |
         Please fill out the sections below.
-  - type: checkboxes
+  - type: dropdown
     id: issue_type
     attributes:
       label: Issue Type 📝
       options:
-        - "문서 추가"
-        - "문서 수정"
-        - "문서 삭제"
-      default: 0
+        - 문서 추가 Document addition
+        - 문서 수정 Document modification
+        - 문서 삭제 Document deletion
     validations:
       required: true
   - type: textarea
