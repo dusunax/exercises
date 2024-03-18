@@ -3,7 +3,8 @@ description: How are you today?
 title: "I am "
 labels: ["feelings"]
 assignees:
-  - octocatbody:
+  - dusunax
+body:
   - type: dropdown
     id: feelings
     attributes:
