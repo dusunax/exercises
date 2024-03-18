@@ -1,0 +1,24 @@
+name: Feeling Report
+description: How are you today?
+title: "I am "
+labels: ["feelings"]
+assignees:
+  - octocatbody:
+  - type: dropdown
+    id: feelings
+    attributes:
+      label: "How are you feeling today?"
+      options:
+        - 😶 Meh
+        - 😄 Happy
+        - ☹️ Sad
+        - 😴 Sleepy
+        - 🥳 Excited
+        - 😫 Exhausted
+        - 😱 Scared
+        - 🤬 Angry
+        - 😇 Blessed
+        - 🥰 Loving
+      default: 0
+    validations:
+      required: true
