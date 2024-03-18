@@ -1,0 +1,31 @@
+name: 📘 Document
+description: A template for document issues
+title: Document Issue Template
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the sections below.
+  - type: checkboxes
+    id: issue_type
+    attributes:
+      label: Issue Type 📝
+      options:
+        - label: 문서 추가 Document addition
+          value: document_addition
+        - label: 문서 수정 Document modification
+          value: document_modification
+        - label: 문서 삭제 Document deletion
+          value: document_deletion
+    default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: overview
+    attributes:
+      label: 📖 개요 Overview
+  - type: textarea
+    id: key_notes
+    attributes:
+      label: 💬 주요 내용 Key Notes
