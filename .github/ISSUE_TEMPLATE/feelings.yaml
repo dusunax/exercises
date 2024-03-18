@@ -5,7 +5,7 @@ labels: ["feelings"]
 assignees:
   - dusunax
 body:
- - type: markdown
+  - type: markdown
     attributes:
       value: |
         Please fill out the sections below to help everyone identify you!
