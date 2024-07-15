@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSV Viewer</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+    <style>
+      body {
+        overflow-x: scroll;
+      }
+      * {
+        text-align: left !important;
+      }
+      input {
+        min-width: none;
+        width: 100%;
+        padding: 0;
+        border: none;
+      }
+      section#import-card {
+        justify-content: flex-start;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="import-card">
+      <aside>
+        <h1>CSV Viewer</h1>
+        <p>Upload a CSV file to process it.</p>
+        <input type="file" id="upload-csv" accept=".csv" />
+        <br />
+        <a id="download-link" style="display: none"
+          >Download Converted Markdown</a
+        >
+      </aside>
+    </section>
+    <div id="preview-output"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+      function processCSV(file) {
+        Papa.parse(file, {
+          header: true,
+          dynamicTyping: true,
+          complete: function (results) {
+            const data = results.data;
+
+            const table = document.createElement("table");
+
+            // Add header row
+            const headerRow = document.createElement("tr");
+            Object.keys(data[0]).forEach((key) => {
+              const th = document.createElement("th");
+              th.textContent = key;
+              headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+
+            // Add data rows
+            data.forEach((row) => {
+              const tr = document.createElement("tr");
+              Object.values(row).forEach((value) => {
+                const td = document.createElement("td");
+                td.innerHTML = value;
+                tr.appendChild(td);
+              });
+              table.appendChild(tr);
+            });
+
+            // Display the table
+            const previewOutput = document.getElementById("preview-output");
+            previewOutput.innerHTML = "";
+            previewOutput.appendChild(table);
+
+            // Convert to markdown table
+            const markdown = convertToMarkdownTable(data);
+
+            // Generate markdown file for download
+            const blob = new Blob([markdown], {
+              type: "text/markdown;charset=utf-8;",
+            });
+            const url = URL.createObjectURL(blob);
+            const downloadLink = document.getElementById("download-link");
+            downloadLink.href = url;
+            downloadLink.download = "processed_test_cases.md";
+            downloadLink.style.display = "block";
+          },
+        });
+      }
+
+      document
+        .getElementById("upload-csv")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          if (file) {
+            processCSV(file);
+          }
+        });
+
+      // -----------------------
+      // Default file viewing
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("./test_case.csv")
+          .then((response) => response.blob())
+          .then((blob) => {
+            const file = new File([blob], "test_case.csv", {
+              type: "text/csv",
+            });
+            processCSV(file);
+          })
+          .catch((error) =>
+            console.error("Error fetching the CSV file:", error)
+          );
+      });
+      // -----------------------
+
+      function convertToMarkdownTable(data) {
+        let markdown = "";
+        const headers = Object.keys(data[0]);
+
+        // Add header row
+        markdown += "| " + headers.join(" | ") + " |\n";
+        markdown += "| " + headers.map(() => "---").join(" | ") + " |\n";
+
+        // Add data rows
+        data.forEach((row) => {
+          markdown += "| " + Object.values(row).join(" | ") + " |\n";
+        });
+
+        return markdown;
+      }
+    </script>
+  </body>
+</html>
