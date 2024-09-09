@@ -1,4 +1,19 @@
-## Github
+# 🤹‍♀️ 
+> 심심할 때 이것저것 만들어보는 저장소입니다.
+
+## 접속 가능한 페이지
+
+- **[029] 원 그리기**: https://dusunax.github.io/exercises/029/
+- **[023] 열받는 UI/UX**: https://dusunax.github.io/exercises/023/
+- **[019] 10억년 버튼**: https://dusunax.github.io/exercises/019/
+- **[014] 육십갑자 구하기**: https://dusunax.github.io/exercises/014/
+- **[008] 키보드 불량 테스트**: https://dusunax.github.io/exercises/008/
+- **[007] 사이몬 게임**: https://dusunax.github.io/exercises/007/
+- **[006] 피자만들기**: https://dusunax.github.io/exercises/006/pizza.html
+- **[005] 가위바위보**: https://dusunax.github.io/exercises/005/가위바위보/
+- **[240314] 야근하기 vs 로또 1등 되기**: https://codesandbox.io/s/sandbox/win-or-work-m7dpdf?file=/src/components/Lotto.tsx:36:17
+
+## 작업 리스트 
 
 | 번호 | 프로젝트 | 기능 | 링크 |
 | --- | --- | --- | --- |
@@ -28,6 +43,12 @@
 | 023 | 열받는 UI/UX | HTML, CSS | ☘ [https://dusunax.github.io/exercises/023/](https://dusunax.github.io/exercises/023/) |
 | 024 | 모임 확인 MOSO | 모임 내 익명 소통, 참여자 리스트 | ☘ [https://dusunax.github.io/exercises/024/](https://dusunax.github.io/exercises/024/) |
 | 025 | AI 친구 채팅방 | openai 채팅 | ☘ [https://dusunax.github.io/exercises/025/](https://dusunax.github.io/exercises/025/) |
+| 026 | 신년 카드 메이커 | 2024 카드 이미지 생성 | https://github.com/dusunax/2024-new-year 으로 이동 |
+| 027 | npm 패키지 리스트 | npm package 리스트업 |  |
+| 028 | 카드 순서 맞추기 | framer 연습 |  |
+| 029 | 원 그리기 | 정확하게 원 그리기 | ☘ https://dusunax.github.io/exercises/029/ |
+
+
 
 ## Code Sandbox-1: 심심풀이
 
