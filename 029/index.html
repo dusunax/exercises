@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circle Drawing with Movement</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mvp.css" />
+
+    <style>
+      section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+      }
+      canvas {
+        border: 1px solid black;
+      }
+      #timer {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      #accuracy {
+        font-size: 20px;
+      }
+      .text-green {
+        color: green;
+      }
+      .text-red {
+        color: red;
+      }
+      .text-blue {
+        color: blue;
+      }
+      .text-lightgrey {
+        color: #555;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      #progress-bar-container {
+        width: 100%;
+        height: 6px;
+        background-color: #007bff;
+        position: relative;
+      }
+      #progress-bar {
+        height: 100%;
+        background-color: #eee;
+        width: 100%;
+        transition: width 0.2s;
+        position: absolute;
+        right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <aside>
+        <h1>Circle Drawing Accuracy Test</h1>
+        <p>
+          This is a simple game where you need to draw a circle as accurately as
+          possible.
+        </p>
+        <p>
+          You can move the red dot using the arrow keys and press
+          <span class="text-blue">"Enter"</span> to start drawing. The game will
+          end after 10 seconds.
+        </p>
+        <div id="progress-bar-container">
+          <div id="progress-bar"></div>
+        </div>
+        <div id="timer">
+          <span class="text-lightgrey bold">Time:</span>
+          <span id="countdown">10.00s</span>
+        </div>
+        <p id="accuracy">
+          <span class="text-lightgrey bold"> Accuracy: </span>
+        </p>
+      </aside>
+      <canvas id="canvas" width="500" height="500"></canvas>
+    </section>
+
+    <audio id="background-music" src="background-music.mp3" loop></audio>
+    <audio id="success-sound" src="success-sound.mp3"></audio>
+    <audio id="failure-sound" src="failure-sound.mp3"></audio>
+
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      const accuracyText = document.getElementById("accuracy");
+      const countdownText = document.getElementById("countdown");
+      const progressBar = document.getElementById("progress-bar");
+      const backgroundMusic = document.getElementById("background-music");
+      const successSound = document.getElementById("success-sound");
+      const failureSound = document.getElementById("failure-sound");
+
+      const actualCircle = {
+        x: 250,
+        y: 250,
+        radius: 100,
+      };
+
+      let isDrawing = false;
+      let points = [];
+      let angleX = 1;
+      let angleY = 0;
+      let speed = 2;
+      let startTime = 0;
+      let elapsedTime = 0;
+
+      function drawOriginalCircle() {
+        ctx.beginPath();
+        ctx.arc(
+          actualCircle.x,
+          actualCircle.y,
+          actualCircle.radius,
+          0,
+          Math.PI * 2
+        );
+        ctx.strokeStyle = "#dddddd";
+        ctx.lineWidth = 10;
+        ctx.stroke();
+      }
+
+      function drawPoint(x, y) {
+        ctx.beginPath();
+        ctx.arc(x, y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = "red";
+        ctx.fill();
+      }
+
+      function drawUserPath(color) {
+        if (points.length > 1) {
+          ctx.beginPath();
+          ctx.moveTo(points[0].x, points[0].y);
+          for (let i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
+          }
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+      }
+
+      function calculateAccuracy() {
+        let matchingPoints = 0;
+
+        points.forEach((point) => {
+          const distanceToCenter = Math.sqrt(
+            Math.pow(point.x - actualCircle.x, 2) +
+              Math.pow(point.y - actualCircle.y, 2)
+          );
+          const radiusError = Math.abs(distanceToCenter - actualCircle.radius);
+
+          if (radiusError <= 5) {
+            matchingPoints++;
+          }
+        });
+
+        const accuracy = (matchingPoints / points.length) * 100;
+        return accuracy.toFixed(2);
+      }
+
+      function redrawCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawOriginalCircle();
+      }
+
+      function updateTimer() {
+        if (isDrawing) {
+          elapsedTime = (Date.now() - startTime) / 1000;
+          const remainingTime = Math.max(0, 10 - elapsedTime);
+          countdownText.textContent = `${remainingTime.toFixed(2)}s`;
+          progressBar.style.width = `${(remainingTime / 10) * 100}%`;
+        }
+      }
+
+      function startDrawing() {
+        if (isDrawing) {
+          redrawCanvas();
+          points = [];
+          isDrawing = false;
+        }
+        isDrawing = true;
+        points = [];
+        startTime = Date.now();
+        backgroundMusic.play();
+
+        points.push({
+          x: actualCircle.x,
+          y: actualCircle.y - actualCircle.radius,
+        });
+        drawPoint(actualCircle.x, actualCircle.y - actualCircle.radius);
+
+        const drawInterval = setInterval(() => {
+          if (!isDrawing) {
+            clearInterval(drawInterval);
+            redrawCanvas();
+            drawUserPath("black");
+            const accuracy = calculateAccuracy();
+            const goodAccuracy = accuracy >= 70;
+            const badAccuracy = accuracy <= 50;
+
+            if (goodAccuracy) {
+              accuracyText.className = "text-green";
+              accuracyText.textContent = `Accuracy: ${accuracy}% 👍`;
+              successSound.play();
+            } else if (badAccuracy) {
+              accuracyText.className = "text-red";
+              accuracyText.textContent = `Accuracy: ${accuracy}% 👎`;
+              failureSound.play();
+            } else {
+              accuracyText.className = "";
+            }
+
+            backgroundMusic.pause();
+            return;
+          }
+
+          updateTimer();
+
+          const currentTime = Date.now();
+          if (currentTime - startTime >= 10000) {
+            isDrawing = false;
+          } else {
+            const x = points[points.length - 1].x;
+            const y = points[points.length - 1].y;
+            const newX = x + speed * angleX;
+            const newY = y + speed * angleY;
+
+            points.push({ x: newX, y: newY });
+            drawPoint(newX, newY);
+          }
+        }, 20);
+      }
+
+      document.addEventListener("keydown", (e) => {
+        switch (e.key) {
+          case "ArrowUp":
+            angleX = 0;
+            angleY = -1;
+            break;
+          case "ArrowDown":
+            angleX = 0;
+            angleY = 1;
+            break;
+          case "ArrowLeft":
+            angleX = -1;
+            angleY = 0;
+            break;
+          case "ArrowRight":
+            angleX = 1;
+            angleY = 0;
+            break;
+          case "Enter":
+            startDrawing();
+            break;
+        }
+      });
+
+      drawOriginalCircle();
+    </script>
+  </body>
+</html>
