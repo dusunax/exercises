@@ -1,4 +1,19 @@
-## Github
+# 🤹‍♀️ 
+> 심심할 때 이것저것 만들어보는 저장소입니다.
+
+## 접속 가능한 페이지
+
+- **[029] 원 그리기**: https://dusunax.github.io/exercises/029/
+- **[023] 열받는 UI/UX**: https://dusunax.github.io/exercises/023/
+- **[019] 10억년 버튼**: https://dusunax.github.io/exercises/019/
+- **[014] 육십갑자 구하기**: https://dusunax.github.io/exercises/014/
+- **[008] 키보드 불량 테스트**: https://dusunax.github.io/exercises/008/
+- **[007] 사이몬 게임**: https://dusunax.github.io/exercises/007/
+- **[006] 피자만들기**: https://dusunax.github.io/exercises/006/pizza.html
+- **[005] 가위바위보**: https://dusunax.github.io/exercises/005/가위바위보/
+- **[240314] 야근하기 vs 로또 1등 되기**: https://codesandbox.io/s/sandbox/win-or-work-m7dpdf?file=/src/components/Lotto.tsx:36:17
+
+## 작업 리스트 
 
 | 번호 | 프로젝트 | 기능 | 링크 |
 | --- | --- | --- | --- |
