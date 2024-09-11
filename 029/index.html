@@ -100,7 +100,7 @@
       </div>
     </section>
 
-    <audio id="background-music" src="background-music.mp3"></audio>
+    <audio id="background-music" src="background-music.mp3" loop></audio>
     <audio id="success-sound" src="success-sound.mp3"></audio>
     <audio id="failure-sound" src="failure-sound.mp3"></audio>
 
@@ -230,6 +230,7 @@
         isDrawing = true;
         points = [];
         startTime = Date.now();
+        backgroundMusic.currentTime = 0;
         backgroundMusic.play();
 
         points.push({
@@ -261,6 +262,7 @@
             }
 
             backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
             return;
           }
 
