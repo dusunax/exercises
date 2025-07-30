@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  </head>
+  <body>
+    <h2>Login with Google</h2>
+    <button id="login-btn">Login</button>
+
+    <script>
+      const firebaseConfig = JSON.parse(localStorage.getItem("firebaseConfig"));
+      firebase.initializeApp(firebaseConfig);
+      
+      if (!firebaseConfig) {
+        console.warn("firebaseConfig is not set");
+      }
+
+      document.getElementById("login-btn").addEventListener("click", async () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        try {
+          const result = await firebase.auth().signInWithPopup(provider);
+          const user = result.user.multiFactor.user;
+
+          window.opener.postMessage(
+            {
+              type: "LOGIN_SUCCESS",
+              user: {
+                id: user.uid,
+                email: user.email,
+                providerId: user.providerId,
+                photoURL: user.photoURL,
+              },
+            },
+            "*"
+          );
+
+          window.close();
+        } catch (err) {
+          alert("Login failed: " + err.message);
+        }
+      });
+    </script>
+  </body>
+</html>
