@@ -7,16 +7,26 @@
     "default_popup": "popup.html",
     "default_icon": "icon.png"
   },
-  "background": {
-    "service_worker": "background.js"
-  },
-  "permissions": ["storage", "activeTab", "scripting", "contextMenus"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "contextMenus",
+    "identity"
+  ],
+  "host_permissions": [
+    "https://*.googleapis.com/",
+    "https://*.firebaseio.com/",
+    "https://*.firebaseapp.com/"
+  ],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"],
       "css": ["styles.css"]
     }
-  ]
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
 }

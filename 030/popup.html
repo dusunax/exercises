@@ -2,11 +2,29 @@
 <html>
   <head>
     <link rel="stylesheet" href="styles.css" />
+    <script src="./sdk/firebase/firebase-app-compat.js"></script>
+    <script src="./sdk/firebase/firebase-auth-compat.js"></script>
+    <script src="./sdk/firebase/firebase-firestore-compat.js"></script>
   </head>
   <body id="ddd-popup">
     <h4>Drag & Drop Drawer</h4>
     <div class="buttons">
-      <button id="toggleHidden">Hide/Show</button>
+      <button id="toggle-enable-btn">Enabled</button>
+      <button id="login-btn">Login with Google</button>
+      <button id="logout-btn" class="hidden">Logout</button>
+      <aside id="user-info" class="hidden">
+        <img id="user-photo" alt="User Photo">
+        <div id="user-info-text">
+          <p>
+            <strong id="user-email"></strong>
+            <span id="user-provider-id"></span>
+          </p>
+          <p>
+            <span id="user-user-id"></span>
+          </p>
+        </div>
+      </aside>
+      <p id="error-message" style="color: red"></p>
     </div>
     <script src="popup.js"></script>
   </body>
