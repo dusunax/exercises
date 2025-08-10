@@ -18,22 +18,89 @@
       if (!firebaseConfig) {
         console.warn("firebaseConfig is not set");
       }
+      const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+      const db = firebase.firestore();
+
+      /** firebase auth user to DB user schema */
+      const authUserToObject = (user) => ({
+        email: user.email,
+        name: user.displayName,
+        provider: user.providerId,
+        provider_id: user.uid,
+        photo_url: user.photoURL,
+      })
+
+      /** get auth user */
+      const getAuthUser = async () => {
+        try {
+          const result = await firebase.auth().signInWithPopup(googleAuthProvider);
+          const user = result.user.multiFactor.user;
+          return authUserToObject(user)
+        } catch (error) {
+          console.error("오류 발생:", error);
+          return null;
+        }
+      }
+
+      /** get data from DB */
+      const getUserAndDrawerItems = async (p_id) => {
+        const result = {
+          user: null,
+          drawerItems: [],
+        }
+        try {
+          const userSnapshot = await db
+            .collection("users")
+            .where("provider_id", "==", p_id)
+            .get()
+            
+          if (userSnapshot.empty) return result;
+          const userDoc = userSnapshot.docs[0];
+          const userRef = userDoc.ref;
+          
+          const drawerItemsSnapshot = await db
+            .collection("drawer_items")
+            .where("user_id", "==", userRef)
+            .get();
+          const drawerItems = drawerItemsSnapshot.docs.map(doc => doc.data().items);
+
+          result.user = userDoc.data();
+          result.drawerItems = drawerItems.flat();
+
+          return result;
+        } catch (error) {
+          console.error("오류 발생:", error);
+          throw error;
+        }
+      }
+      
+      /** create user and drawer items */
+      const createUser = async (authUser) => {
+        await db.collection("users").add(authUser);
+        const userRef = await db.collection("users").doc(authUser.provider_id);
+        const drawerItemsRef = await db.collection("drawer_items").add({
+          user_id: userRef,
+          items: []
+        });
+      }
 
       document.getElementById("login-btn").addEventListener("click", async () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
         try {
-          const result = await firebase.auth().signInWithPopup(provider);
-          const user = result.user.multiFactor.user;
+          const authUser = await getAuthUser();
+          if(!authUser?.provider_id){
+            throw new Error("Google login failed");
+          }
+
+          const { user: userData, drawerItems = [] } = await getUserAndDrawerItems(authUser.provider_id);
+          if (!userData) {
+            await createUser(authUser);
+          } 
 
           window.opener.postMessage(
             {
               type: "LOGIN_SUCCESS",
-              user: {
-                id: user.uid,
-                email: user.email,
-                providerId: user.providerId,
-                photoURL: user.photoURL,
-              },
+              user: userData ?? authUser,
+              drawerItems,
             },
             "*"
           );
