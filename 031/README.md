@@ -2,6 +2,8 @@
 
 사용자 발화(STT)로 사건을 접수하고, 변호/검사 공방, 배심원 키워드 반영, 최종 평결(유죄/무죄)까지 진행하는 게임입니다.
 
+<img width="800" alt="" src="https://github.com/user-attachments/assets/baa6d7f6-a47f-4cdd-ad0c-639f35859c93" />
+
 ## GitHub Pages
 
 - https://dusunax.github.io/exercises/031/
@@ -52,9 +54,17 @@
 ## UI 요약
 
 - 상단 중앙 로고 + 도트 격투게임형 HUD
-- 중앙 법정 무대(좌 변호 / 상 판사 / 우 검사)
-- 말풍선 + 도트 스프라이트 + 상태별 표정/포즈
-- 하단 증언 기록 / 판결문 카드
+- 중앙 법정 무대(좌 변호 / 상 판사 / 우 검사)  
+  <img width="600" alt="" src="https://github.com/user-attachments/assets/30f22e78-51e3-4cec-bb64-dbd5651ab6dd" />
+  <img width="600" alt="" src="https://github.com/user-attachments/assets/0172f382-2bdb-4175-a3b6-c7c8a465e4b4" />
+- 말풍선 + 도트 스프라이트 + 상태별 표정/포즈  
+   <img width="420" alt="sprite" src="https://github.com/user-attachments/assets/bb493522-bb0c-41f7-bb45-04df61f90719" />
+- 하단 증언 기록 (색상 구분) / 판결문 카드
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/b77adcc6-5c22-4e51-8a44-5de175d47183" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/7e9a9d1d-fd58-4072-8916-180f3f056050" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/2cf01f07-583b-4d40-8ae5-a923ded9b90c" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/8e685848-30e4-404d-8f3a-d06f21da7459" />
+
 
 ## 실행
 
