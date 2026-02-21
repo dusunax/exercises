@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice Court 031</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <button id="sfxToggleBtn" class="sfx-fab" type="button" aria-pressed="true" title="효과음 ON/OFF">
+      <svg class="sfx-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path class="icon-body" d="M3 10h4l5-4v12l-5-4H3z"></path>
+        <path class="icon-wave" d="M15 9c1 1 1.6 2 1.6 3s-.6 2-1.6 3"></path>
+        <path class="icon-wave" d="M17.5 7c1.8 1.6 2.7 3.2 2.7 5s-.9 3.4-2.7 5"></path>
+        <line class="icon-mute" x1="16" y1="8" x2="22" y2="16"></line>
+      </svg>
+    </button>
+    <main class="app">
+      <section class="logo-wrap" aria-label="브랜드 로고">
+        <p class="logo-title">VOICE COURT</p>
+      </section>
+
+      <section class="arcade card" aria-label="도트 격투 스타일 패널">
+        <div id="arcadeArena" class="arcade-arena">
+          <div class="court-backdrop" aria-hidden="true"></div>
+          <div class="arcade-top">
+            <span class="pixel-tag">ROUND 01</span>
+            <span id="arcadeState" class="pixel-tag">IDLE</span>
+            <span id="roundTimer" class="pixel-tag">01:30</span>
+            <span id="juryDeadlineHint" class="pixel-tag jury-deadline">배심원 평결: 10초 내 유죄/무죄</span>
+          </div>
+          <div class="arcade-vs">
+            <p class="fighter-name left">DEFENSE</p>
+            <p class="fighter-name right">PROSECUTOR</p>
+            <div id="duelGaugeTrack" class="duel-gauge-track">
+              <div id="hpDefense" class="duel-gauge-fill defense" style="width: 50%"></div>
+              <div id="hpProsecutor" class="duel-gauge-fill prosecutor" style="width: 50%"></div>
+              <span class="duel-center">VS</span>
+            </div>
+          </div>
+          <div class="court-stage">
+            <div id="charDefense" class="pixel-character defense">
+              <p id="bubbleDefense" class="speech-bubble">이의 있음!</p>
+              <p id="damageDefense" class="damage-pop" aria-hidden="true"></p>
+              <div class="sprite sprite-defense" aria-hidden="true"></div>
+            </div>
+            <div id="charJudge" class="pixel-character judge">
+              <p id="bubbleJudge" class="speech-bubble">배심원은 정숙하십시오.</p>
+              <div class="sprite sprite-judge" aria-hidden="true"></div>
+            </div>
+            <div id="charProsecutor" class="pixel-character prosecutor">
+              <p id="bubbleProsecutor" class="speech-bubble">반론!</p>
+              <p id="damageProsecutor" class="damage-pop" aria-hidden="true"></p>
+              <div class="sprite sprite-prosecutor" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div id="keywordBoostFx" class="keyword-boost-fx" aria-hidden="true"></div>
+          <button id="readyBtn" class="arcade-callout ready-btn is-hero" type="button">CASE FILE</button>
+          <section id="startPromptPanel" class="start-prompt" hidden aria-live="polite">
+            <p id="startPromptText" class="start-prompt-text">사건 접수 완료. 개정을 시작할까요?</p>
+            <div class="start-prompt-actions">
+              <button id="startPromptYesBtn" class="pixel-btn" type="button">Y START</button>
+              <button id="startPromptNoBtn" class="pixel-btn danger" type="button">N HOLD</button>
+            </div>
+          </section>
+          <section id="resultPopup" class="result-popup" hidden aria-live="polite">
+            <div class="result-popup-head">
+              <p id="resultPopupVerdict" class="result-popup-verdict">무죄</p>
+              <p id="resultPopupScore" class="result-popup-score">SCORE 0000</p>
+            </div>
+            <div id="resultPopupKeywordStats" class="jury-stats on-popup" aria-live="polite">
+              <span class="jury-stat pos">긍정 <strong id="resultPositiveCount">0</strong></span>
+              <span class="jury-stat neg">부정 <strong id="resultNegativeCount">0</strong></span>
+            </div>
+            <pre id="resultPopupText" class="result-popup-text"></pre>
+            <div class="result-popup-actions">
+              <button id="retryResultPopupBtn" class="pixel-btn danger" type="button">재심</button>
+              <button id="closeResultPopupBtn" class="pixel-btn" type="button">닫기</button>
+            </div>
+          </section>
+          <div id="arcadeClickers" class="arcade-clickers is-hidden">
+            <button id="clickerUpBtn" class="pixel-btn" type="button">PUMP +</button>
+            <button id="clickerDownBtn" class="pixel-btn danger" type="button">PUMP -</button>
+          </div>
+          <div id="userSubtitleBar" class="user-subtitle-bar" hidden aria-live="polite">
+            <p id="userSubtitleText" class="user-subtitle-text"></p>
+          </div>
+        </div>
+      </section>
+      
+      <section class="log card">
+        <h2>증언 기록</h2>
+        <ul id="logList"></ul>
+      </section>
+
+      <section class="judgment card">
+        <h2>판결문</h2>
+        <div id="judgmentKeywordStats" class="jury-stats" aria-live="polite">
+          <span class="jury-stat pos">긍정 발언 <strong id="juryPositiveCount">0</strong>회</span>
+          <span class="jury-stat neg">부정 발언 <strong id="juryNegativeCount">0</strong>회</span>
+        </div>
+        <pre id="judgmentText">아직 판결문이 없습니다.</pre>
+      </section>
+    </main>
+
+    <div id="judgmentModal" class="judgment-modal" hidden>
+      <div class="judgment-modal-backdrop" data-close="true"></div>
+      <section class="judgment-modal-panel" role="dialog" aria-modal="true" aria-label="판결문 팝업">
+        <div class="judgment-modal-head">
+          <h2>판결문</h2>
+          <button id="closeJudgmentModalBtn" type="button" class="ghost">닫기</button>
+        </div>
+        <pre id="judgmentModalText"></pre>
+      </section>
+    </div>
+
+    <div id="verdictBurst" class="verdict-burst" hidden aria-hidden="true">
+      <div class="verdict-burst-shards"></div>
+      <p id="verdictBurstText" class="verdict-burst-text">유죄</p>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

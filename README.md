@@ -3,6 +3,7 @@
 
 ## 주요 페이지
 
+- **[031] Voice Court (STT/TTS)**: https://dusunax.github.io/exercises/031/
 - **[029] 원 그리기**: https://dusunax.github.io/exercises/029/
 - **[023] 열받는 UI/UX**: https://dusunax.github.io/exercises/023/
 - **[019] 10억년 버튼**: https://dusunax.github.io/exercises/019/
@@ -47,7 +48,7 @@
 | 027 | npm 패키지 리스트 | npm package 리스트업 |  |
 | 028 | 카드 순서 맞추기 | framer 연습 |  |
 | 029 | 원 그리기 | 정확하게 원 그리기 | ☘ https://dusunax.github.io/exercises/029/ |
-| 031 | Voice Court (STT/TTS) | 턴제 공방 + 평결 + 판결문 | |
+| 031 | Voice Court (STT/TTS) | 법정 공방+판결 게임 | ☘ https://dusunax.github.io/exercises/031/ |
 
 
 
@@ -76,4 +77,3 @@
 
 #### [[231028]만두 공장: this, closure](https://codesandbox.io/p/sandbox/javascript-yeje-mandu-gongjang-this-closer-yqpmtm?file=%2Fsrc%2Findex.mjs%3A15%2C50)
 <img src="https://github.com/dusunax/exercises/assets/94776135/3e5cdcc7-e1d3-488f-a303-05814c9abf5f" width="300px" />
-
