@@ -47,6 +47,7 @@
 | 027 | npm 패키지 리스트 | npm package 리스트업 |  |
 | 028 | 카드 순서 맞추기 | framer 연습 |  |
 | 029 | 원 그리기 | 정확하게 원 그리기 | ☘ https://dusunax.github.io/exercises/029/ |
+| 031 | Voice Court (STT/TTS) | 턴제 공방 + 평결 + 판결문 | |
 
 
 
