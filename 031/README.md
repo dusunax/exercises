@@ -60,7 +60,7 @@
 - 말풍선 + 도트 스프라이트 + 상태별 표정/포즈  
    <img width="420" alt="sprite" src="https://github.com/user-attachments/assets/bb493522-bb0c-41f7-bb45-04df61f90719" />  
    <img width="360" alt="profile" src="https://github.com/user-attachments/assets/87d0a098-660d-4314-bc64-efe66a16b2cb" />
-- 하단 증언 기록 (색상 구분) 
+- 하단 증언 기록 (색상 구분)  
   <img width="800" alt="image" src="https://github.com/user-attachments/assets/b77adcc6-5c22-4e51-8a44-5de175d47183" />
   <img width="800" alt="image" src="https://github.com/user-attachments/assets/7e9a9d1d-fd58-4072-8916-180f3f056050" />
   <img width="800" alt="image" src="https://github.com/user-attachments/assets/2cf01f07-583b-4d40-8ae5-a923ded9b90c" />
