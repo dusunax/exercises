@@ -57,6 +57,7 @@ const GAUGE = {
     "맞아",
     "네",
     "그래",
+    "그렇다",
     "yes",
     "ok",
     "go",
@@ -103,6 +104,7 @@ const GAUGE = {
     "바보",
     "no",
     "야냐",
+    "하지만",
     "stop",
   ],
 };
@@ -246,6 +248,8 @@ const app = {
   },
   subtitleHideTimer: null,
   subtitleIntroTimer: null,
+  mobileAccordionInitialized: false,
+  mobileAccordionOpen: false,
   keywordStats: {
     positive: 0,
     negative: 0,
@@ -289,6 +293,8 @@ const els = {
   keywordCheck: document.getElementById("keywordCheck"),
   logList: document.getElementById("logList"),
   judgmentText: document.getElementById("judgmentText"),
+  detailsAccordionPanel: document.getElementById("detailsAccordionPanel"),
+  toggleDetailsAccordionBtn: document.getElementById("toggleDetailsAccordionBtn"),
   startPromptPanel: document.getElementById("startPromptPanel"),
   startPromptText: document.getElementById("startPromptText"),
   startPromptYesBtn: document.getElementById("startPromptYesBtn"),
@@ -307,7 +313,6 @@ const els = {
   userSubtitleText: document.getElementById("userSubtitleText"),
   verdictBurst: document.getElementById("verdictBurst"),
   verdictBurstText: document.getElementById("verdictBurstText"),
-  juryDeadlineHint: document.getElementById("juryDeadlineHint"),
 };
 
 function safeText(text) {
@@ -353,6 +358,41 @@ function hideUserSubtitle(delayMs = 1200) {
     if (els.userSubtitleText) els.userSubtitleText.textContent = "";
     app.subtitleHideTimer = null;
   }, delayMs);
+}
+
+function isMobileAccordionViewport() {
+  return window.matchMedia("(max-width: 760px)").matches;
+}
+
+function applyDetailsAccordionState(open) {
+  if (!els.detailsAccordionPanel || !els.toggleDetailsAccordionBtn) return;
+  app.mobileAccordionOpen = Boolean(open);
+  els.detailsAccordionPanel.hidden = !app.mobileAccordionOpen;
+  els.toggleDetailsAccordionBtn.setAttribute("aria-expanded", app.mobileAccordionOpen ? "true" : "false");
+  els.toggleDetailsAccordionBtn.textContent = app.mobileAccordionOpen ? "기록 접기" : "기록 펼치기";
+}
+
+function syncMobileAccordions(forceInit = false) {
+  const mobile = isMobileAccordionViewport();
+  if (!els.detailsAccordionPanel || !els.toggleDetailsAccordionBtn) return;
+
+  if (!mobile) {
+    els.detailsAccordionPanel.hidden = false;
+    els.toggleDetailsAccordionBtn.hidden = true;
+    els.toggleDetailsAccordionBtn.setAttribute("aria-expanded", "true");
+    els.toggleDetailsAccordionBtn.textContent = "기록 접기";
+    return;
+  }
+
+  els.toggleDetailsAccordionBtn.hidden = false;
+  if (forceInit || !app.mobileAccordionInitialized) {
+    app.mobileAccordionOpen = false;
+    applyDetailsAccordionState(false);
+    app.mobileAccordionInitialized = true;
+    return;
+  }
+
+  applyDetailsAccordionState(app.mobileAccordionOpen);
 }
 
 function clampGauge(value) {
@@ -571,9 +611,13 @@ function updateCharacterSpriteStates() {
 }
 
 function bubbleText(text, fallback) {
-  const oneLine = safeText(text).split("\n")[0];
-  if (!oneLine) return fallback;
-  return oneLine.length > 42 ? `${oneLine.slice(0, 42)}...` : oneLine;
+  const lines = safeText(text)
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (lines.length === 0) return fallback;
+  const twoLines = lines.slice(0, 2).join("\n");
+  return twoLines.length > 86 ? `${twoLines.slice(0, 86)}...` : twoLines;
 }
 
 function setCharacterBubble(speaker, text, options = {}) {
@@ -1305,17 +1349,7 @@ function normalizeCaseTopic(input) {
   const fallback = "AI 면접 도입은 공정한가";
   if (!raw) return fallback;
 
-  if (
-    raw.includes("해야") ||
-    raw.includes("좋다") ||
-    raw.includes("할까") ||
-    raw.includes("필요") ||
-    raw.includes("맞나")
-  ) {
-    return raw;
-  }
-
-  return `${raw} 해야 하는가`;
+  return raw;
 }
 
 function classifyVerdict(text) {
@@ -1329,6 +1363,11 @@ function classifyVerdict(text) {
   if (notGuiltyWords.some((word) => t.toLowerCase().includes(word))) return "무죄";
 
   return "미결";
+}
+
+function isNoSpeechVerdictError(error) {
+  const msg = safeText(error?.message || "").toLowerCase();
+  return msg.includes("no-speech") || msg.includes("음성이 인식되지 않았습니다");
 }
 
 function hasSpeechRecognition() {
@@ -1612,32 +1651,73 @@ function speakTurn(turn) {
   });
 }
 
+function randomPick(lines) {
+  return lines[Math.floor(Math.random() * lines.length)];
+}
+
 function makeDefenseOpening(topic) {
-  return [
-    `${CHARACTER.defense.cue} '${topic}'은 단계적 도입이면 실익이 큽니다.`,
-    "핵심 근거: 작은 파일럿으로 비용과 실패 리스크를 동시에 통제할 수 있습니다.",
-  ].join("\n");
+  const lines = [
+    `${CHARACTER.defense.cue} '${topic}'은 지금 시도해 볼 가치가 충분합니다!`,
+    `${CHARACTER.defense.cue} '${topic}'은 생각보다 판을 뒤집을 카드입니다.`,
+    `${CHARACTER.defense.cue} '${topic}' 쪽이 흐름을 가져갈 수 있습니다.`,
+    `${CHARACTER.defense.cue} '${topic}'은 기회비용 대비 재미... 아니 효율이 높습니다.`,
+    `${CHARACTER.defense.cue} '${topic}'은 밀어붙일 타이밍입니다.`,
+  ];
+  const extras = [
+    "핵심 포인트: 일단 해보고 조정하면 됩니다.",
+    "핵심 포인트: 생각보다 반응이 빠르게 올 가능성이 큽니다.",
+    "핵심 포인트: 초반 주도권을 잡는 쪽이 유리합니다.",
+    "핵심 포인트: 리듬만 타면 체감 성과가 금방 납니다.",
+  ];
+  return [randomPick(lines), randomPick(extras)].join("\n");
 }
 
 function makeProsecutorCounter(topic) {
-  return [
-    `${CHARACTER.prosecutor.cue} '${topic}'은 반례가 반복됐고 과신은 위험합니다.`,
-    "핵심 리스크: 책임 불명확과 편향 누적이 겹치면 사후 복구 비용이 급증합니다.",
-  ].join("\n");
+  const lines = [
+    `${CHARACTER.prosecutor.cue} '${topic}'은 허점이 너무 많습니다.`,
+    `${CHARACTER.prosecutor.cue} '${topic}'은 지금 당장 추진하기엔 무리수입니다.`,
+    `${CHARACTER.prosecutor.cue} '${topic}'은 멋있어 보이지만 실전은 다릅니다.`,
+    `${CHARACTER.prosecutor.cue} '${topic}'은 리스크가 과하게 큽니다.`,
+    `${CHARACTER.prosecutor.cue} '${topic}'은 말은 쉽지만 후폭풍이 큽니다.`,
+  ];
+  const extras = [
+    "반박 포인트: 준비 안 된 상태에서 시작하면 바로 흔들립니다.",
+    "반박 포인트: 예상치 못한 변수 하나로 전체가 무너질 수 있습니다.",
+    "반박 포인트: 좋은 시나리오만 가정하면 위험합니다.",
+    "반박 포인트: 일단 멈추고 조건부터 다시 따져야 합니다.",
+  ];
+  return [randomPick(lines), randomPick(extras)].join("\n");
 }
 
 function makeDefenseRebuttal(topic) {
-  return [
-    `${CHARACTER.defense.cue} 그래서 '${topic}'은 전면 도입이 아니라 조건부 파일럿으로 갑니다.`,
-    "보완책: 책임자 지정, 편향 지표 공개, 중단 기준 선명화.",
-  ].join("\n");
+  const lines = [
+    `${CHARACTER.defense.cue} 좋습니다, 그럼 '${topic}'은 조건부로 갑시다.`,
+    `${CHARACTER.defense.cue} 반론은 수용하되, '${topic}'은 축소 버전으로 진행하죠.`,
+    `${CHARACTER.defense.cue} '${topic}'은 전면전이 아니라 테스트전으로 가면 됩니다.`,
+    `${CHARACTER.defense.cue} '${topic}'은 안전장치만 달면 충분히 가능합니다.`,
+    `${CHARACTER.defense.cue} 결론은 간단합니다. '${topic}'을 작게 시작합시다.`,
+  ];
+  const extras = [
+    "보완책: 체크포인트에서 문제 나오면 즉시 중단.",
+    "보완책: 범위를 줄이고 반응을 본 뒤 확장.",
+    "보완책: 책임자 한 명 지정하고 결과 공개.",
+    "보완책: 실패 시 롤백 기준을 먼저 합의.",
+  ];
+  return [randomPick(lines), randomPick(extras)].join("\n");
 }
 
 function makeJudgePrompt() {
-  return [
-    `${CHARACTER.judge.cue} 양측 핵심을 접수했습니다.`,
-    "배심원은 지금 '유죄' 또는 '무죄'로 평결을 말씀해 주십시오.",
-  ].join("\n");
+  const lines = [
+    `${CHARACTER.judge.cue} 충분합니다. 이제 평결로 넘어갑니다.`,
+    `${CHARACTER.judge.cue} 양측 발언 접수 완료. 결론을 내릴 시간입니다.`,
+    `${CHARACTER.judge.cue} 쟁점 확인 끝. 배심원 평결을 받겠습니다.`,
+  ];
+  const extras = [
+    "배심원은 유죄 또는 무죄로 말씀해 주십시오.",
+    "지금 바로 유죄/무죄 중 하나를 선택해 주십시오.",
+    "평결을 선고해 주십시오. 유죄 혹은 무죄.",
+  ];
+  return [randomPick(lines), randomPick(extras)].join("\n");
 }
 
 function buildDebateTurns(topic) {
@@ -1690,6 +1770,16 @@ async function processTurnQueue() {
       setState(STATES.VERDICT_READY);
       await renderAndReadJudgment();
     } catch (error) {
+      if (isNoSpeechVerdictError(error)) {
+        app.verdictRaw = "무응답";
+        app.verdictType = "미결";
+        setKeywordCheck("평결 무응답: 게이지 기준 판정 진행", "neutral");
+        addLog("system", "배심원 발화(no-speech)가 감지되지 않아 게이지 기준으로 판정합니다.");
+        await playVerdictBurst();
+        setState(STATES.VERDICT_READY);
+        await renderAndReadJudgment();
+        return;
+      }
       handleError(error);
     }
   }
@@ -1707,7 +1797,7 @@ function buildJudgeVerdictLines(verdictType) {
     directVerdict
       ? `1) 배심원 평결 '${verdictType}'를 직접 채택하여 '${finalVerdict}'를 선고합니다.`
       : `1) 배심원 평결이 미결이므로 게이지 ${app.gauge}점 기준으로 '${finalVerdict}'를 선고합니다.`,
-    "2) 보조 규칙: 유죄/무죄가 아닌 응답일 때만 게이지 판정을 적용합니다. (50:50은 유죄)",
+    "2) 보조 규칙: 유죄/무죄가 아닌 응답일 때만 게이지 판정을 적용합니다. (단, 50:50은 유죄)",
   ];
 
   if (finalVerdict === "유죄") {
@@ -1859,6 +1949,8 @@ function attachEvents() {
 
   async function startCaseReception(openCourtPopup = false) {
     setState(STATES.LISTENING_CASE);
+    activateCharacter("judge", "사건 접수 중");
+    setCharacterBubble("judge", "그럼, 재판을 시작합니다.\n이번 사건은...");
     try {
       const transcript = await listenOnce("case");
       setKeywordCheck("사건 접수 중에는 키워드 판정을 하지 않습니다.", "neutral");
@@ -1876,6 +1968,8 @@ function attachEvents() {
       }
     } catch (error) {
       handleError(error);
+    } finally {
+      resetCharacterState();
     }
   }
 
@@ -1938,6 +2032,16 @@ function attachEvents() {
       setState(STATES.VERDICT_READY);
       await renderAndReadJudgment();
     } catch (error) {
+      if (isNoSpeechVerdictError(error)) {
+        app.verdictRaw = "무응답";
+        app.verdictType = "미결";
+        setKeywordCheck("평결 무응답: 게이지 기준 판정 진행", "neutral");
+        addLog("system", "배심원 발화(no-speech)가 감지되지 않아 게이지 기준으로 판정합니다.");
+        await playVerdictBurst();
+        setState(STATES.VERDICT_READY);
+        await renderAndReadJudgment();
+        return;
+      }
       handleError(error);
     }
   });
@@ -1954,6 +2058,10 @@ function attachEvents() {
 
   on(els.replayLastBtn, "click", replayLast);
   on(els.replayAllBtn, "click", replayAll);
+  on(els.toggleDetailsAccordionBtn, "click", () => {
+    applyDetailsAccordionState(!app.mobileAccordionOpen);
+  });
+  window.addEventListener("resize", () => syncMobileAccordions(false));
   on(els.startPromptYesBtn, "click", () => {
     unlockAudio();
     closeStartPrompt();
@@ -2012,6 +2120,7 @@ function boot() {
   renderGauge();
   renderKeywordStats();
   renderRoundTimer();
+  syncMobileAccordions(true);
   resetCharacterBubbles();
   setKeywordCheck("개정 대기 중", "neutral");
   addLog("system", "Voice Court 준비 완료. '사건 접수'를 눌러 시작하세요.");

@@ -35,7 +35,6 @@
             <span class="pixel-tag">ROUND 01</span>
             <span id="arcadeState" class="pixel-tag">IDLE</span>
             <span id="roundTimer" class="pixel-tag">01:30</span>
-            <span id="juryDeadlineHint" class="pixel-tag jury-deadline">배심원 평결: 10초 내 유죄/무죄</span>
           </div>
           <div class="arcade-vs">
             <p class="fighter-name left">DEFENSE</p>
@@ -96,19 +95,33 @@
         </div>
       </section>
       
-      <section class="log card">
-        <h2>증언 기록</h2>
-        <ul id="logList"></ul>
-      </section>
+      <div class="details-accordion-wrap">
+        <button
+          id="toggleDetailsAccordionBtn"
+          class="details-accordion-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="detailsAccordionPanel"
+        >
+          기록 펼치기
+        </button>
+      </div>
 
-      <section class="judgment card">
-        <h2>판결문</h2>
-        <div id="judgmentKeywordStats" class="jury-stats" aria-live="polite">
-          <span class="jury-stat pos">긍정 발언 <strong id="juryPositiveCount">0</strong>회</span>
-          <span class="jury-stat neg">부정 발언 <strong id="juryNegativeCount">0</strong>회</span>
-        </div>
-        <pre id="judgmentText">아직 판결문이 없습니다.</pre>
-      </section>
+      <div id="detailsAccordionPanel" class="details-accordion-panel">
+        <section class="log card">
+          <h2>증언 기록</h2>
+          <ul id="logList"></ul>
+        </section>
+
+        <section class="judgment card">
+          <h2>판결문</h2>
+          <div id="judgmentKeywordStats" class="jury-stats" aria-live="polite">
+            <span class="jury-stat pos">긍정 발언 <strong id="juryPositiveCount">0</strong>회</span>
+            <span class="jury-stat neg">부정 발언 <strong id="juryNegativeCount">0</strong>회</span>
+          </div>
+          <pre id="judgmentText">아직 판결문이 없습니다.</pre>
+        </section>
+      </div>
     </main>
 
     <div id="judgmentModal" class="judgment-modal" hidden>
