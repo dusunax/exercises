@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Create a yearly GitHub status card image from a username and copy it directly into team docs."
+    />
+    <title>032 GitHub Username Image Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Sora:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <aside class="action-rail" aria-label="Quick actions">
+      <button id="floatingRefreshBtn" type="button" aria-label="Refresh">
+        <svg class="action-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M4.5 4v5h5"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4.57 11a7.5 7.5 0 1 1 1.84 5.86"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <button id="floatingCopyBtn" type="button" aria-label="Copy markdown">
+        <svg class="action-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect
+            x="8"
+            y="8"
+            width="9"
+            height="12"
+            rx="1"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M5 15h-1a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16 16h2a2 2 0 0 0 2-2V8"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <button id="floatingDownloadBtn" type="button" aria-label="Download image">
+        <svg class="action-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M4 18h16"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M7 11l5 5 5-5"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M12 4v11"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </aside>
+
+    <header class="topbar">
+      <p class="topbar-brand">PROJECT 032</p>
+      <nav class="topbar-nav" aria-label="Main menu">
+        <a href="/" target="_blank" rel="noopener noreferrer">Docs</a>
+        <a href="/" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/" target="_blank" rel="noopener noreferrer">Guide</a>
+      </nav>
+    </header>
+
+    <main class="shell">
+      <header class="hero">
+        <p class="badge">Project 032</p>
+        <p class="eyebrow">GitHub Activity Logbook</p>
+        <h1>GitHub Yearly Activity Status Card</h1>
+      </header>
+
+      <section class="panel input-panel">
+        <div class="control-line">
+          <label for="urlInput">GitHub Username</label>
+          <input
+            id="urlInput"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="e.g. dusunax, @dusunax"
+          />
+          <div class="row">
+            <button id="renderBtn" type="button">Generate Image</button>
+            <button id="refreshBtn" type="button" class="ghost icon-btn" aria-label="Refresh">
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M4.5 4v5h5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M4.57 11a7.5 7.5 0 1 1 1.84 5.86"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button id="downloadBtn" type="button" class="ghost icon-btn" aria-label="Download image" disabled>
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M4 18h16"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M7 11l5 5 5-5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M12 4v11"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel preview-panel">
+        <h2>Image Preview</h2>
+        <div class="split-view">
+          <div class="split-column">
+            <div id="readmePreview" class="readme-preview" aria-live="polite"></div>
+          </div>
+          <div class="split-column">
+            <div class="split-label-row">
+              <p class="split-label">MARKDOWN</p>
+              <button id="copyBtn" type="button" class="ghost icon-btn markdown-copy-btn" aria-label="Copy markdown" disabled>
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect
+                    x="8"
+                    y="8"
+                    width="9"
+                    height="12"
+                    rx="1"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M5 15h-1a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16 16h2a2 2 0 0 0 2-2V8"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <pre id="readmeOutput" class="readme-output">No output yet.</pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="errorBox" class="error" hidden></section>
+
+    </main>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
