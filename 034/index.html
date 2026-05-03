@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상식 퀴즈</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Outfit:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Home ── -->
+  <div id="screen-home" class="screen active">
+    <div class="home-inner">
+      <div class="home-mark">Q</div>
+      <h1 class="home-title">상식 퀴즈</h1>
+      <p class="home-subtitle">여행 · 음식 · 일상 · 미술/예술</p>
+
+      <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="full">전체 도전<span>40문제</span></button>
+        <button class="mode-tab" data-mode="category">카테고리<span>10문제</span></button>
+        <button class="mode-tab" data-mode="speed">스피드<span>20문제 · 15초</span></button>
+      </div>
+
+      <div id="category-selector" class="category-selector hidden">
+        <p class="selector-label">카테고리 선택</p>
+        <div class="cat-grid">
+          <button class="cat-btn" data-cat="여행"><span class="cat-index">01</span><span class="cat-name">여행</span><span class="cat-best" data-cat-score="여행">최고점 —</span></button>
+          <button class="cat-btn" data-cat="음식"><span class="cat-index">02</span><span class="cat-name">음식</span><span class="cat-best" data-cat-score="음식">최고점 —</span></button>
+          <button class="cat-btn" data-cat="일상"><span class="cat-index">03</span><span class="cat-name">일상</span><span class="cat-best" data-cat-score="일상">최고점 —</span></button>
+          <button class="cat-btn" data-cat="미술/예술"><span class="cat-index">04</span><span class="cat-name">미술/예술</span><span class="cat-best" data-cat-score="미술/예술">최고점 —</span></button>
+        </div>
+      </div>
+
+      <button id="btn-start" class="btn btn-primary">게임 시작</button>
+      <button id="btn-ranking" class="btn btn-secondary">랭킹 보기</button>
+    </div>
+  </div>
+
+  <div id="ranking-modal" class="ranking-modal hidden">
+    <div class="ranking-modal-card">
+      <div class="ranking-modal-header">
+        <h2>카테고리 랭킹</h2>
+        <button id="ranking-close" class="icon-btn" aria-label="랭킹 닫기">닫기</button>
+      </div>
+      <div id="ranking-tabs" class="ranking-tabs">
+        <button class="ranking-tab active" data-rank-cat="여행">여행</button>
+        <button class="ranking-tab" data-rank-cat="음식">음식</button>
+        <button class="ranking-tab" data-rank-cat="일상">일상</button>
+        <button class="ranking-tab" data-rank-cat="미술/예술">미술/예술</button>
+      </div>
+      <div id="ranking-empty" class="ranking-empty hidden">아직 기록 없음</div>
+      <div id="ranking-list" class="ranking-list"></div>
+    </div>
+  </div>
+
+  <!-- ── Pause overlay ── -->
+  <div id="pause-overlay" class="pause-overlay hidden">
+    <div class="pause-card">
+      <div class="pause-icon"><span></span><span></span></div>
+      <h2>일시정지</h2>
+      <button id="btn-resume" class="btn btn-primary">재개하기</button>
+      <button id="btn-quit" class="btn btn-secondary">홈으로</button>
+    </div>
+  </div>
+
+  <!-- ── Quiz ── -->
+  <div id="screen-quiz" class="screen">
+
+    <div class="quiz-toolbar">
+      <div id="live-score" class="live-score"><span id="score-val">0</span><small>pt</small></div>
+      <div id="combo-display" class="combo-badge hidden"><span id="combo-val">0</span>x</div>
+      <div class="toolbar-right">
+        <button id="btn-hint" class="icon-btn" title="힌트">힌트 <span id="hints-left">3</span></button>
+        <button id="btn-pause" class="icon-btn" title="일시정지">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
+            <rect x="6" y="4" width="4" height="16" rx="1"/>
+            <rect x="14" y="4" width="4" height="16" rx="1"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="quiz-header">
+      <span id="quiz-category" class="category-badge"></span>
+      <span id="quiz-progress" class="progress-text"></span>
+    </div>
+    <div class="progress-bar-bg">
+      <div id="progress-bar" class="progress-bar-fill"></div>
+    </div>
+
+    <div id="timer-wrap" class="timer-wrap hidden">
+      <div class="timer-bar-bg">
+        <div id="timer-bar" class="timer-bar-fill"></div>
+      </div>
+      <span id="time-left-text" class="time-left-text">15</span>
+    </div>
+
+    <div id="question-card" class="question-card">
+      <p id="question-text" class="question-text"></p>
+    </div>
+
+    <div id="options-container" class="options"></div>
+
+    <div id="feedback-box" class="feedback-box hidden">
+      <p id="feedback-result" class="feedback-result"></p>
+      <p id="feedback-score-detail" class="feedback-score-detail"></p>
+      <p id="feedback-explanation" class="feedback-explanation"></p>
+    </div>
+
+    <button id="btn-next" class="btn btn-primary hidden">다음 문제</button>
+  </div>
+
+  <!-- ── Result ── -->
+  <div id="screen-result" class="screen">
+    <div class="result-card">
+      <div id="result-emoji" class="result-grade-mark"></div>
+      <h2 id="result-title" class="result-title"></h2>
+      <p id="result-grade-msg" class="result-grade-msg"></p>
+      <p id="result-new-record" class="result-new-record hidden">🎉 신기록!</p>
+      <div class="score-display" id="result-score"></div>
+      <p class="score-label">총 점수</p>
+      <p id="result-correct" class="result-correct"></p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-label">정답률</span>
+        <span class="stat-value" id="stat-accuracy"></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">평균 응답</span>
+        <span class="stat-value" id="stat-avg-time"></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">최장 연속</span>
+        <span class="stat-value" id="stat-streak"></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">힌트 사용</span>
+        <span class="stat-value" id="stat-hints"></span>
+      </div>
+    </div>
+
+    <div class="category-breakdown">
+      <p class="breakdown-title">카테고리별 점수</p>
+      <div id="category-breakdown-rows"></div>
+    </div>
+
+    <button id="btn-retry" class="btn btn-primary">다시 하기</button>
+    <button id="btn-home" class="btn btn-secondary">홈으로</button>
+  </div>
+
+  <script src="src/data/questionBank.js"></script>
+  <script src="src/core/constants.js"></script>
+  <script src="src/core/utils.js"></script>
+  <script src="src/core/state.js"></script>
+  <script src="src/core/scoreManager.js"></script>
+  <script src="src/core/storage.js"></script>
+  <script src="src/ui/dom.js"></script>
+  <script src="src/ui/ranking.js"></script>
+  <script src="src/engine/quizEngine.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
